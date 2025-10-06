@@ -1,4 +1,23 @@
+'use client';
+
+import { useState } from 'react';
+import { SlotManager } from '@/components/slot-manager';
+import { TimeSlot } from '@/components/availability-input';
+
 export default function Home() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [purpose, setPurpose] = useState('');
+  const [slots, setSlots] = useState<TimeSlot[]>([]);
+
+  const handleGenerateLink = () => {
+    // TODO: Implement link generation in Story 2.4
+    console.log('Generate link:', { name, email, purpose, slots });
+    alert('Link generation coming soon in Story 2.4!');
+  };
+
+  const canGenerateLink = email.trim() && slots.length > 0;
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Hero Section */}
@@ -19,18 +38,18 @@ export default function Home() {
         {/* Main Form Card */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 mb-12">
           <div className="space-y-6">
-            {/* Info Banner */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p className="text-sm text-blue-800 text-center">
-                <strong>Coming Soon:</strong> Natural language availability input
+            {/* Success Banner */}
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <p className="text-sm text-green-800 text-center">
+                <strong>✅ Story 2.2 Complete:</strong> Natural language availability input is now live!
                 <br />
-                <span className="text-blue-600">
-                  (e.g., "tomorrow 2-4pm", "next Friday at 3pm")
+                <span className="text-green-700">
+                  Try typing: "tomorrow 2-4pm", "next Friday at 3pm", or "Oct 15 at 2pm"
                 </span>
               </p>
             </div>
 
-            {/* Form Placeholder */}
+            {/* Form Fields */}
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-2">
@@ -39,8 +58,9 @@ export default function Home() {
                 <input
                   type="text"
                   placeholder="e.g., Sarah Chen"
-                  disabled
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
                 />
               </div>
 
@@ -51,8 +71,9 @@ export default function Home() {
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  disabled
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
                 />
               </div>
 
@@ -63,33 +84,27 @@ export default function Home() {
                 <input
                   type="text"
                   placeholder="e.g., Coffee chat"
-                  disabled
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed"
+                  value={purpose}
+                  onChange={(e) => setPurpose(e.target.value)}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  When are you available?
-                </label>
-                <input
-                  type="text"
-                  placeholder='Try: "tomorrow 2-4pm" or "Friday at 3pm"'
-                  disabled
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Natural language input powered by chrono-node
-                </p>
-              </div>
+              {/* Slot Manager Component */}
+              <SlotManager onSlotsChange={setSlots} />
             </div>
 
             {/* CTA Button */}
             <button
-              disabled
-              className="w-full py-4 bg-gray-300 text-gray-500 font-semibold rounded-lg cursor-not-allowed"
+              onClick={handleGenerateLink}
+              disabled={!canGenerateLink}
+              className={`w-full py-4 font-semibold rounded-lg transition-all ${
+                canGenerateLink
+                  ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
             >
-              Generate Link (Coming Soon)
+              {canGenerateLink ? 'Generate Link 🚀' : 'Add email and availability to continue'}
             </button>
           </div>
         </div>
@@ -160,12 +175,15 @@ export default function Home() {
         </div>
 
         {/* Development Status */}
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center space-y-3">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full text-sm text-green-800">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="font-medium">Story 1.5 Complete:</span>
-            <span>Basic Routing & Layout ✓</span>
+            <span className="font-medium">Story 2.2 Complete:</span>
+            <span>Natural Language Availability Input ✓</span>
           </div>
+          <p className="text-xs text-gray-500">
+            Phase 1 (Foundation): 5/5 stories complete • Phase 2 (Core Features): 2/14 stories
+          </p>
         </div>
       </div>
     </main>

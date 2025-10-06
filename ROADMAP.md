@@ -116,36 +116,38 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 **Timeline:** Weeks 2-3
 **Goal:** Build the main scheduling functionality
 
-### ☐ Story 2.1: Homepage UI
+### ✅ Story 2.1: Homepage UI
 **Description:** Create the landing page with hero section and value proposition
 
 **Acceptance Criteria:**
-- [ ] Hero section with clear headline: "Share your availability in seconds"
-- [ ] Value proposition clearly communicated
-- [ ] CTA button to start creating link
-- [ ] Clean, minimal design matching PRD guidelines
-- [ ] Mobile-responsive
-- [ ] SEO meta tags configured
+- [x] Hero section with clear headline: "Share your availability in seconds"
+- [x] Value proposition clearly communicated
+- [x] CTA button to start creating link
+- [x] Clean, minimal design matching PRD guidelines
+- [x] Mobile-responsive
+- [x] SEO meta tags configured
 
 **PRD Reference:** Sections 6.1, 12.2 (User Flows, UI/UX Guidelines)
 **Dependencies:** Story 1.5
 **Complexity:** Medium
 
+**Note:** Completed as part of Story 1.5
+
 ---
 
-### ☐ Story 2.2: Natural Language Availability Input Component
+### ✅ Story 2.2: Natural Language Availability Input Component
 **Description:** Build natural language text input for availability with real-time parsing
 
 **Acceptance Criteria:**
-- [ ] Text input component for natural language availability
-- [ ] Integration with chrono-node library for parsing
-- [ ] Real-time parsing feedback (show interpreted date/time as user types)
-- [ ] Mobile-friendly interface
-- [ ] Validation (start time < end time, no past dates, valid parse results)
-- [ ] Timezone auto-detection (using browser API)
-- [ ] Optional timezone selector
-- [ ] Clean visual design with parsing examples/hints
-- [ ] Graceful error handling for unparseable input
+- [x] Text input component for natural language availability
+- [x] Integration with chrono-node library for parsing
+- [x] Real-time parsing feedback (show interpreted date/time as user types)
+- [x] Mobile-friendly interface
+- [x] Validation (start time < end time, no past dates, valid parse results)
+- [x] Timezone auto-detection (using browser API)
+- [x] Optional timezone selector
+- [x] Clean visual design with parsing examples/hints
+- [x] Graceful error handling for unparseable input
 
 **PRD Reference:** Section 4.2 (Natural Language Availability Input)
 **Dependencies:** Story 1.1
