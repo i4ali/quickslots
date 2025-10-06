@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickSlots - Temporary Availability</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn:hover {
+            border-color: #667eea;
+        }
+        
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .screen {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        /* Ad Banner */
+        .ad-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .ad-banner a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* Header */
+        .header {
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* Content */
+        .content {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .time-slots {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .time-slot {
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .time-slot.selectable {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .time-slot.selectable:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .time-slot.selected {
+            border-color: #667eea;
+            background: #e8eeff;
+        }
+        
+        .add-slot-btn, .remove-slot-btn {
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .remove-slot-btn {
+            color: #e74c3c;
+        }
+        
+        .btn {
+            padding: 14px 32px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+        }
+        
+        /* Tip Jar */
+        .tip-jar {
+            background: #fffbf0;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .tip-jar h3 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .tip-jar p {
+            color: #666;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        
+        .tip-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .tip-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #ffd700;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.2s;
+        }
+        
+        .tip-btn:hover {
+            background: #ffd700;
+        }
+        
+        /* Link Result */
+        .link-result {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .link-result input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        
+        .copy-btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        /* Email Preview */
+        .email-preview {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        
+        .email-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .email-header h2 {
+            color: #667eea;
+            font-size: 24px;
+        }
+        
+        .email-body {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .email-body p {
+            margin-bottom: 16px;
+        }
+        
+        .meeting-details {
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0;
+        }
+        
+        .meeting-details strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #667eea;
+        }
+        
+        .email-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+        }
+        
+        .bottom-ad {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .info-note {
+            background: #e8f5e9;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab(0)">1. Homepage (Create Link)</button>
+            <button class="tab-btn" onclick="showTab(1)">2. Link Created</button>
+            <button class="tab-btn" onclick="showTab(2)">3. Booking Page (Others See)</button>
+            <button class="tab-btn" onclick="showTab(3)">4. Confirmation</button>
+            <button class="tab-btn" onclick="showTab(4)">5. Email to Creator</button>
+            <button class="tab-btn" onclick="showTab(5)">6. Email to Booker</button>
+        </div>
+
+        <!-- SCREEN 1: Homepage -->
+        <div class="screen active" id="screen-0">
+            <div class="ad-banner">
+                📅 Try Calendar Pro - Manage your schedule like a boss | <a href="#">Learn More</a>
+            </div>
+            
+            <div class="header">
+                <h1>⚡ QuickSlots</h1>
+                <p>Share your availability. No signup. Link expires after booking.</p>
+            </div>
+            
+            <div class="content">
+                <div class="form-group">
+                    <label>Your Name (optional)</label>
+                    <input type="text" placeholder="e.g., Sarah Chen" value="Sarah Chen">
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" placeholder="your@email.com" value="sarah@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Meeting Purpose (optional)</label>
+                    <input type="text" placeholder="e.g., Coffee chat, Interview, Project discussion" value="Coffee chat">
+                </div>
+                
+                <div class="form-group">
+                    <label>When are you available?</label>
+                    <div class="time-slots">
+                        <div class="time-slot">
+                            <span>📅 Tuesday, Oct 8 - 2:00 PM to 4:00 PM</span>
+                            <button class="remove-slot-btn">Remove</button>
+                        </div>
+                        <div class="time-slot">
+                            <span>📅 Wednesday, Oct 9 - 10:00 AM to 12:00 PM</span>
+                            <button class="remove-slot-btn">Remove</button>
+                        </div>
+                        <div class="time-slot">
+                            <span>📅 Friday, Oct 11 - 3:00 PM to 5:00 PM</span>
+                            <button class="remove-slot-btn">Remove</button>
+                        </div>
+                    </div>
+                    <button class="add-slot-btn">+ Add another time slot</button>
+                </div>
+                
+                <button class="btn">Generate My Link 🚀</button>
+                
+                <div class="tip-jar">
+                    <h3>☕ Love QuickSlots?</h3>
+                    <p>Help keep this service free and ad-free for everyone!</p>
+                    <div class="tip-buttons">
+                        <button class="tip-btn">Tip $2</button>
+                        <button class="tip-btn">Tip $5</button>
+                        <button class="tip-btn">Custom</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bottom-ad">
+                🎯 Sponsored: Zoom - Connect instantly with HD video calls | <a href="#">Start Free Trial</a>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: Link Created -->
+        <div class="screen" id="screen-1">
+            <div class="header">
+                <h1>✅ Your Link is Ready!</h1>
+                <p>Share this link and it will expire after someone books or in 48 hours</p>
+            </div>
+            
+            <div class="content">
+                <div class="info-note">
+                    ✨ Your temporary link has been created! Share it with anyone.
+                </div>
+                
+                <div class="link-result">
+                    <label><strong>Your booking link:</strong></label>
+                    <input type="text" value="https://quickslots.com/x7k9m2" readonly>
+                    <button class="copy-btn">📋 Copy Link</button>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h3 style="margin-bottom: 16px;">What happens next?</h3>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>✉️ You'll get an email when someone books a slot</li>
+                        <li>⏰ Link expires after the first booking</li>
+                        <li>🔒 Your email stays private</li>
+                        <li>⚡ No signup or account needed</li>
+                    </ul>
+                </div>
+                
+                <button class="btn">Create Another Link</button>
+                
+                <div class="tip-jar">
+                    <h3>🎉 Remove ads for just $2</h3>
+                    <p>Your contribution helps keep QuickSlots running!</p>
+                    <div class="tip-buttons">
+                        <button class="tip-btn">Remove Ads ($2)</button>
+                        <button class="tip-btn">Maybe Later</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: Booking Page -->
+        <div class="screen" id="screen-2">
+            <div class="ad-banner">
+                🎥 Microsoft Teams - Collaborate anywhere | <a href="#">Try Free</a>
+            </div>
+            
+            <div class="header">
+                <h1>📅 Book Time with Sarah</h1>
+                <p>Coffee chat - Pick a time that works for you</p>
+            </div>
+            
+            <div class="content">
+                <div class="info-note">
+                    👋 Sarah is available at these times. Pick one to book!
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Choose a time slot:</label>
+                    <div class="time-slots">
+                        <div class="time-slot selectable">
+                            <span><strong>Tuesday, Oct 8</strong><br>2:00 PM - 4:00 PM</span>
+                            <span style="color: #667eea;">Select →</span>
+                        </div>
+                        <div class="time-slot selectable selected">
+                            <span><strong>Wednesday, Oct 9</strong><br>10:00 AM - 12:00 PM</span>
+                            <span style="color: #667eea;">✓ Selected</span>
+                        </div>
+                        <div class="time-slot selectable">
+                            <span><strong>Friday, Oct 11</strong><br>3:00 PM - 5:00 PM</span>
+                            <span style="color: #667eea;">Select →</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Additional Notes (optional)</label>
+                    <textarea rows="3" placeholder="Any details Sarah should know?"></textarea>
+                </div>
+                
+                <button class="btn">Confirm Booking ✓</button>
+            </div>
+            
+            <div class="bottom-ad">
+                ☕ Support QuickSlots - Help us stay ad-free! | <a href="#">Donate $2</a>
+            </div>
+        </div>
+
+        <!-- SCREEN 4: Confirmation -->
+        <div class="screen" id="screen-3">
+            <div class="header">
+                <h1>🎉 Booking Confirmed!</h1>
+                <p>You're all set. Check your email for details.</p>
+            </div>
+            
+            <div class="content">
+                <div class="meeting-details" style="background: #e8f5e9; border-color: #4caf50;">
+                    <strong style="color: #2e7d32;">Your Meeting Details:</strong>
+                    <p style="margin: 0; color: #333;">
+                        <strong>When:</strong> Wednesday, Oct 9 at 10:00 AM<br>
+                        <strong>With:</strong> Sarah Chen<br>
+                        <strong>Purpose:</strong> Coffee chat<br>
+                        <strong>Duration:</strong> Up to 2 hours
+                    </p>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h3 style="margin-bottom: 16px;">What's next?</h3>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>📧 Both you and Sarah received confirmation emails</li>
+                        <li>📅 Add this to your calendar (check your email)</li>
+                        <li>🔗 This booking link has now expired</li>
+                        <li>💬 Contact info is in your email</li>
+                    </ul>
+                </div>
+                
+                <button class="btn">Create My Own Availability Link</button>
+                
+                <div class="tip-jar">
+                    <h3>💝 Enjoying QuickSlots?</h3>
+                    <p>Support this free tool with a small tip!</p>
+                    <div class="tip-buttons">
+                        <button class="tip-btn">Tip $2</button>
+                        <button class="tip-btn">Tip $5</button>
+                        <button class="tip-btn">No Thanks</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 5: Email to Creator -->
+        <div class="screen" id="screen-4">
+            <div class="content">
+                <h2 style="text-align: center; margin-bottom: 30px;">Email Sent to Creator (Sarah)</h2>
+                
+                <div class="email-preview">
+                    <div class="email-header">
+                        <h2>✅ Someone Booked Your Time!</h2>
+                    </div>
+                    
+                    <div class="email-body">
+                        <p>Hi Sarah,</p>
+                        
+                        <p>Great news! Someone just booked a time slot with you through your QuickSlots link.</p>
+                        
+                        <div class="meeting-details">
+                            <strong>📅 Meeting Details:</strong>
+                            <p style="margin: 8px 0 0 0;">
+                                <strong>Date & Time:</strong> Wednesday, October 9, 2025 at 10:00 AM<br>
+                                <strong>Duration:</strong> Up to 2 hours (10:00 AM - 12:00 PM)<br>
+                                <strong>Purpose:</strong> Coffee chat
+                            </p>
+                        </div>
+                        
+                        <div class="meeting-details">
+                            <strong>👤 Who Booked:</strong>
+                            <p style="margin: 8px 0 0 0;">
+                                <strong>Name:</strong> Alex Rodriguez<br>
+                                <strong>Email:</strong> alex.rodriguez@email.com<br>
+                                <strong>Note:</strong> "Looking forward to catching up! Let me know if you prefer coffee at Blue Bottle or the place near your office."
+                            </p>
+                        </div>
+                        
+                        <p><strong>📥 Add to Calendar:</strong><br>
+                        <a href="#" style="color: #667eea;">Download .ics file</a> | 
+                        <a href="#" style="color: #667eea;">Add to Google Calendar</a></p>
+                        
+                        <p><strong>🔒 Your link has expired</strong><br>
+                        Your booking link (quickslots.com/x7k9m2) is no longer active. Need another one? <a href="#" style="color: #667eea;">Create a new link</a></p>
+                        
+                        <p style="margin-top: 30px;">See you at the meeting!<br>
+                        <strong>- The QuickSlots Team</strong></p>
+                    </div>
+                    
+                    <div class="email-footer">
+                        <p>QuickSlots - Temporary availability sharing made simple<br>
+                        <a href="#" style="color: #999;">Create your own link</a> | 
+                        <a href="#" style="color: #999;">Support us</a></p>
+                        <p style="margin-top: 10px; font-size: 11px;">This link was created with QuickSlots, a free service for sharing temporary availability.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 6: Email to Booker -->
+        <div class="screen" id="screen-5">
+            <div class="content">
+                <h2 style="text-align: center; margin-bottom: 30px;">Email Sent to Booker (Alex)</h2>
+                
+                <div class="email-preview">
+                    <div class="email-header">
+                        <h2>✅ Your Booking is Confirmed!</h2>
+                    </div>
+                    
+                    <div class="email-body">
+                        <p>Hi Alex,</p>
+                        
+                        <p>You're all set! Your meeting with Sarah has been confirmed.</p>
+                        
+                        <div class="meeting-details">
+                            <strong>📅 Meeting Details:</strong>
+                            <p style="margin: 8px 0 0 0;">
+                                <strong>Date & Time:</strong> Wednesday, October 9, 2025 at 10:00 AM<br>
+                                <strong>Duration:</strong> Up to 2 hours (10:00 AM - 12:00 PM)<br>
+                                <strong>Purpose:</strong> Coffee chat
+                            </p>
+                        </div>
+                        
+                        <div class="meeting-details">
+                            <strong>👤 You're Meeting With:</strong>
+                            <p style="margin: 8px 0 0 0;">
+                                <strong>Name:</strong> Sarah Chen<br>
+                                <strong>Email:</strong> sarah@email.com
+                            </p>
+                        </div>
+                        
+                        <p><strong>📥 Add to Your Calendar:</strong><br>
+                        <a href="#" style="color: #667eea;">Download .ics file</a> | 
+                        <a href="#" style="color: #667eea;">Add to Google Calendar</a></p>
+                        
+                        <p><strong>Your note to Sarah:</strong><br>
+                        <em style="color: #666;">"Looking forward to catching up! Let me know if you prefer coffee at Blue Bottle or the place near your office."</em></p>
+                        
+                        <p style="margin-top: 30px;">Need to reschedule? Just email Sarah directly at the address above.</p>
+                        
+                        <p>Have a great meeting!<br>
+                        <strong>- The QuickSlots Team</strong></p>
+                    </div>
+                    
+                    <div class="email-footer">
+                        <p>QuickSlots - Temporary availability sharing made simple<br>
+                        <a href="#" style="color: #999;">Create your own link</a> | 
+                        <a href="#" style="color: #999;">Support us</a></p>
+                        <p style="margin-top: 10px; font-size: 11px;">Want to share your own availability? QuickSlots is free and requires no signup!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            // Hide all screens
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            
+            // Remove active from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected screen and activate button
+            document.getElementById('screen-' + index).classList.add('active');
+            buttons[index].classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
