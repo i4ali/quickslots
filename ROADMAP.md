@@ -95,16 +95,16 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 1.5: Basic Routing & Layout
+### ✅ Story 1.5: Basic Routing & Layout
 **Description:** Create basic app structure and routing
 
 **Acceptance Criteria:**
-- [ ] Homepage route (`/`) created
-- [ ] Booking page route (`/[slotId]`) created
-- [ ] Root layout with basic structure
-- [ ] 404 page created
-- [ ] Basic navigation (if needed)
-- [ ] Mobile-responsive layout shell
+- [x] Homepage route (`/`) created
+- [x] Booking page route (`/[slotId]`) created
+- [x] Root layout with basic structure
+- [x] 404 page created
+- [x] Basic navigation (if needed)
+- [x] Mobile-responsive layout shell
 
 **PRD Reference:** Section 7.1 (Frontend)
 **Dependencies:** Story 1.1
