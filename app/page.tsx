@@ -3,20 +3,52 @@
 import { useState } from 'react';
 import { SlotManager } from '@/components/slot-manager';
 import { TimeSlot } from '@/components/availability-input';
+import { TimezoneSelector } from '@/components/timezone-selector';
+import { isValidEmail, getEmailError, getNameError, getPurposeError } from '@/lib/validation';
+import { getUserTimezone } from '@/lib/timezone';
 
 export default function Home() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [purpose, setPurpose] = useState('');
+  const [timezone, setTimezone] = useState(() => getUserTimezone());
   const [slots, setSlots] = useState<TimeSlot[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [touched, setTouched] = useState({ name: false, email: false, purpose: false });
 
-  const handleGenerateLink = () => {
-    // TODO: Implement link generation in Story 2.4
-    console.log('Generate link:', { name, email, purpose, slots });
-    alert('Link generation coming soon in Story 2.4!');
+  // Validation
+  const emailError = touched.email ? getEmailError(email) : null;
+  const nameError = touched.name ? getNameError(name) : null;
+  const purposeError = touched.purpose ? getPurposeError(purpose) : null;
+
+  const canGenerateLink = isValidEmail(email) && slots.length > 0 && !nameError && !purposeError;
+
+  const handleGenerateLink = async () => {
+    // Mark all fields as touched to show errors
+    setTouched({ name: true, email: true, purpose: true });
+    setError(null);
+
+    // Validate
+    if (!canGenerateLink) {
+      setError('Please fix the errors above before generating a link');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // TODO: Implement link generation API in Story 2.4
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
+      console.log('Generate link:', { name, email, purpose, timezone, slots });
+      alert('Link generation coming soon in Story 2.4!');
+    } catch (err) {
+      setError('Failed to generate link. Please try again.');
+      console.error('Error generating link:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  const canGenerateLink = email.trim() && slots.length > 0;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -41,13 +73,22 @@ export default function Home() {
             {/* Success Banner */}
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <p className="text-sm text-green-800 text-center">
-                <strong>✅ Story 2.2 Complete:</strong> Natural language availability input is now live!
+                <strong>✅ Story 2.3 Complete:</strong> Full link creation form with validation!
                 <br />
                 <span className="text-green-700">
                   Try typing: "tomorrow 2-4pm", "next Friday at 3pm", or "Oct 15 at 2pm"
                 </span>
               </p>
             </div>
+
+            {/* Error Display */}
+            {error && (
+              <div className="bg-red-50 border-2 border-red-200 rounded-lg p-4">
+                <p className="text-sm text-red-800 font-medium">
+                  ⚠️ {error}
+                </p>
+              </div>
+            )}
 
             {/* Form Fields */}
             <div className="space-y-4">
@@ -60,8 +101,16 @@ export default function Home() {
                   placeholder="e.g., Sarah Chen"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  onBlur={() => setTouched({ ...touched, name: true })}
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+                    nameError
+                      ? 'border-red-300 focus:border-red-500'
+                      : 'border-gray-300 focus:border-blue-500'
+                  }`}
                 />
+                {nameError && (
+                  <p className="text-xs text-red-600 mt-1">{nameError}</p>
+                )}
               </div>
 
               <div>
@@ -73,8 +122,16 @@ export default function Home() {
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  onBlur={() => setTouched({ ...touched, email: true })}
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+                    emailError
+                      ? 'border-red-300 focus:border-red-500'
+                      : 'border-gray-300 focus:border-blue-500'
+                  }`}
                 />
+                {emailError && (
+                  <p className="text-xs text-red-600 mt-1">{emailError}</p>
+                )}
               </div>
 
               <div>
@@ -86,9 +143,20 @@ export default function Home() {
                   placeholder="e.g., Coffee chat"
                   value={purpose}
                   onChange={(e) => setPurpose(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  onBlur={() => setTouched({ ...touched, purpose: true })}
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+                    purposeError
+                      ? 'border-red-300 focus:border-red-500'
+                      : 'border-gray-300 focus:border-blue-500'
+                  }`}
                 />
+                {purposeError && (
+                  <p className="text-xs text-red-600 mt-1">{purposeError}</p>
+                )}
               </div>
+
+              {/* Timezone Selector */}
+              <TimezoneSelector value={timezone} onChange={setTimezone} />
 
               {/* Slot Manager Component */}
               <SlotManager onSlotsChange={setSlots} />
@@ -97,14 +165,38 @@ export default function Home() {
             {/* CTA Button */}
             <button
               onClick={handleGenerateLink}
-              disabled={!canGenerateLink}
-              className={`w-full py-4 font-semibold rounded-lg transition-all ${
-                canGenerateLink
+              disabled={!canGenerateLink || isLoading}
+              className={`w-full py-4 font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
+                canGenerateLink && !isLoading
                   ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
-              {canGenerateLink ? 'Generate Link 🚀' : 'Add email and availability to continue'}
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
+                  Generating Link...
+                </>
+              ) : canGenerateLink ? (
+                'Generate Link 🚀'
+              ) : (
+                'Add email and availability to continue'
+              )}
             </button>
           </div>
         </div>
@@ -178,11 +270,11 @@ export default function Home() {
         <div className="mt-12 text-center space-y-3">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full text-sm text-green-800">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="font-medium">Story 2.2 Complete:</span>
-            <span>Natural Language Availability Input ✓</span>
+            <span className="font-medium">Story 2.3 Complete:</span>
+            <span>Link Creation Form with Validation ✓</span>
           </div>
           <p className="text-xs text-gray-500">
-            Phase 1 (Foundation): 5/5 stories complete • Phase 2 (Core Features): 2/14 stories
+            Phase 1 (Foundation): 5/5 stories complete • Phase 2 (Core Features): 3/14 stories
           </p>
         </div>
       </div>
