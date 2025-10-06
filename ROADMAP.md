@@ -174,17 +174,17 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.4: Link Generation API
+### ✅ Story 2.4: Link Generation API
 **Description:** Create API endpoint to generate shareable scheduling links
 
 **Acceptance Criteria:**
-- [ ] `POST /api/slots/create` endpoint created
-- [ ] Generate unique slot ID (short, URL-safe)
-- [ ] Store data in Redis with 24hr TTL
-- [ ] Validate input data
-- [ ] Return slot ID and shareable URL
-- [ ] Rate limiting (10 links/hour per IP)
-- [ ] Error handling (Redis failures, validation errors)
+- [x] `POST /api/slots/create` endpoint created
+- [x] Generate unique slot ID (short, URL-safe)
+- [x] Store data in Redis with 24hr TTL
+- [x] Validate input data
+- [x] Return slot ID and shareable URL
+- [x] Rate limiting (10 links/hour per IP)
+- [x] Error handling (Redis failures, validation errors)
 
 **PRD Reference:** Sections 7.2 (Backend API)
 **Dependencies:** Story 1.3, Story 2.3
