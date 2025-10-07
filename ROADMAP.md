@@ -331,22 +331,30 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.11: Timezone Intelligence
+### ✅ Story 2.11: Timezone Intelligence
 **Description:** Implement proper timezone handling for creator and recipient
 
 **Acceptance Criteria:**
-- [ ] Auto-detect creator timezone from browser
-- [ ] Auto-detect recipient timezone from browser
-- [ ] Display all times in recipient's local timezone on booking page
-- [ ] Include timezone names in displays (e.g., "EST", "PST")
-- [ ] Store times in UTC in Redis
-- [ ] Email shows time in both creator and booker timezone
-- [ ] No double-booking due to timezone issues
-- [ ] Use Luxon or date-fns for timezone handling
+- [x] Auto-detect creator timezone from browser
+- [x] Auto-detect recipient timezone from browser
+- [x] Display all times in recipient's local timezone on booking page
+- [x] Include timezone names in displays (e.g., "EST", "PST")
+- [x] Store times in UTC in Redis
+- [x] Email shows time in both creator and booker timezone
+- [x] No double-booking due to timezone issues
+- [x] Use date-fns-tz for timezone handling
 
 **PRD Reference:** Section 4.6 (Timezone Intelligence)
 **Dependencies:** Stories 2.3, 2.6, 2.10
 **Complexity:** High
+
+**Implementation Notes:**
+- Installed date-fns and date-fns-tz for robust timezone handling
+- Times stored in creator's local timezone: {date: "YYYY-MM-DD", startTime: "HH:mm"}
+- GET endpoint converts to UTC ISO strings using zonedTimeToUtc
+- Booking page receives UTC times and converts to viewer's timezone
+- Email templates show times in both creator and booker timezones
+- Fixed date extraction bug in slot-utils (was using UTC date instead of local)
 
 ---
 

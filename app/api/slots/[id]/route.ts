@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSlot } from '@/lib/redis';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 /**
  * GET /api/slots/[id]
@@ -62,13 +63,23 @@ export async function GET(
       );
     }
 
-    // Transform timeSlots from stored format to ISO strings for the booking page
-    // Stored: {date: "YYYY-MM-DD", startTime: "HH:mm", endTime: "HH:mm"}
-    // Return: {start: "ISO string", end: "ISO string"}
-    const transformedTimeSlots = slot.timeSlots.map((timeSlot) => ({
-      start: `${timeSlot.date}T${timeSlot.startTime}:00`,
-      end: `${timeSlot.date}T${timeSlot.endTime}:00`,
-    }));
+    // Transform timeSlots from stored format to UTC ISO strings for the booking page
+    // Stored: {date: "YYYY-MM-DD", startTime: "HH:mm", endTime: "HH:mm"} in creator's timezone
+    // Return: {start: "UTC ISO string", end: "UTC ISO string"}
+    const transformedTimeSlots = slot.timeSlots.map((timeSlot) => {
+      // Parse date/time as being in the creator's timezone
+      const startDateInCreatorTz = new Date(`${timeSlot.date}T${timeSlot.startTime}:00`);
+      const endDateInCreatorTz = new Date(`${timeSlot.date}T${timeSlot.endTime}:00`);
+
+      // Convert to UTC using the creator's timezone
+      const startUTC = zonedTimeToUtc(startDateInCreatorTz, slot.timezone);
+      const endUTC = zonedTimeToUtc(endDateInCreatorTz, slot.timezone);
+
+      return {
+        start: startUTC.toISOString(), // Returns UTC time with 'Z' suffix
+        end: endUTC.toISOString(),
+      };
+    });
 
     // Return slot data (without sensitive creator email in full)
     return NextResponse.json({
