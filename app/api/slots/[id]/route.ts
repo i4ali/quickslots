@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSlot } from '@/lib/redis';
-import { zonedTimeToUtc } from 'date-fns-tz';
+import { toDate } from 'date-fns-tz';
 
 /**
  * GET /api/slots/[id]
@@ -24,6 +24,9 @@ export async function GET(
 
     // Fetch slot from Redis
     const slot = await getSlot(id);
+
+    // Log the fetched slot for debugging
+    console.log('Fetched slot:', id, JSON.stringify(slot, null, 2));
 
     // Check if slot exists
     if (!slot) {
@@ -67,18 +70,29 @@ export async function GET(
     // Stored: {date: "YYYY-MM-DD", startTime: "HH:mm", endTime: "HH:mm"} in creator's timezone
     // Return: {start: "UTC ISO string", end: "UTC ISO string"}
     const transformedTimeSlots = slot.timeSlots.map((timeSlot) => {
-      // Parse date/time as being in the creator's timezone
-      const startDateInCreatorTz = new Date(`${timeSlot.date}T${timeSlot.startTime}:00`);
-      const endDateInCreatorTz = new Date(`${timeSlot.date}T${timeSlot.endTime}:00`);
+      try {
+        // Parse the date/time string in the creator's timezone
+        // toDate() interprets the date string in the given timezone and returns a Date object
+        const startDateString = `${timeSlot.date}T${timeSlot.startTime}:00`;
+        const endDateString = `${timeSlot.date}T${timeSlot.endTime}:00`;
 
-      // Convert to UTC using the creator's timezone
-      const startUTC = zonedTimeToUtc(startDateInCreatorTz, slot.timezone);
-      const endUTC = zonedTimeToUtc(endDateInCreatorTz, slot.timezone);
+        const startUTC = toDate(startDateString, { timeZone: slot.timezone });
+        const endUTC = toDate(endDateString, { timeZone: slot.timezone });
 
-      return {
-        start: startUTC.toISOString(), // Returns UTC time with 'Z' suffix
-        end: endUTC.toISOString(),
-      };
+        // Check if dates are valid
+        if (isNaN(startUTC.getTime()) || isNaN(endUTC.getTime())) {
+          console.error('Invalid date in timeSlot:', timeSlot);
+          throw new Error('Invalid date format in slot data');
+        }
+
+        return {
+          start: startUTC.toISOString(), // Returns UTC time with 'Z' suffix
+          end: endUTC.toISOString(),
+        };
+      } catch (err) {
+        console.error('Error transforming timeSlot:', timeSlot, err);
+        throw err;
+      }
     });
 
     // Return slot data (without sensitive creator email in full)

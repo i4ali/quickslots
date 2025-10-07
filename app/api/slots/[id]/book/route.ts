@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSlot, createBooking, isSlotBooked } from '@/lib/redis';
 import { Booking } from '@/types/slot';
 import { sendBookingEmails } from '@/lib/email';
-import { zonedTimeToUtc } from 'date-fns-tz';
+import { toDate } from 'date-fns-tz';
 
 /**
  * POST /api/slots/[id]/book
@@ -118,8 +118,9 @@ export async function POST(
 
     // Convert selected time slot to UTC ISO format
     // TimeSlot is stored in creator's timezone: { date: "YYYY-MM-DD", startTime: "HH:mm", endTime: "HH:mm" }
-    const selectedTimeInCreatorTz = new Date(`${selectedTimeSlot.date}T${selectedTimeSlot.startTime}:00`);
-    const selectedTimeUTC = zonedTimeToUtc(selectedTimeInCreatorTz, slot.timezone);
+    // toDate() interprets the date string in the given timezone and returns a Date object
+    const startDateString = `${selectedTimeSlot.date}T${selectedTimeSlot.startTime}:00`;
+    const selectedTimeUTC = toDate(startDateString, { timeZone: slot.timezone });
     const selectedTimeISO = selectedTimeUTC.toISOString(); // UTC time with 'Z' suffix
 
     // Create booking object

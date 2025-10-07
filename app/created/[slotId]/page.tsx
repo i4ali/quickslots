@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { CopyButton } from '@/components/copy-button';
 import { CountdownTimer } from '@/components/countdown-timer';
-import { TipJar } from '@/components/tip-jar';
+import { TipButton } from '@/components/tip-button';
 
 export default function LinkCreatedPage() {
   const params = useParams();
@@ -32,10 +32,10 @@ export default function LinkCreatedPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-300">Loading...</p>
         </div>
       </div>
     );
@@ -43,12 +43,12 @@ export default function LinkCreatedPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center px-4">
         <div className="max-w-md w-full">
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 text-center">
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-700 p-8 text-center">
             <div className="text-6xl mb-4">⚠️</div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong</h1>
-            <p className="text-gray-600 mb-6">{error}</p>
+            <h1 className="text-2xl font-bold text-gray-100 mb-2">Something went wrong</h1>
+            <p className="text-gray-300 mb-6">{error}</p>
             <button
               onClick={handleCreateAnother}
               className="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
@@ -62,28 +62,28 @@ export default function LinkCreatedPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <div className="max-w-3xl mx-auto px-4 py-16 sm:py-24">
         {/* Success Header */}
         <div className="text-center mb-12">
           <div className="text-6xl mb-4">🎉</div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-gray-100 mb-4">
             Your Link is Ready!
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-300">
             Share it with anyone you want to meet
           </p>
         </div>
 
         {/* Main Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 mb-8">
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-700 p-8 mb-8">
           {/* Shareable Link Section */}
           <div className="mb-8">
-            <label className="block text-sm font-semibold text-gray-900 mb-3">
+            <label className="block text-sm font-semibold text-gray-200 mb-3">
               Your Shareable Link
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
-              <div className="flex-1 px-4 py-3 bg-gray-50 border-2 border-gray-300 rounded-lg font-mono text-sm text-gray-900 break-all">
+              <div className="flex-1 px-4 py-3 bg-slate-900/50 border-2 border-slate-600 rounded-lg font-mono text-sm text-gray-100 break-all">
                 {shareableUrl}
               </div>
               <CopyButton text={shareableUrl} />
@@ -92,11 +92,11 @@ export default function LinkCreatedPage() {
 
           {/* Expiration Countdown */}
           {expiresAt && (
-            <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="mb-8 p-4 bg-blue-600/10 border border-blue-500/30 rounded-lg">
               <div className="flex items-center gap-3">
                 <div className="text-2xl">⏰</div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-blue-900 mb-1">
+                  <p className="text-sm font-semibold text-blue-300 mb-1">
                     Link expires in:
                   </p>
                   <CountdownTimer expiresAt={expiresAt} />
@@ -107,55 +107,55 @@ export default function LinkCreatedPage() {
 
           {/* What Happens Next */}
           <div className="mb-8">
-            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-gray-100 mb-4 flex items-center gap-2">
               <span>📋</span> What Happens Next?
             </h2>
             <div className="space-y-3">
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-sm font-bold border border-blue-500/30">
                   1
                 </div>
-                <p className="text-gray-700 pt-0.5">
-                  <strong>Share your link</strong> via email, text message, or any chat app
+                <p className="text-gray-300 pt-0.5">
+                  <strong className="text-gray-200">Share your link</strong> via email, text message, or any chat app
                 </p>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-sm font-bold border border-blue-500/30">
                   2
                 </div>
-                <p className="text-gray-700 pt-0.5">
-                  <strong>They pick a time</strong> from your available slots
+                <p className="text-gray-300 pt-0.5">
+                  <strong className="text-gray-200">They pick a time</strong> from your available slots
                 </p>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-sm font-bold border border-blue-500/30">
                   3
                 </div>
-                <p className="text-gray-700 pt-0.5">
-                  <strong>You both get notified</strong> instantly via email with calendar invites
+                <p className="text-gray-300 pt-0.5">
+                  <strong className="text-gray-200">You both get notified</strong> instantly via email with calendar invites
                 </p>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-sm font-bold border border-blue-500/30">
                   4
                 </div>
-                <p className="text-gray-700 pt-0.5">
-                  <strong>Link expires</strong> after booking or 24 hours (whichever comes first)
+                <p className="text-gray-300 pt-0.5">
+                  <strong className="text-gray-200">Link expires</strong> after booking or 24 hours (whichever comes first)
                 </p>
               </div>
             </div>
           </div>
 
           {/* Important Note */}
-          <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-sm text-yellow-900">
+          <div className="p-4 bg-yellow-600/10 border border-yellow-500/30 rounded-lg">
+            <p className="text-sm text-yellow-300">
               <strong>🔒 Privacy:</strong> All data is automatically deleted after your link expires. We never store your information permanently.
             </p>
           </div>
         </div>
 
-        {/* Tip Jar */}
-        <TipJar />
+        {/* Tip Button */}
+        <TipButton className="mb-8" />
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">
@@ -168,7 +168,7 @@ export default function LinkCreatedPage() {
           </button>
           <button
             onClick={() => window.open(shareableUrl, '_blank')}
-            className="flex-1 py-4 px-6 bg-white text-blue-600 font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 py-4 px-6 bg-slate-800/50 text-blue-400 font-semibold rounded-lg border-2 border-blue-600 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
           >
             <span>👀</span>
             Preview Link
@@ -177,10 +177,10 @@ export default function LinkCreatedPage() {
 
         {/* Development Status */}
         <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full text-sm text-green-800">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="font-medium">Story 2.5 Complete:</span>
-            <span>Link Created Confirmation Page ✓</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-sm text-emerald-400">
+            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+            <span className="font-medium">Story 3.2 Complete:</span>
+            <span>Tip/Donation System ✓</span>
           </div>
         </div>
       </div>
