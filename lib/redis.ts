@@ -3,6 +3,24 @@
  *
  * This module provides a typed Redis client using Upstash Redis
  * with automatic TTL (Time-To-Live) for temporary data storage.
+ *
+ * TTL & Auto-Expiration Behavior:
+ * --------------------------------
+ * 1. Slots: Created with 24-hour TTL (86400 seconds by default)
+ *    - TTL starts when slot is created
+ *    - After booking, slot TTL is reduced to 5 minutes (300 seconds)
+ *    - Slot auto-deletes 5 minutes after booking
+ *
+ * 2. Bookings: Inherit full TTL from parent slot
+ *    - Created with remaining TTL from parent slot
+ *    - Persists for full 24 hours from slot creation
+ *    - Booking auto-deletes after 24 hours
+ *
+ * 3. Privacy & Data Cleanup:
+ *    - All data auto-expires via Redis TTL (no manual cleanup needed)
+ *    - Slot expires 5 minutes after booking (no longer needed)
+ *    - Booking expires 24 hours after slot creation
+ *    - Zero persistent storage of user data
  */
 
 import { Redis } from '@upstash/redis';
@@ -282,17 +300,22 @@ export async function createBooking(booking: Booking): Promise<boolean> {
       throw new Error('Slot is not available for booking');
     }
 
-    // Store booking with same TTL as parent slot
-    const key = getBookingKey(booking.slotId);
+    // Get current TTL of parent slot
     const slotKey = getSlotKey(booking.slotId);
     const ttl = await client.ttl(slotKey);
 
-    await client.set(key, JSON.stringify(booking), {
+    // Store booking with same TTL as parent slot (inherits full duration)
+    const bookingKey = getBookingKey(booking.slotId);
+    await client.set(bookingKey, JSON.stringify(booking), {
       ex: ttl > 0 ? ttl : 3600, // Fallback to 1 hour
     });
 
     // Update slot status to booked
     await updateSlotStatus(booking.slotId, 'booked' as SlotStatus);
+
+    // Expire slot quickly after booking (keeps data for immediate verification, then auto-deletes)
+    // The booking data is what matters long-term, slot is no longer needed
+    await client.expire(slotKey, 300); // Expire in 5 minutes (300 seconds)
 
     console.log(`✅ Booking created for slot: ${booking.slotId}`);
     return true;
@@ -337,6 +360,50 @@ export async function isSlotBooked(slotId: string): Promise<boolean> {
 }
 
 // =============================================================================
+// TTL Utilities (for testing and debugging)
+// =============================================================================
+
+/**
+ * Get remaining TTL for a slot (in seconds)
+ * Returns -1 if key doesn't exist, -2 if no expiration set
+ */
+export async function getSlotTTL(slotId: string): Promise<number> {
+  const client = getRedisClient();
+
+  if (!client) {
+    return -1;
+  }
+
+  try {
+    const key = getSlotKey(slotId);
+    return await client.ttl(key);
+  } catch (error) {
+    console.error('Failed to get slot TTL:', error);
+    return -1;
+  }
+}
+
+/**
+ * Get remaining TTL for a booking (in seconds)
+ * Returns -1 if key doesn't exist, -2 if no expiration set
+ */
+export async function getBookingTTL(slotId: string): Promise<number> {
+  const client = getRedisClient();
+
+  if (!client) {
+    return -1;
+  }
+
+  try {
+    const key = getBookingKey(slotId);
+    return await client.ttl(key);
+  } catch (error) {
+    console.error('Failed to get booking TTL:', error);
+    return -1;
+  }
+}
+
+// =============================================================================
 // Export all functions
 // =============================================================================
 
@@ -357,6 +424,10 @@ export const redis = {
   createBooking,
   getBooking,
   isSlotBooked,
+
+  // TTL utilities
+  getSlotTTL,
+  getBookingTTL,
 
   // Utilities
   generateSlotId,

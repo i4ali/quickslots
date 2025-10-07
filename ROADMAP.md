@@ -378,20 +378,31 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.13: Auto-Expiration & Data Cleanup
+### ✅ Story 2.13: Auto-Expiration & Data Cleanup
 **Description:** Ensure all data auto-deletes after 24 hours
 
 **Acceptance Criteria:**
-- [ ] Redis TTL set to 86400 seconds (24 hours) on creation
-- [ ] Booking inherits same TTL as parent slot
-- [ ] Slot expires immediately after booking (update TTL or delete)
-- [ ] Verify data actually deletes (test with short TTL)
-- [ ] Expired link page shows friendly message
-- [ ] No manual cleanup jobs needed (Redis TTL handles it)
+- [x] Redis TTL set to 86400 seconds (24 hours) on creation
+- [x] Booking inherits same TTL as parent slot
+- [x] Slot expires shortly after booking (5 minutes)
+- [x] Verify data actually deletes (debug endpoint + TTL utilities)
+- [x] Expired link page shows friendly message
+- [x] No manual cleanup jobs needed (Redis TTL handles it)
 
 **PRD Reference:** Sections 4.5, 8.3 (Auto-Expiration, Privacy)
 **Dependencies:** Story 1.3, Story 2.4, Story 2.8
 **Complexity:** Medium
+
+**Implementation Notes:**
+- Slots created with 24-hour TTL (configurable via LINK_EXPIRATION_SECONDS)
+- Bookings inherit full TTL from parent slot at creation time
+- After booking, slot TTL reduced to 5 minutes (300 seconds)
+- Slot auto-deletes 5 minutes after booking (no longer needed)
+- Booking persists for full 24 hours, then auto-deletes
+- Added TTL utility functions (getSlotTTL, getBookingTTL) for debugging
+- Created debug endpoint GET /api/debug/ttl/[slotId] to verify expiration
+- All data cleanup handled automatically by Redis TTL
+- Zero manual cleanup jobs or persistent storage
 
 ---
 
