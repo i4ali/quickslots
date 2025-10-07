@@ -212,7 +212,7 @@ export default function Home() {
                   Generating Link...
                 </>
               ) : canGenerateLink ? (
-                'Generate Link 🚀'
+                'Generate Link'
               ) : (
                 'Add email and availability to continue'
               )}
