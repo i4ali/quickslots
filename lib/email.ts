@@ -25,26 +25,39 @@ let isInitialized = false;
  * Initialize SendGrid client
  */
 function initializeSendGrid(): boolean {
+  console.log(`📧 [initializeSendGrid] Checking initialization... (isInitialized: ${isInitialized})`);
+
   if (isInitialized) {
+    console.log('✅ [initializeSendGrid] Already initialized');
     return true;
   }
 
-  if (!isServiceConfigured('email')) {
+  const serviceConfigured = isServiceConfigured('email');
+  console.log(`📧 [initializeSendGrid] Service configured: ${serviceConfigured}`);
+
+  if (!serviceConfigured) {
     console.warn(
-      '⚠️  SendGrid not configured. Email sending will fail.\n' +
-      '   Set SENDGRID_API_KEY in .env.local'
+      '⚠️  [initializeSendGrid] SendGrid not configured. Email sending will fail.\n' +
+      '   Set SENDGRID_API_KEY in .env.local or Vercel environment variables'
     );
     return false;
   }
 
   try {
     const config = getEnvConfig();
+    const apiKeyPreview = config.email.apiKey ? `${config.email.apiKey.substring(0, 6)}...` : 'MISSING';
+    console.log(`📧 [initializeSendGrid] API Key: ${apiKeyPreview}`);
+    console.log(`📧 [initializeSendGrid] From Email: ${config.email.fromEmail}`);
+
     sgMail.setApiKey(config.email.apiKey);
     isInitialized = true;
-    console.log('✅ SendGrid client initialized successfully');
+    console.log('✅ [initializeSendGrid] SendGrid client initialized successfully');
     return true;
   } catch (error) {
-    console.error('❌ Failed to initialize SendGrid client:', error);
+    console.error('❌ [initializeSendGrid] Failed to initialize SendGrid client:', error);
+    if (error instanceof Error) {
+      console.error(`❌ [initializeSendGrid] Error message: ${error.message}`);
+    }
     return false;
   }
 }
@@ -72,12 +85,19 @@ async function sendEmail(
   text: string,
   attachments?: EmailAttachment[]
 ): Promise<boolean> {
+  console.log(`📧 [sendEmail] Attempting to send email to: ${to}`);
+  console.log(`📧 [sendEmail] Subject: ${subject}`);
+
   if (!initializeSendGrid()) {
+    console.error('❌ [sendEmail] SendGrid client not initialized');
     throw new Error('SendGrid client not initialized');
   }
 
   try {
     const config = getEnvConfig();
+    console.log(`📧 [sendEmail] From email: ${config.email.fromEmail}`);
+    console.log(`📧 [sendEmail] From name: ${config.email.fromName}`);
+    console.log(`📧 [sendEmail] Has attachments: ${!!attachments?.length}`);
 
     const msg = {
       to,
@@ -90,11 +110,20 @@ async function sendEmail(
       attachments,
     };
 
+    console.log(`📧 [sendEmail] Calling SendGrid API...`);
     await sgMail.send(msg);
-    console.log(`✅ Email sent successfully to ${to}`);
+    console.log(`✅ [sendEmail] Email sent successfully to ${to}`);
     return true;
   } catch (error) {
-    console.error('Failed to send email:', error);
+    console.error(`❌ [sendEmail] Failed to send email to ${to}:`, error);
+    if (error instanceof Error) {
+      console.error(`❌ [sendEmail] Error message: ${error.message}`);
+    }
+    // Log SendGrid specific error details
+    if (typeof error === 'object' && error !== null && 'response' in error) {
+      const sgError = error as { response?: { body?: unknown } };
+      console.error(`❌ [sendEmail] SendGrid response:`, sgError.response?.body);
+    }
     throw error;
   }
 }
@@ -189,6 +218,11 @@ export async function sendBookingEmails(
   confirmationSent: boolean;
   notificationSent: boolean;
 }> {
+  console.log(`📧 [sendBookingEmails] Starting email send for slot ${data.booking.slotId}`);
+  console.log(`📧 [sendBookingEmails] Booker: ${data.booking.bookerEmail}`);
+  console.log(`📧 [sendBookingEmails] Creator: ${data.slot.creatorEmail}`);
+  console.log(`📧 [sendBookingEmails] SendGrid configured: ${isServiceConfigured('email')}`);
+
   const results = {
     confirmationSent: false,
     notificationSent: false,
@@ -196,18 +230,31 @@ export async function sendBookingEmails(
 
   // Send confirmation to booker
   try {
+    console.log(`📧 [sendBookingEmails] Sending confirmation to booker: ${data.booking.bookerEmail}`);
     results.confirmationSent = await sendBookingConfirmation(data);
+    console.log(`✅ [sendBookingEmails] Confirmation sent successfully to ${data.booking.bookerEmail}`);
   } catch (error) {
-    console.error('Booking confirmation failed:', error);
+    console.error(`❌ [sendBookingEmails] Booking confirmation failed:`, error);
+    if (error instanceof Error) {
+      console.error(`❌ [sendBookingEmails] Error message: ${error.message}`);
+      console.error(`❌ [sendBookingEmails] Error stack: ${error.stack}`);
+    }
   }
 
   // Send notification to creator
   try {
+    console.log(`📧 [sendBookingEmails] Sending notification to creator: ${data.slot.creatorEmail}`);
     results.notificationSent = await sendBookingNotification(data);
+    console.log(`✅ [sendBookingEmails] Notification sent successfully to ${data.slot.creatorEmail}`);
   } catch (error) {
-    console.error('Booking notification failed:', error);
+    console.error(`❌ [sendBookingEmails] Booking notification failed:`, error);
+    if (error instanceof Error) {
+      console.error(`❌ [sendBookingEmails] Error message: ${error.message}`);
+      console.error(`❌ [sendBookingEmails] Error stack: ${error.stack}`);
+    }
   }
 
+  console.log(`📧 [sendBookingEmails] Email send complete. Results:`, results);
   return results;
 }
 
