@@ -1,0 +1,14 @@
+# QuickSlots Robots.txt
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Disallow API routes and admin pages
+Disallow: /api/
+
+# Allow specific pages
+Allow: /$
+
+# Sitemap location
+Sitemap: https://quickslots.app/sitemap.xml

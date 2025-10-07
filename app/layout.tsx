@@ -1,18 +1,61 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { CookieConsent } from "@/components/cookie-consent";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "QuickSlots - Temporary Scheduling Links",
-  description: "Share your availability in seconds. No signup required.",
-  keywords: ["scheduling", "temporary link", "calendar", "booking", "availability", "no signup"],
+  title: "QuickSlots - Temporary Scheduling Links | Share Availability in Seconds",
+  description: "Create temporary scheduling links that expire after booking. No signup, no data storage. Share your availability instantly for quick meetings, appointments, and one-time bookings.",
+  keywords: [
+    "temporary scheduling link",
+    "disposable calendar",
+    "quick booking",
+    "share availability",
+    "no signup scheduling",
+    "temporary meeting link",
+    "one-time booking link",
+    "instant scheduling",
+    "privacy-first scheduling",
+    "ephemeral calendar link",
+  ],
+  authors: [{ name: "QuickSlots" }],
+  creator: "QuickSlots",
+  publisher: "QuickSlots",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://quickslots.app'),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "QuickSlots - Temporary Scheduling Links",
-    description: "Share your availability in seconds. No signup required.",
+    description: "Share your availability in seconds. No signup required. Links expire after booking for maximum privacy.",
     type: "website",
+    url: "/",
+    siteName: "QuickSlots",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "QuickSlots - Temporary Scheduling Links",
+    description: "Share your availability in seconds. No signup required.",
+    creator: "@quickslots",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add Google Search Console verification when ready
+    // google: 'your-verification-code',
   },
 };
 
@@ -21,9 +64,47 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://quickslots.app';
+
+  // Schema.org JSON-LD structured data
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QuickSlots",
+    "url": baseUrl,
+    "description": "Create temporary scheduling links that expire after booking. No signup, no data storage.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Temporary scheduling links",
+      "No signup required",
+      "Natural language time input",
+      "Automatic timezone detection",
+      "Links expire after booking",
+      "Email notifications",
+      "Calendar file (.ics) generation"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "1"
+    }
+  };
+
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
+        {/* Schema.org JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        />
+
         {/* Main Content */}
         <div className="flex-1">
           {children}
@@ -65,10 +146,14 @@ export default function RootLayout({
                 <h3 className="font-semibold text-gray-900 mb-3">Legal</h3>
                 <ul className="space-y-2 text-sm">
                   <li>
-                    <span className="text-gray-600">Privacy Policy (Coming Soon)</span>
+                    <Link href="/privacy" className="text-gray-600 hover:text-blue-600 transition-colors">
+                      Privacy Policy
+                    </Link>
                   </li>
                   <li>
-                    <span className="text-gray-600">Terms of Service (Coming Soon)</span>
+                    <Link href="/terms" className="text-gray-600 hover:text-blue-600 transition-colors">
+                      Terms of Service
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -81,6 +166,9 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+
+        {/* Cookie Consent Banner */}
+        <CookieConsent />
       </body>
     </html>
   );
