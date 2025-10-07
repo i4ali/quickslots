@@ -81,40 +81,29 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       {/* Hero Section */}
       <div className="max-w-4xl mx-auto px-4 py-16 sm:py-24">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-4">
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             ⚡ QuickSlots
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-600 mb-2">
+          <p className="text-xl sm:text-2xl text-gray-300 mb-2">
             Share your availability in seconds
           </p>
-          <p className="text-gray-500">
+          <p className="text-gray-400">
             No signup. Link expires after booking.
           </p>
         </div>
 
         {/* Main Form Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 mb-12">
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-slate-600 p-8 mb-12">
           <div className="space-y-6">
-            {/* Success Banner */}
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <p className="text-sm text-green-800 text-center">
-                <strong>✅ Story 2.5 Complete:</strong> Confirmation page with countdown timer is live!
-                <br />
-                <span className="text-green-700">
-                  Try it out: Type "tomorrow 2-4pm", add your email, and generate a shareable scheduling link!
-                </span>
-              </p>
-            </div>
-
             {/* Error Display */}
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 rounded-lg p-4">
-                <p className="text-sm text-red-800 font-medium">
+              <div className="bg-red-500/10 border-2 border-red-500/30 rounded-lg p-4">
+                <p className="text-sm text-red-400 font-medium">
                   ⚠️ {error}
                 </p>
               </div>
@@ -123,7 +112,7 @@ export default function Home() {
             {/* Form Fields */}
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-semibold text-gray-200 mb-2">
                   Your Name (optional)
                 </label>
                 <input
@@ -132,20 +121,20 @@ export default function Home() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   onBlur={() => setTouched({ ...touched, name: true })}
-                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/70 text-gray-100 placeholder-gray-400 ${
                     nameError
-                      ? 'border-red-300 focus:border-red-500'
-                      : 'border-gray-300 focus:border-blue-500'
+                      ? 'border-red-500 focus:border-red-400'
+                      : 'border-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30'
                   }`}
                 />
                 {nameError && (
-                  <p className="text-xs text-red-600 mt-1">{nameError}</p>
+                  <p className="text-xs text-red-400 mt-1">{nameError}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Your Email <span className="text-red-500">*</span>
+                <label className="block text-sm font-semibold text-gray-200 mb-2">
+                  Your Email <span className="text-red-400">*</span>
                 </label>
                 <input
                   type="email"
@@ -153,19 +142,19 @@ export default function Home() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onBlur={() => setTouched({ ...touched, email: true })}
-                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/70 text-gray-100 placeholder-gray-400 ${
                     emailError
-                      ? 'border-red-300 focus:border-red-500'
-                      : 'border-gray-300 focus:border-blue-500'
+                      ? 'border-red-500 focus:border-red-400'
+                      : 'border-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30'
                   }`}
                 />
                 {emailError && (
-                  <p className="text-xs text-red-600 mt-1">{emailError}</p>
+                  <p className="text-xs text-red-400 mt-1">{emailError}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-semibold text-gray-200 mb-2">
                   Meeting Purpose (optional)
                 </label>
                 <input
@@ -174,14 +163,14 @@ export default function Home() {
                   value={purpose}
                   onChange={(e) => setPurpose(e.target.value)}
                   onBlur={() => setTouched({ ...touched, purpose: true })}
-                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/70 text-gray-100 placeholder-gray-400 ${
                     purposeError
-                      ? 'border-red-300 focus:border-red-500'
-                      : 'border-gray-300 focus:border-blue-500'
+                      ? 'border-red-500 focus:border-red-400'
+                      : 'border-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30'
                   }`}
                 />
                 {purposeError && (
-                  <p className="text-xs text-red-600 mt-1">{purposeError}</p>
+                  <p className="text-xs text-red-400 mt-1">{purposeError}</p>
                 )}
               </div>
 
@@ -233,79 +222,67 @@ export default function Home() {
 
         {/* Features */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
+          <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
             <div className="text-3xl mb-2">⚡</div>
-            <h3 className="font-semibold text-gray-900 mb-1">Instant</h3>
-            <p className="text-sm text-gray-600">Create links in seconds</p>
+            <h3 className="font-semibold text-gray-100 mb-1">Instant</h3>
+            <p className="text-sm text-gray-400">Create links in seconds</p>
           </div>
 
-          <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
+          <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
             <div className="text-3xl mb-2">🔒</div>
-            <h3 className="font-semibold text-gray-900 mb-1">Private</h3>
-            <p className="text-sm text-gray-600">No signup required</p>
+            <h3 className="font-semibold text-gray-100 mb-1">Private</h3>
+            <p className="text-sm text-gray-400">No signup required</p>
           </div>
 
-          <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
+          <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
             <div className="text-3xl mb-2">⏰</div>
-            <h3 className="font-semibold text-gray-900 mb-1">Temporary</h3>
-            <p className="text-sm text-gray-600">Expires after 24 hours</p>
+            <h3 className="font-semibold text-gray-100 mb-1">Temporary</h3>
+            <p className="text-sm text-gray-400">Expires after 24 hours</p>
           </div>
 
-          <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
+          <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
             <div className="text-3xl mb-2">🗑️</div>
-            <h3 className="font-semibold text-gray-900 mb-1">Zero Data</h3>
-            <p className="text-sm text-gray-600">Auto-deleted forever</p>
+            <h3 className="font-semibold text-gray-100 mb-1">Zero Data</h3>
+            <p className="text-sm text-gray-400">Auto-deleted forever</p>
           </div>
         </div>
 
         {/* How It Works */}
-        <div className="bg-white rounded-xl border border-gray-200 p-8">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
+        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border-2 border-slate-600 p-8">
+          <h2 className="text-2xl font-bold text-gray-100 text-center mb-8">
             How It Works
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30">
                 1
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Share Availability</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-gray-100 mb-2">Share Availability</h3>
+              <p className="text-sm text-gray-400">
                 Type when you're free in plain English
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30">
                 2
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Share Your Link</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-gray-100 mb-2">Share Your Link</h3>
+              <p className="text-sm text-gray-400">
                 Send the link via email, text, or chat
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30">
                 3
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Get Confirmed</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-gray-100 mb-2">Get Confirmed</h3>
+              <p className="text-sm text-gray-400">
                 Both parties receive email confirmation
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Development Status */}
-        <div className="mt-12 text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full text-sm text-green-800">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="font-medium">Story 2.5 Complete:</span>
-            <span>Link Created Confirmation Page ✓</span>
-          </div>
-          <p className="text-xs text-gray-500">
-            Phase 1 (Foundation): 5/5 stories complete • Phase 2 (Core Features): 5/14 stories
-          </p>
         </div>
       </div>
     </main>

@@ -178,10 +178,10 @@ export default function BookingPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 text-lg">Loading availability...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-300 text-lg">Loading availability...</p>
         </div>
       </div>
     );
@@ -190,14 +190,14 @@ export default function BookingPage() {
   // Error state (expired, not found, already booked)
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-red-50 to-white">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
         <div className="max-w-2xl mx-auto px-4 py-16">
-          <div className="bg-white rounded-2xl shadow-xl border border-red-200 p-8 text-center">
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-red-500/50 p-8 text-center">
             <div className="text-6xl mb-4">😕</div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-3">
+            <h1 className="text-3xl font-bold text-gray-100 mb-3">
               Link Unavailable
             </h1>
-            <p className="text-gray-600 text-lg mb-8">
+            <p className="text-gray-300 text-lg mb-8">
               {error}
             </p>
             <div className="space-y-4">
@@ -207,7 +207,7 @@ export default function BookingPage() {
               >
                 Create Your Own Link
               </button>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-400">
                 QuickSlots links expire after 24 hours or once booked
               </p>
             </div>
@@ -220,35 +220,35 @@ export default function BookingPage() {
   // No slot data (shouldn't happen, but handle it)
   if (!slotData) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600">No booking information available</p>
+          <p className="text-gray-300">No booking information available</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="text-5xl mb-4">📅</div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-100 mb-3">
             Book Time with {slotData.creatorName}
           </h1>
           {slotData.meetingPurpose && (
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 text-blue-300 rounded-full border border-blue-500/30">
               <span className="font-medium">{slotData.meetingPurpose}</span>
             </div>
           )}
         </div>
 
         {/* Main Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 sm:p-8 mb-8">
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-700 p-6 sm:p-8 mb-8">
           {/* Timezone Info */}
-          <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
-            <p className="text-sm text-purple-900">
+          <div className="mb-6 p-4 bg-purple-600/10 border border-purple-500/30 rounded-lg">
+            <p className="text-sm text-purple-300">
               <strong>🌍 Times shown in your timezone:</strong>{' '}
               <span className="font-mono">{getTimezoneAbbr(userTimezone)}</span>
             </p>
@@ -256,7 +256,7 @@ export default function BookingPage() {
 
           {/* Available Slots */}
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl font-bold text-gray-100 mb-4">
               Select a Time Slot
             </h2>
             <div className="space-y-3">
@@ -276,23 +276,23 @@ export default function BookingPage() {
                     onClick={() => handleSlotSelect(index)}
                     className={`w-full p-5 rounded-lg border-2 transition-all text-left ${
                       isSelected
-                        ? 'border-blue-600 bg-blue-50 shadow-lg scale-105'
-                        : 'border-gray-300 bg-white hover:border-blue-400 hover:shadow-md'
+                        ? 'border-blue-500 bg-blue-600/20 shadow-lg scale-105'
+                        : 'border-slate-600 bg-slate-900/50 hover:border-blue-500/50 hover:shadow-md'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <p className="font-semibold text-gray-900 text-lg mb-1">
+                        <p className="font-semibold text-gray-100 text-lg mb-1">
                           {dateStr}
                         </p>
-                        <p className={`text-sm ${isSelected ? 'text-blue-700' : 'text-gray-600'}`}>
+                        <p className={`text-sm ${isSelected ? 'text-blue-300' : 'text-gray-400'}`}>
                           {startTime} - {endTime} ({getTimezoneAbbr(userTimezone)})
                         </p>
                       </div>
                       <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                         isSelected
-                          ? 'border-blue-600 bg-blue-600'
-                          : 'border-gray-300 bg-white'
+                          ? 'border-blue-500 bg-blue-500'
+                          : 'border-slate-600 bg-slate-900'
                       }`}>
                         {isSelected && (
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -315,31 +315,31 @@ export default function BookingPage() {
               className={`w-full py-4 font-semibold rounded-lg transition-all ${
                 selectedSlot !== null
                   ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-slate-700 text-gray-400 cursor-not-allowed'
               }`}
             >
               {selectedSlot !== null ? 'Continue to Booking →' : 'Select a time slot to continue'}
             </button>
           ) : (
             /* Booking Form */
-            <div className="border-t-2 border-gray-200 pt-8 mt-8">
+            <div className="border-t-2 border-slate-700 pt-8 mt-8">
               <div className="mb-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Your Information</h3>
-                <p className="text-sm text-gray-600">
+                <h3 className="text-xl font-bold text-gray-100 mb-2">Your Information</h3>
+                <p className="text-sm text-gray-400">
                   Enter your details to confirm the booking
                 </p>
               </div>
 
               {/* Selected Slot Display */}
               {selectedSlot !== null && slotData && (
-                <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg">
-                  <p className="text-sm text-green-800 font-semibold mb-1">
+                <div className="mb-6 p-4 bg-emerald-600/10 border-2 border-emerald-500/30 rounded-lg">
+                  <p className="text-sm text-emerald-400 font-semibold mb-1">
                     📅 Your Selected Time:
                   </p>
-                  <p className="text-green-900 font-medium">
+                  <p className="text-emerald-300 font-medium">
                     {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].start), userTimezone, 'EEEE, MMMM d, yyyy')}
                   </p>
-                  <p className="text-green-900">
+                  <p className="text-emerald-300">
                     {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].start), userTimezone, 'h:mm a')} -{' '}
                     {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].end), userTimezone, 'h:mm a')}{' '}
                     ({getTimezoneAbbr(userTimezone)})
@@ -349,7 +349,7 @@ export default function BookingPage() {
                       setShowBookingForm(false);
                       setBookingError(null);
                     }}
-                    className="text-sm text-green-700 hover:text-green-900 underline mt-2"
+                    className="text-sm text-emerald-400 hover:text-emerald-300 underline mt-2"
                   >
                     ← Choose a different time
                   </button>
@@ -358,8 +358,8 @@ export default function BookingPage() {
 
               {/* Error Display */}
               {bookingError && (
-                <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-lg">
-                  <p className="text-sm text-red-800 font-medium">
+                <div className="mb-6 p-4 bg-red-500/10 border-2 border-red-500/30 rounded-lg">
+                  <p className="text-sm text-red-400 font-medium">
                     ⚠️ {bookingError}
                   </p>
                 </div>
@@ -369,8 +369,8 @@ export default function BookingPage() {
               <form onSubmit={handleBookingSubmit} className="space-y-4">
                 {/* Name Input */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    Your Name <span className="text-red-500">*</span>
+                  <label className="block text-sm font-semibold text-gray-200 mb-2">
+                    Your Name <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -378,22 +378,22 @@ export default function BookingPage() {
                     value={bookerName}
                     onChange={(e) => setBookerName(e.target.value)}
                     onBlur={() => setTouched({ ...touched, name: true })}
-                    className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+                    className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/50 text-gray-100 placeholder-gray-500 ${
                       touched.name && !bookerName.trim()
-                        ? 'border-red-300 focus:border-red-500'
-                        : 'border-gray-300 focus:border-blue-500'
+                        ? 'border-red-500/50 focus:border-red-500'
+                        : 'border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
                     }`}
                     disabled={isSubmitting}
                   />
                   {touched.name && !bookerName.trim() && (
-                    <p className="text-xs text-red-600 mt-1">Name is required</p>
+                    <p className="text-xs text-red-400 mt-1">Name is required</p>
                   )}
                 </div>
 
                 {/* Email Input */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    Your Email <span className="text-red-500">*</span>
+                  <label className="block text-sm font-semibold text-gray-200 mb-2">
+                    Your Email <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="email"
@@ -401,27 +401,27 @@ export default function BookingPage() {
                     value={bookerEmail}
                     onChange={(e) => setBookerEmail(e.target.value)}
                     onBlur={() => setTouched({ ...touched, email: true })}
-                    className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+                    className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/50 text-gray-100 placeholder-gray-500 ${
                       touched.email && (!bookerEmail.trim() || !bookerEmail.includes('@'))
-                        ? 'border-red-300 focus:border-red-500'
-                        : 'border-gray-300 focus:border-blue-500'
+                        ? 'border-red-500/50 focus:border-red-500'
+                        : 'border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
                     }`}
                     disabled={isSubmitting}
                   />
                   {touched.email && !bookerEmail.trim() && (
-                    <p className="text-xs text-red-600 mt-1">Email is required</p>
+                    <p className="text-xs text-red-400 mt-1">Email is required</p>
                   )}
                   {touched.email && bookerEmail.trim() && !bookerEmail.includes('@') && (
-                    <p className="text-xs text-red-600 mt-1">Please enter a valid email</p>
+                    <p className="text-xs text-red-400 mt-1">Please enter a valid email</p>
                   )}
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-400 mt-1">
                     You'll receive a confirmation email with calendar invite
                   </p>
                 </div>
 
                 {/* Note Input (Optional) */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-sm font-semibold text-gray-200 mb-2">
                     Add a note (optional)
                   </label>
                   <textarea
@@ -429,10 +429,10 @@ export default function BookingPage() {
                     value={bookerNote}
                     onChange={(e) => setBookerNote(e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                    className="w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all resize-none bg-slate-900/50 text-gray-100 placeholder-gray-500 border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     disabled={isSubmitting}
                   />
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-400 mt-1">
                     This note will be shared with {slotData?.creatorName || 'the creator'}
                   </p>
                 </div>
@@ -443,8 +443,8 @@ export default function BookingPage() {
                   disabled={isSubmitting || !bookerName.trim() || !bookerEmail.trim() || !bookerEmail.includes('@')}
                   className={`w-full py-4 font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
                     isSubmitting || !bookerName.trim() || !bookerEmail.trim() || !bookerEmail.includes('@')
-                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      : 'bg-green-600 text-white hover:bg-green-700 hover:shadow-lg'
+                      ? 'bg-slate-700 text-gray-400 cursor-not-allowed'
+                      : 'bg-emerald-600 text-white hover:bg-emerald-700 hover:shadow-lg'
                   }`}
                 >
                   {isSubmitting ? (
@@ -480,31 +480,31 @@ export default function BookingPage() {
         </div>
 
         {/* Info Section */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border border-slate-600/50 p-6">
+          <h3 className="font-semibold text-gray-100 mb-4 flex items-center gap-2">
             <span>ℹ️</span> What Happens Next?
           </h3>
-          <ul className="space-y-3 text-sm text-gray-600">
+          <ul className="space-y-3 text-sm text-gray-300">
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xs font-bold border border-blue-500/30">
                 1
               </span>
               <span>Enter your name and email</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xs font-bold border border-blue-500/30">
                 2
               </span>
               <span>Both you and {slotData.creatorName} will receive email confirmations</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xs font-bold border border-blue-500/30">
                 3
               </span>
               <span>Calendar invites (.ics files) will be attached to make it easy to add to your calendar</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xs font-bold border border-blue-500/30">
                 4
               </span>
               <span>This link will expire immediately after booking (one-time use)</span>
@@ -514,8 +514,8 @@ export default function BookingPage() {
 
         {/* Development Status */}
         <div className="mt-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full text-sm text-green-800">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-sm text-emerald-400">
+            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
             <span className="font-medium">Story 2.8 Complete:</span>
             <span>Booking API ✓</span>
           </div>
