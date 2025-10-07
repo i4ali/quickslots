@@ -38,6 +38,13 @@ export function getTimezoneAbbreviation(timezone?: string): string {
 }
 
 /**
+ * Alias for getTimezoneAbbreviation (shorter name)
+ */
+export function getTimezoneAbbr(timezone?: string): string {
+  return getTimezoneAbbreviation(timezone);
+}
+
+/**
  * Format a date with timezone information
  */
 export function formatDateWithTimezone(
@@ -65,6 +72,74 @@ export function formatDateWithTimezone(
     }).format(date);
   } catch (error) {
     console.error('Failed to format date with timezone:', error);
+    return date.toLocaleString();
+  }
+}
+
+/**
+ * Format a date in a specific timezone with custom format
+ * @param date - Date to format
+ * @param timezone - Target timezone (defaults to user's timezone)
+ * @param formatPattern - Format pattern (simplified subset)
+ *   - 'EEEE, MMMM d, yyyy' -> "Monday, January 15, 2025"
+ *   - 'h:mm a' -> "3:30 PM"
+ *   - 'MMM d, yyyy' -> "Jan 15, 2025"
+ */
+export function formatInTimezone(
+  date: Date,
+  timezone?: string,
+  formatPattern?: string
+): string {
+  const tz = timezone || getUserTimezone();
+
+  try {
+    // Default format if no pattern specified
+    if (!formatPattern) {
+      return new Intl.DateTimeFormat('en-US', {
+        timeZone: tz,
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+      }).format(date);
+    }
+
+    // Handle specific format patterns
+    if (formatPattern === 'EEEE, MMMM d, yyyy') {
+      // "Monday, January 15, 2025"
+      return new Intl.DateTimeFormat('en-US', {
+        timeZone: tz,
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(date);
+    } else if (formatPattern === 'h:mm a') {
+      // "3:30 PM"
+      return new Intl.DateTimeFormat('en-US', {
+        timeZone: tz,
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      }).format(date);
+    } else if (formatPattern === 'MMM d, yyyy') {
+      // "Jan 15, 2025"
+      return new Intl.DateTimeFormat('en-US', {
+        timeZone: tz,
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(date);
+    }
+
+    // Fallback to default format
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: tz,
+    }).format(date);
+  } catch (error) {
+    console.error('Failed to format date in timezone:', error);
     return date.toLocaleString();
   }
 }

@@ -67,19 +67,9 @@ export default function Home() {
       }
 
       if (data.success) {
-        // Success! Show the shareable link
+        // Success! Navigate to confirmation page
         console.log('Link created successfully:', data);
-        alert(`Link created successfully!\n\nShare this link:\n${data.shareableUrl}\n\nExpires in 24 hours.`);
-
-        // TODO: In Story 2.5, navigate to confirmation page instead
-        // router.push(`/created/${data.slotId}`);
-
-        // For now, reset form
-        setName('');
-        setEmail('');
-        setPurpose('');
-        setSlots([]);
-        setTouched({ name: false, email: false, purpose: false });
+        router.push(`/created/${data.slotId}`);
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to generate link. Please try again.';
@@ -113,10 +103,10 @@ export default function Home() {
             {/* Success Banner */}
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <p className="text-sm text-green-800 text-center">
-                <strong>✅ Story 2.4 Complete:</strong> Link generation API is live! Links are stored in Redis.
+                <strong>✅ Story 2.5 Complete:</strong> Confirmation page with countdown timer is live!
                 <br />
                 <span className="text-green-700">
-                  Try it out: Type "tomorrow 2-4pm", add your email, and generate a real scheduling link!
+                  Try it out: Type "tomorrow 2-4pm", add your email, and generate a shareable scheduling link!
                 </span>
               </p>
             </div>
@@ -310,11 +300,11 @@ export default function Home() {
         <div className="mt-12 text-center space-y-3">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full text-sm text-green-800">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="font-medium">Story 2.4 Complete:</span>
-            <span>Link Generation API ✓</span>
+            <span className="font-medium">Story 2.5 Complete:</span>
+            <span>Link Created Confirmation Page ✓</span>
           </div>
           <p className="text-xs text-gray-500">
-            Phase 1 (Foundation): 5/5 stories complete • Phase 2 (Core Features): 4/14 stories
+            Phase 1 (Foundation): 5/5 stories complete • Phase 2 (Core Features): 5/14 stories
           </p>
         </div>
       </div>

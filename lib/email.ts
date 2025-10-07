@@ -13,6 +13,7 @@ import {
   type BookingConfirmationData,
   type BookingNotificationData,
 } from './email-templates';
+import { generateBookingICS } from './ics';
 
 // =============================================================================
 // SendGrid Client Initialization
@@ -53,9 +54,24 @@ function initializeSendGrid(): boolean {
 // =============================================================================
 
 /**
+ * Attachment interface for SendGrid
+ */
+interface EmailAttachment {
+  content: string; // Base64 encoded content
+  filename: string;
+  type: string;
+  disposition: string;
+}
+
+/**
  * Send an email via SendGrid
  */
-async function sendEmail(to: string, subject: string, text: string): Promise<boolean> {
+async function sendEmail(
+  to: string,
+  subject: string,
+  text: string,
+  attachments?: EmailAttachment[]
+): Promise<boolean> {
   if (!initializeSendGrid()) {
     throw new Error('SendGrid client not initialized');
   }
@@ -71,6 +87,7 @@ async function sendEmail(to: string, subject: string, text: string): Promise<boo
       },
       subject,
       text,
+      attachments,
     };
 
     await sgMail.send(msg);
@@ -91,7 +108,30 @@ export async function sendBookingConfirmation(
   const { subject, text } = generateBookingConfirmationEmail(data);
 
   try {
-    await sendEmail(data.booking.bookerEmail, subject, text);
+    // Generate .ics file attachment
+    const icsContent = generateBookingICS({
+      creatorName: data.slot.creatorName || 'QuickSlots User',
+      creatorEmail: data.slot.creatorEmail,
+      bookerName: data.booking.bookerName,
+      bookerEmail: data.booking.bookerEmail,
+      meetingPurpose: data.slot.meetingPurpose || 'QuickSlots Meeting',
+      selectedTime: data.booking.selectedTime,
+      duration: 60, // Default 60 minutes
+    });
+
+    // Convert to base64 for SendGrid
+    const icsBase64 = Buffer.from(icsContent).toString('base64');
+
+    const attachments: EmailAttachment[] = [
+      {
+        content: icsBase64,
+        filename: 'meeting.ics',
+        type: 'text/calendar',
+        disposition: 'attachment',
+      },
+    ];
+
+    await sendEmail(data.booking.bookerEmail, subject, text, attachments);
     return true;
   } catch (error) {
     console.error('Failed to send booking confirmation:', error);
@@ -108,7 +148,30 @@ export async function sendBookingNotification(
   const { subject, text } = generateBookingNotificationEmail(data);
 
   try {
-    await sendEmail(data.slot.creatorEmail, subject, text);
+    // Generate .ics file attachment
+    const icsContent = generateBookingICS({
+      creatorName: data.slot.creatorName || 'QuickSlots User',
+      creatorEmail: data.slot.creatorEmail,
+      bookerName: data.booking.bookerName,
+      bookerEmail: data.booking.bookerEmail,
+      meetingPurpose: data.slot.meetingPurpose || 'QuickSlots Meeting',
+      selectedTime: data.booking.selectedTime,
+      duration: 60, // Default 60 minutes
+    });
+
+    // Convert to base64 for SendGrid
+    const icsBase64 = Buffer.from(icsContent).toString('base64');
+
+    const attachments: EmailAttachment[] = [
+      {
+        content: icsBase64,
+        filename: 'meeting.ics',
+        type: 'text/calendar',
+        disposition: 'attachment',
+      },
+    ];
+
+    await sendEmail(data.slot.creatorEmail, subject, text, attachments);
     return true;
   } catch (error) {
     console.error('Failed to send booking notification:', error);

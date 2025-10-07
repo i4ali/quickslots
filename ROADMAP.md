@@ -192,17 +192,17 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.5: Link Created Confirmation Page
+### ✅ Story 2.5: Link Created Confirmation Page
 **Description:** Show confirmation after link is created with copy functionality
 
 **Acceptance Criteria:**
-- [ ] Display generated shareable link
-- [ ] "Copy Link" button with feedback
-- [ ] Expiration countdown (24 hours)
-- [ ] Instructions on what happens next
-- [ ] Tip jar section (optional support message)
-- [ ] "Create Another Link" button
-- [ ] Mobile-responsive
+- [x] Display generated shareable link
+- [x] "Copy Link" button with feedback
+- [x] Expiration countdown (24 hours)
+- [x] Instructions on what happens next
+- [x] Tip jar section (optional support message)
+- [x] "Create Another Link" button
+- [x] Mobile-responsive
 
 **PRD Reference:** Section 6.1 (Link Creator Flow)
 **Dependencies:** Story 2.4
@@ -210,17 +210,17 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.6: Booking Page UI
+### ✅ Story 2.6: Booking Page UI
 **Description:** Create the page where recipients view and book available slots
 
 **Acceptance Criteria:**
-- [ ] Display creator name and meeting purpose
-- [ ] Show all available time slots in recipient's timezone
-- [ ] Timezone clearly displayed (e.g., "2:00 PM EST")
-- [ ] Slot selection interface (clickable, visual feedback)
-- [ ] Expired link state with friendly message
-- [ ] Mobile-friendly interface
-- [ ] Loading states
+- [x] Display creator name and meeting purpose
+- [x] Show all available time slots in recipient's timezone
+- [x] Timezone clearly displayed (e.g., "2:00 PM EST")
+- [x] Slot selection interface (clickable, visual feedback)
+- [x] Expired link state with friendly message
+- [x] Mobile-friendly interface
+- [x] Loading states
 
 **PRD Reference:** Sections 4.4, 6.2 (Booking Interface, Recipient Flow)
 **Dependencies:** Story 1.5
@@ -228,18 +228,18 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.7: Booking Form
+### ✅ Story 2.7: Booking Form
 **Description:** Form for recipients to enter their details and book a slot
 
 **Acceptance Criteria:**
-- [ ] Booker name input (required)
-- [ ] Booker email input (required)
-- [ ] Optional note field
-- [ ] Selected time slot display
-- [ ] Form validation
-- [ ] "Confirm Booking" button
-- [ ] Loading state during booking
-- [ ] Error handling
+- [x] Booker name input (required)
+- [x] Booker email input (required)
+- [x] Optional note field
+- [x] Selected time slot display
+- [x] Form validation
+- [x] "Confirm Booking" button
+- [x] Loading state during booking
+- [x] Error handling
 
 **PRD Reference:** Sections 4.4, 6.2 (Booking Interface, Recipient Flow)
 **Dependencies:** Story 2.6
@@ -247,17 +247,17 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.8: Booking API
+### ✅ Story 2.8: Booking API
 **Description:** Create API endpoint to process slot bookings
 
 **Acceptance Criteria:**
-- [ ] `POST /api/slots/[id]/book` endpoint created
-- [ ] Validate slot exists and not expired
-- [ ] Validate slot not already booked
-- [ ] Store booking data in Redis with same TTL as slot
-- [ ] Mark slot as booked
-- [ ] Return confirmation details
-- [ ] Error handling (expired link, already booked, validation errors)
+- [x] `POST /api/slots/[id]/book` endpoint created
+- [x] Validate slot exists and not expired
+- [x] Validate slot not already booked
+- [x] Store booking data in Redis with same TTL as slot
+- [x] Mark slot as booked
+- [x] Return confirmation details
+- [x] Error handling (expired link, already booked, validation errors)
 
 **PRD Reference:** Sections 7.2 (Backend API)
 **Dependencies:** Story 1.3, Story 2.7
@@ -265,17 +265,17 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.9: Booking Confirmation Page
+### ✅ Story 2.9: Booking Confirmation Page
 **Description:** Show confirmation after successful booking
 
 **Acceptance Criteria:**
-- [ ] Display meeting details (time, creator info)
-- [ ] "Add to Calendar" button (.ics download)
-- [ ] "What's next" explanation
-- [ ] Confirmation that both parties will receive email
-- [ ] Link expired message
-- [ ] Tip jar section (optional)
-- [ ] Mobile-responsive
+- [x] Display meeting details (time, creator info)
+- [x] "Add to Calendar" button (.ics download)
+- [x] "What's next" explanation
+- [x] Confirmation that both parties will receive email
+- [x] Link expired message
+- [x] Tip jar section (optional)
+- [x] Mobile-responsive
 
 **PRD Reference:** Section 6.2 (Recipient Flow)
 **Dependencies:** Story 2.8
@@ -283,42 +283,51 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.10: Email Notifications
+### ✅ Story 2.10: Email Notifications
 **Description:** Send confirmation emails to both creator and booker
 
 **Acceptance Criteria:**
-- [ ] Booking confirmation email sent to booker
-- [ ] Booking notification email sent to creator
-- [ ] Emails contain meeting details in both timezones
-- [ ] Plain text email templates (no complex HTML)
-- [ ] Emails sent asynchronously (don't block booking response)
-- [ ] Error handling (log failures, don't break booking)
-- [ ] Emails match PRD templates (Section 7.5)
+- [x] Booking confirmation email sent to booker
+- [x] Booking notification email sent to creator
+- [x] Emails contain meeting details in both timezones
+- [x] Plain text email templates (no complex HTML)
+- [x] Emails sent asynchronously (don't block booking response)
+- [x] Error handling (log failures, don't break booking)
+- [x] Emails match PRD templates (Section 7.5)
 
 **PRD Reference:** Sections 4.4, 6.2, 7.5 (Email Requirements)
 **Dependencies:** Story 1.4, Story 2.8
 **Complexity:** Medium
 
+**Note:** Email templates were already created in Story 1.4. This story integrated email sending into the booking flow.
+
 ---
 
-### ☐ Story 2.10A: .ics Calendar File Generation
+### ✅ Story 2.10A: .ics Calendar File Generation
 **Description:** Generate .ics calendar files for easy "Add to Calendar" functionality
 
 **Acceptance Criteria:**
-- [ ] .ics file generation utility created (`/lib/ics.ts`)
-- [ ] Generates valid iCalendar format (RFC 5545 compliant)
-- [ ] Includes event details: title, time, location (virtual), description
-- [ ] Handles timezones correctly (UTC + TZID)
-- [ ] .ics file attached to both emails (creator and booker)
-- [ ] "Add to Calendar" download button on confirmation page
-- [ ] Tested with Google Calendar, Outlook, Apple Calendar
-- [ ] File size kept minimal (< 5KB)
+- [x] .ics file generation utility created (`/lib/ics.ts`)
+- [x] Generates valid iCalendar format (RFC 5545 compliant)
+- [x] Includes event details: title, time, location (virtual), description
+- [x] Handles timezones correctly (UTC + TZID)
+- [x] .ics file attached to both emails (creator and booker)
+- [x] "Add to Calendar" download button on confirmation page
+- [ ] Tested with Google Calendar, Outlook, Apple Calendar - Ready for user testing
+- [x] File size kept minimal (< 5KB)
 
 **PRD Reference:** Sections 4.4, 6.2, 7.5 (Booking Interface, Email Templates)
 **Dependencies:** Story 2.10
 **Complexity:** Low-Medium
 
 **Note:** .ics generation is completely free (just text file formatting). No external service needed.
+
+**Implementation Notes:**
+- Created RFC 5545 compliant .ics generator with proper escaping and line folding
+- Browser download functionality using Blob API
+- Email attachments sent as base64-encoded .ics files
+- File includes organizer, attendee, description, location, and meeting details
+- Generated files are typically < 2KB
 
 ---
 
@@ -341,21 +350,23 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 
 ---
 
-### ☐ Story 2.12: Get Slot API
+### ✅ Story 2.12: Get Slot API
 **Description:** Create API endpoint to retrieve slot details for booking page
 
 **Acceptance Criteria:**
-- [ ] `GET /api/slots/[id]` endpoint created
-- [ ] Return slot data if exists and not expired
-- [ ] Return 404 if slot doesn't exist
-- [ ] Return expired status if TTL expired
-- [ ] Return booked status if already booked
-- [ ] Increment view count (optional analytics)
-- [ ] Error handling
+- [x] `GET /api/slots/[id]` endpoint created
+- [x] Return slot data if exists and not expired
+- [x] Return 404 if slot doesn't exist
+- [x] Return expired status if TTL expired
+- [x] Return booked status if already booked
+- [ ] Increment view count (optional analytics) - Skipped for MVP
+- [x] Error handling
 
 **PRD Reference:** Section 7.2 (Backend API)
 **Dependencies:** Story 1.3
 **Complexity:** Low-Medium
+
+**Note:** Implemented together with Story 2.6 as they are tightly coupled
 
 ---
 
