@@ -91,3 +91,5 @@ Your `.env.local` must have:
 UPSTASH_REDIS_REST_URL=your_redis_url
 UPSTASH_REDIS_REST_TOKEN=your_redis_token
 ```
+
+**Note:** The script automatically loads `.env.local` from your project root. No need to set environment variables manually!
