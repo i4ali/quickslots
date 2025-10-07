@@ -7,8 +7,13 @@
  * WARNING: This will delete ALL data in your Redis instance!
  */
 
+import dotenv from 'dotenv';
 import { Redis } from '@upstash/redis';
 import * as readline from 'readline';
+import * as path from 'path';
+
+// Load environment variables from .env.local
+dotenv.config({ path: path.join(process.cwd(), '.env.local') });
 
 // Initialize Redis client
 function getRedisClient(): Redis | null {
