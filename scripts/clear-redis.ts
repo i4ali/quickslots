@@ -64,7 +64,7 @@ async function main() {
   const otherKeys: string[] = [];
 
   // Scan keys with pattern matching
-  let cursor = 0;
+  let cursor: string | number = 0;
   let allKeys: string[] = [];
 
   do {
@@ -73,7 +73,7 @@ async function main() {
     cursor = result[0];
     const keys = result[1];
     allKeys = allKeys.concat(keys);
-  } while (cursor !== 0);
+  } while (cursor !== 0 && cursor !== '0');
 
   // Categorize keys
   for (const key of allKeys) {
