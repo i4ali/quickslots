@@ -69,7 +69,7 @@ async function main() {
 
   do {
     // Upstash scan returns [nextCursor, keys]
-    const result = await redis.scan(cursor, { count: 100 });
+    const result: [string | number, string[]] = await redis.scan(cursor, { count: 100 });
     cursor = result[0];
     const keys = result[1];
     allKeys = allKeys.concat(keys);
