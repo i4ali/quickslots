@@ -139,20 +139,22 @@ export async function POST(
 
     console.log(`✅ Booking confirmed for slot ${slotId} by ${bookerEmail}`);
 
-    // Send confirmation emails (async, don't block response)
+    // Send confirmation emails
     // Story 2.10: Email Notifications
-    sendBookingEmails({ slot, booking })
-      .then((results) => {
-        if (results.confirmationSent && results.notificationSent) {
-          console.log(`✅ All booking emails sent successfully for ${slotId}`);
-        } else {
-          console.warn(`⚠️  Some emails failed for ${slotId}:`, results);
-        }
-      })
-      .catch((error) => {
-        // Log error but don't fail the booking
-        console.error(`❌ Email sending failed for ${slotId}:`, error);
-      });
+    // Note: We await this to ensure emails are sent before the serverless function terminates
+    // This adds ~1-2s latency but ensures reliable email delivery
+    try {
+      const emailResults = await sendBookingEmails({ slot, booking });
+      if (emailResults.confirmationSent && emailResults.notificationSent) {
+        console.log(`✅ All booking emails sent successfully for ${slotId}`);
+      } else {
+        console.warn(`⚠️  Some emails failed for ${slotId}:`, emailResults);
+      }
+    } catch (error) {
+      // Log error but don't fail the booking
+      // The booking is already saved, so we don't want to return an error to the user
+      console.error(`❌ Email sending failed for ${slotId}:`, error);
+    }
 
     // Return success response
     return NextResponse.json({
