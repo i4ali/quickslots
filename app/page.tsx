@@ -221,67 +221,133 @@ export default function Home() {
         </div>
 
         {/* Features */}
+        <h2 className="text-3xl font-bold text-gray-100 text-center mb-8">
+          Why Choose QuickSlots?
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
-            <div className="text-3xl mb-2">⚡</div>
-            <h3 className="font-semibold text-gray-100 mb-1">Instant</h3>
+            <div className="text-3xl mb-2" aria-hidden="true">⚡</div>
+            <h3 className="font-semibold text-gray-100 mb-1 text-lg">Instant Scheduling</h3>
             <p className="text-sm text-gray-400">Create links in seconds</p>
           </div>
 
           <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
-            <div className="text-3xl mb-2">🔒</div>
-            <h3 className="font-semibold text-gray-100 mb-1">Private</h3>
+            <div className="text-3xl mb-2" aria-hidden="true">🔒</div>
+            <h3 className="font-semibold text-gray-100 mb-1 text-lg">Privacy-First</h3>
             <p className="text-sm text-gray-400">No signup required</p>
           </div>
 
           <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
-            <div className="text-3xl mb-2">⏰</div>
-            <h3 className="font-semibold text-gray-100 mb-1">Temporary</h3>
+            <div className="text-3xl mb-2" aria-hidden="true">⏰</div>
+            <h3 className="font-semibold text-gray-100 mb-1 text-lg">Temporary Links</h3>
             <p className="text-sm text-gray-400">Expires after 24 hours</p>
           </div>
 
           <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
-            <div className="text-3xl mb-2">🗑️</div>
-            <h3 className="font-semibold text-gray-100 mb-1">Zero Data</h3>
+            <div className="text-3xl mb-2" aria-hidden="true">🗑️</div>
+            <h3 className="font-semibold text-gray-100 mb-1 text-lg">Zero Data Retention</h3>
             <p className="text-sm text-gray-400">Auto-deleted forever</p>
           </div>
         </div>
 
         {/* How It Works */}
-        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border-2 border-slate-600 p-8">
+        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border-2 border-slate-600 p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-100 text-center mb-8">
             How It Works
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30">
+              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30" aria-label="Step 1">
                 1
               </div>
-              <h3 className="font-semibold text-gray-100 mb-2">Share Availability</h3>
+              <h3 className="font-semibold text-gray-100 mb-2 text-lg">Share Availability</h3>
               <p className="text-sm text-gray-400">
                 Type when you're free in plain English
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30">
+              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30" aria-label="Step 2">
                 2
               </div>
-              <h3 className="font-semibold text-gray-100 mb-2">Share Your Link</h3>
+              <h3 className="font-semibold text-gray-100 mb-2 text-lg">Share Your Link</h3>
               <p className="text-sm text-gray-400">
                 Send the link via email, text, or chat
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30">
+              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30" aria-label="Step 3">
                 3
               </div>
-              <h3 className="font-semibold text-gray-100 mb-2">Get Confirmed</h3>
+              <h3 className="font-semibold text-gray-100 mb-2 text-lg">Get Confirmed</h3>
               <p className="text-sm text-gray-400">
                 Both parties receive email confirmation
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border-2 border-slate-600 p-8">
+          <h2 className="text-2xl font-bold text-gray-100 text-center mb-8">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-4 max-w-3xl mx-auto">
+            {/* FAQ 1 */}
+            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
+              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+                How long do QuickSlots links last?
+                <span className="text-blue-400 text-xl">+</span>
+              </summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                Links expire after 24 hours or immediately after booking, whichever comes first. All data is automatically deleted for maximum privacy.
+              </p>
+            </details>
+
+            {/* FAQ 2 */}
+            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
+              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+                Do I need to create an account?
+                <span className="text-blue-400 text-xl">+</span>
+              </summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                No! QuickSlots requires no signup or account creation. Simply enter your email, share your availability, and generate a link instantly.
+              </p>
+            </details>
+
+            {/* FAQ 3 */}
+            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
+              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+                Is QuickSlots free?
+                <span className="text-blue-400 text-xl">+</span>
+              </summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                Yes, QuickSlots is completely free to use. You can create unlimited temporary scheduling links at no cost.
+              </p>
+            </details>
+
+            {/* FAQ 4 */}
+            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
+              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+                What happens to my data?
+                <span className="text-blue-400 text-xl">+</span>
+              </summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                All data is automatically deleted after 24 hours. We don't store, archive, or retain any information beyond the temporary period needed for booking.
+              </p>
+            </details>
+
+            {/* FAQ 5 */}
+            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
+              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+                How do I enter my availability?
+                <span className="text-blue-400 text-xl">+</span>
+              </summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                QuickSlots uses natural language processing. Simply type times like "tomorrow 2-4pm" or "next Friday at 3pm" and the system automatically understands and converts them.
+              </p>
+            </details>
           </div>
         </div>
       </div>
