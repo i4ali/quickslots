@@ -511,15 +511,6 @@ export default function BookingPage() {
             </li>
           </ul>
         </div>
-
-        {/* Development Status */}
-        <div className="mt-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-sm text-emerald-400">
-            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="font-medium">Story 2.8 Complete:</span>
-            <span>Booking API ✓</span>
-          </div>
-        </div>
       </div>
     </div>
   );
