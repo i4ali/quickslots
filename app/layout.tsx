@@ -35,12 +35,30 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "QuickSlots",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "QuickSlots - Temporary Scheduling Links",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "QuickSlots - Temporary Scheduling Links",
     description: "Share your availability in seconds. No signup required.",
     creator: "@quickslots",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   robots: {
     index: true,
@@ -54,8 +72,10 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add Google Search Console verification when ready
-    // google: 'your-verification-code',
+    // Add Google Search Console verification code here
+    // After you click CONTINUE in Google Search Console, you'll get a code
+    // Paste it here like: google: 'ABC123xyz...'
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 };
 
@@ -88,12 +108,7 @@ export default function RootLayout({
       "Links expire after booking",
       "Email notifications",
       "Calendar file (.ics) generation"
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "ratingCount": "1"
-    }
+    ]
   };
 
   return (

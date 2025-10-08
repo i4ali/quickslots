@@ -285,6 +285,92 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* HowTo Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "How to Create a Temporary Scheduling Link",
+            "description": "Learn how to share your availability and book meetings using QuickSlots",
+            "step": [
+              {
+                "@type": "HowToStep",
+                "name": "Share Availability",
+                "text": "Type when you're free in plain English",
+                "position": 1
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Share Your Link",
+                "text": "Send the link via email, text, or chat",
+                "position": 2
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Get Confirmed",
+                "text": "Both parties receive email confirmation",
+                "position": 3
+              }
+            ]
+          })
+        }}
+      />
+
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How long do QuickSlots links last?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Links expire after 24 hours or immediately after booking, whichever comes first. All data is automatically deleted for maximum privacy."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do I need to create an account?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No! QuickSlots requires no signup or account creation. Simply enter your email, share your availability, and generate a link instantly."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is QuickSlots free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, QuickSlots is completely free to use. You can create unlimited temporary scheduling links at no cost."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What happens to my data?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "All data is automatically deleted after 24 hours. We don't store, archive, or retain any information beyond the temporary period needed for booking."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I enter my availability?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "QuickSlots uses natural language processing. Simply type times like 'tomorrow 2-4pm' or 'next Friday at 3pm' and the system automatically understands and converts them."
+                }
+              }
+            ]
+          })
+        }}
+      />
     </main>
   );
 }

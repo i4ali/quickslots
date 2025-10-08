@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { formatInTimezone, getTimezoneAbbr } from '@/lib/timezone';
 
+// Metadata can't be exported from client components, but we can add it via layout
+// For now, add head tags manually in the component
+
 interface TimeSlot {
   start: string; // ISO string
   end: string; // ISO string
