@@ -301,15 +301,6 @@ export default function BookingConfirmationPage() {
             Download Calendar File
           </button>
         </div>
-
-        {/* Development Status */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-sm text-emerald-400">
-            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="font-medium">Stories 2.9, 2.10 & 2.10A Complete:</span>
-            <span>Confirmation + Emails + Calendar Files ✓</span>
-          </div>
-        </div>
       </div>
     </div>
   );
