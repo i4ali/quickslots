@@ -150,6 +150,11 @@ export default function RootLayout({
                     </Link>
                   </li>
                   <li>
+                    <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition-colors">
+                      Blog
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/api/health" className="text-gray-600 hover:text-blue-600 transition-colors">
                       System Status
                     </Link>
