@@ -11,4 +11,4 @@ Disallow: /api/
 Allow: /$
 
 # Sitemap location
-Sitemap: https://quickslots.app/sitemap.xml
+Sitemap: https://quickslots.vercel.app/sitemap.xml
