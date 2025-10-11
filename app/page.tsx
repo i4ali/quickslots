@@ -91,7 +91,7 @@ export default function Home() {
             ⚡ QuickSlots
           </h1>
           <p className="text-xl sm:text-2xl text-gray-300 mb-2">
-            Temporary Scheduling Links - Share Your Availability in Seconds
+            Share Your Availability in Seconds
           </p>
           <p className="text-gray-400">
             No signup. Perfect for temporary scheduling. Links expire after booking.
