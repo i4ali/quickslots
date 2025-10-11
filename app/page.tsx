@@ -221,29 +221,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* What is Temporary Scheduling Section */}
-        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border-2 border-slate-600 p-8 mb-12">
-          <h2 className="text-3xl font-bold text-gray-100 mb-6">
-            What is Temporary Scheduling?
-          </h2>
-          <div className="space-y-4 text-gray-300 leading-relaxed">
-            <p>
-              <strong className="text-white">Temporary scheduling</strong> is a privacy-first approach to meeting coordination that uses disposable, time-limited links instead of permanent calendar access. Unlike traditional scheduling tools that require accounts and store your data indefinitely, temporary scheduling software creates links that automatically expire after use.
-            </p>
-            <p>
-              Perfect for <strong className="text-white">one-time meetings</strong>, job interviews, sales calls, and appointments where you don't want to share your full calendar or create lasting digital footprints. With temporary scheduling, your availability is shared only when needed—no calendar integration required.
-            </p>
-            <p>
-              <strong className="text-white">Why use temporary scheduling tools?</strong> They're ideal when you need to schedule quickly without the overhead of creating accounts, managing recurring availability, or worrying about data privacy. Simply share your open time slots for that specific meeting, and the link disappears after booking or within 24 hours.
-            </p>
-            <p className="text-blue-300">
-              <Link href="/temporary-scheduling" className="underline hover:text-blue-200">
-                Learn more about temporary scheduling →
-              </Link>
-            </p>
-          </div>
-        </div>
-
         {/* Features */}
         <h2 className="text-3xl font-bold text-gray-100 text-center mb-8">
           Why Choose QuickSlots?
@@ -318,6 +295,27 @@ export default function Home() {
             Frequently Asked Questions
           </h2>
           <div className="space-y-4 max-w-3xl mx-auto">
+            {/* FAQ 0 - What is Temporary Scheduling */}
+            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
+              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+                What is temporary scheduling?
+                <span className="text-blue-400 text-xl">+</span>
+              </summary>
+              <div className="text-gray-300 mt-4 leading-relaxed space-y-3">
+                <p>
+                  <strong className="text-white">Temporary scheduling</strong> is a privacy-first approach to meeting coordination that uses disposable, time-limited links instead of permanent calendar access. Unlike traditional scheduling tools that require accounts and store your data indefinitely, temporary scheduling software creates links that automatically expire after use.
+                </p>
+                <p>
+                  Perfect for <strong className="text-white">one-time meetings</strong>, job interviews, sales calls, and appointments where you don't want to share your full calendar or create lasting digital footprints. With temporary scheduling, your availability is shared only when needed—no calendar integration required.
+                </p>
+                <p>
+                  <Link href="/temporary-scheduling" className="text-blue-300 underline hover:text-blue-200">
+                    Learn more about temporary scheduling →
+                  </Link>
+                </p>
+              </div>
+            </details>
+
             {/* FAQ 1 */}
             <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
               <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
