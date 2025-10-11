@@ -78,7 +78,7 @@ export default function CalendlyAlternativesPost() {
         </div>
 
         <p className="text-gray-700 mb-4">
-          QuickSlots is a unique scheduling tool designed for temporary, one-time bookings with maximum privacy.
+          QuickSlots is a unique <Link href="/temporary-scheduling">temporary scheduling tool</Link> designed for one-time bookings with maximum privacy.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -313,6 +313,18 @@ export default function CalendlyAlternativesPost() {
       <div className="border-t border-gray-200 pt-8 mt-12 not-prose">
         <h3 className="text-lg font-bold text-gray-900 mb-4">Related Articles</h3>
         <div className="space-y-3">
+          <Link
+            href="/temporary-scheduling"
+            className="block text-blue-600 hover:text-blue-700 font-medium"
+          >
+            → What is Temporary Scheduling? Complete Guide
+          </Link>
+          <Link
+            href="/blog/temporary-scheduling-solutions-2025"
+            className="block text-blue-600 hover:text-blue-700 font-medium"
+          >
+            → Best Temporary Scheduling Solutions for 2025
+          </Link>
           <Link
             href="/blog/schedule-meetings-without-sharing-calendar"
             className="block text-blue-600 hover:text-blue-700 font-medium"

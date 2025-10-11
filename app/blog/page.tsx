@@ -8,6 +8,14 @@ export const metadata: Metadata = {
 
 const blogPosts = [
   {
+    slug: "temporary-scheduling-solutions-2025",
+    title: "Best Temporary Scheduling Solutions for 2025",
+    description: "Compare the best temporary scheduling tools and software for 2025. Find the perfect solution for meetings, interviews, and appointments without calendar integration.",
+    date: "2025-10-11",
+    readTime: "10 min read",
+    category: "Comparisons",
+  },
+  {
     slug: "best-free-calendly-alternatives-2025",
     title: "Best Free Calendly Alternatives 2025",
     description: "Discover the top free alternatives to Calendly for scheduling meetings without breaking the bank. Compare features, privacy policies, and ease of use.",

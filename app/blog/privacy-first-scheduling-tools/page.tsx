@@ -70,7 +70,7 @@ export default function PrivacySchedulingPost() {
 
       <h3>2. No Permanent Storage</h3>
       <p>
-        The best privacy is no data retention. Temporary storage with automatic deletion is ideal.
+        The best privacy is no data retention. <Link href="/temporary-scheduling">Temporary scheduling tools</Link> with automatic deletion are ideal for maximum privacy.
       </p>
 
       <h3>3. No Tracking or Analytics</h3>
@@ -367,6 +367,18 @@ export default function PrivacySchedulingPost() {
       <div className="border-t border-gray-200 pt-8 mt-12 not-prose">
         <h3 className="text-lg font-bold text-gray-900 mb-4">Related Articles</h3>
         <div className="space-y-3">
+          <Link
+            href="/temporary-scheduling"
+            className="block text-green-600 hover:text-green-700 font-medium"
+          >
+            → What is Temporary Scheduling? Complete Guide
+          </Link>
+          <Link
+            href="/blog/temporary-scheduling-solutions-2025"
+            className="block text-green-600 hover:text-green-700 font-medium"
+          >
+            → Best Temporary Scheduling Solutions for 2025
+          </Link>
           <Link
             href="/blog/schedule-meetings-without-sharing-calendar"
             className="block text-green-600 hover:text-green-700 font-medium"

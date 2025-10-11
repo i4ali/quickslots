@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { SlotManager } from '@/components/slot-manager';
 import { TimeSlot } from '@/components/availability-input';
 import { TimezoneSelector } from '@/components/timezone-selector';
@@ -90,10 +91,10 @@ export default function Home() {
             ⚡ QuickSlots
           </h1>
           <p className="text-xl sm:text-2xl text-gray-300 mb-2">
-            Share your availability in seconds
+            Temporary Scheduling Links - Share Your Availability in Seconds
           </p>
           <p className="text-gray-400">
-            No signup. Link expires after booking.
+            No signup. Perfect for temporary scheduling. Links expire after booking.
           </p>
         </div>
 
@@ -217,6 +218,29 @@ export default function Home() {
                 'Add email and availability to continue'
               )}
             </button>
+          </div>
+        </div>
+
+        {/* What is Temporary Scheduling Section */}
+        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border-2 border-slate-600 p-8 mb-12">
+          <h2 className="text-3xl font-bold text-gray-100 mb-6">
+            What is Temporary Scheduling?
+          </h2>
+          <div className="space-y-4 text-gray-300 leading-relaxed">
+            <p>
+              <strong className="text-white">Temporary scheduling</strong> is a privacy-first approach to meeting coordination that uses disposable, time-limited links instead of permanent calendar access. Unlike traditional scheduling tools that require accounts and store your data indefinitely, temporary scheduling software creates links that automatically expire after use.
+            </p>
+            <p>
+              Perfect for <strong className="text-white">one-time meetings</strong>, job interviews, sales calls, and appointments where you don't want to share your full calendar or create lasting digital footprints. With temporary scheduling, your availability is shared only when needed—no calendar integration required.
+            </p>
+            <p>
+              <strong className="text-white">Why use temporary scheduling tools?</strong> They're ideal when you need to schedule quickly without the overhead of creating accounts, managing recurring availability, or worrying about data privacy. Simply share your open time slots for that specific meeting, and the link disappears after booking or within 24 hours.
+            </p>
+            <p className="text-blue-300">
+              <Link href="/temporary-scheduling" className="underline hover:text-blue-200">
+                Learn more about temporary scheduling →
+              </Link>
+            </p>
           </div>
         </div>
 

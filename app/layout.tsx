@@ -8,10 +8,16 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "QuickSlots - Temporary Scheduling Links | Share Availability in Seconds",
-  description: "Create temporary scheduling links that expire after booking. No signup, no data storage. Share your availability instantly for quick meetings, appointments, and one-time bookings.",
+  title: "QuickSlots - Temporary Scheduling Links | No Signup Required",
+  description: "QuickSlots creates temporary scheduling links that expire after booking. Perfect for temporary scheduling of meetings, interviews, and appointments. No signup, no data storage.",
   keywords: [
+    "temporary scheduling",
     "temporary scheduling link",
+    "temporary scheduling tool",
+    "temporary scheduling software",
+    "temporary appointment scheduling",
+    "temporary meeting scheduler",
+    "temporary calendar scheduling",
     "disposable calendar",
     "quick booking",
     "share availability",
@@ -25,13 +31,13 @@ export const metadata: Metadata = {
   authors: [{ name: "QuickSlots" }],
   creator: "QuickSlots",
   publisher: "QuickSlots",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://quickslots.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://quickslots.vercel.app'),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "QuickSlots - Temporary Scheduling Links",
-    description: "Share your availability in seconds. No signup required. Links expire after booking for maximum privacy.",
+    title: "QuickSlots - Temporary Scheduling Links | No Signup Required",
+    description: "Create temporary scheduling links that expire after booking. Perfect for meetings, interviews, and appointments. No signup required.",
     type: "website",
     url: "/",
     siteName: "QuickSlots",
@@ -85,7 +91,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://quickslots.app';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://quickslots.vercel.app';
 
   // Schema.org JSON-LD structured data
   const schemaData = {
@@ -93,7 +99,7 @@ export default function RootLayout({
     "@type": "WebApplication",
     "name": "QuickSlots",
     "url": baseUrl,
-    "description": "Create temporary scheduling links that expire after booking. No signup, no data storage.",
+    "description": "QuickSlots is a temporary scheduling tool for creating disposable meeting links. Create temporary scheduling links that expire after booking. Perfect for temporary appointment scheduling, job interviews, and one-time meetings. No signup, no data storage.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
     "offers": {
@@ -103,6 +109,8 @@ export default function RootLayout({
     },
     "featureList": [
       "Temporary scheduling links",
+      "Temporary appointment scheduling",
+      "Temporary meeting scheduler",
       "No signup required",
       "Natural language time input",
       "Automatic timezone detection",
