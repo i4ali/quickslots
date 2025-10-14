@@ -8,8 +8,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "QuickSlots - Temporary Scheduling Links | No Signup Required",
-  description: "QuickSlots creates temporary scheduling links that expire after booking. Perfect for temporary scheduling of meetings, interviews, and appointments. No signup, no data storage.",
+  title: "WhenAvailable - Share Availability Instantly | No Signup Required",
+  description: "WhenAvailable creates temporary scheduling links that expire after booking. Perfect for temporary scheduling of meetings, interviews, and appointments. No signup, no data storage.",
   keywords: [
     "temporary scheduling",
     "temporary scheduling link",
@@ -28,34 +28,34 @@ export const metadata: Metadata = {
     "privacy-first scheduling",
     "ephemeral calendar link",
   ],
-  authors: [{ name: "QuickSlots" }],
-  creator: "QuickSlots",
-  publisher: "QuickSlots",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://quickslots.vercel.app'),
+  authors: [{ name: "WhenAvailable" }],
+  creator: "WhenAvailable",
+  publisher: "WhenAvailable",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://whenavailable.app'),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "QuickSlots - Temporary Scheduling Links | No Signup Required",
+    title: "WhenAvailable - Share Availability Instantly | No Signup Required",
     description: "Create temporary scheduling links that expire after booking. Perfect for meetings, interviews, and appointments. No signup required.",
     type: "website",
     url: "/",
-    siteName: "QuickSlots",
+    siteName: "WhenAvailable",
     locale: "en_US",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "QuickSlots - Temporary Scheduling Links",
+        alt: "WhenAvailable - Share Availability Instantly",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "QuickSlots - Temporary Scheduling Links",
-    description: "Share your availability in seconds. No signup required.",
-    creator: "@quickslots",
+    title: "WhenAvailable - Share Availability Instantly",
+    description: "Share your availability instantly. No signup required.",
+    creator: "@whenavailable",
     images: ["/og-image.png"],
   },
   icons: {
@@ -91,15 +91,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://quickslots.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://whenavailable.app';
 
   // Schema.org JSON-LD structured data
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "QuickSlots",
+    "name": "WhenAvailable",
     "url": baseUrl,
-    "description": "QuickSlots is a temporary scheduling tool for creating disposable meeting links. Create temporary scheduling links that expire after booking. Perfect for temporary appointment scheduling, job interviews, and one-time meetings. No signup, no data storage.",
+    "description": "WhenAvailable is a temporary scheduling tool for creating disposable meeting links. Create temporary scheduling links that expire after booking. Perfect for temporary appointment scheduling, job interviews, and one-time meetings. No signup, no data storage.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
     "offers": {
@@ -141,10 +141,10 @@ export default function RootLayout({
               {/* Brand */}
               <div>
                 <Link href="/" className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
-                  ⚡ QuickSlots
+                  ⏰ WhenAvailable
                 </Link>
                 <p className="text-sm text-gray-600 mt-2">
-                  Share your availability in seconds. No signup required.
+                  Share your availability instantly. No signup required.
                 </p>
               </div>
 
@@ -190,7 +190,7 @@ export default function RootLayout({
 
             {/* Copyright */}
             <div className="border-t border-gray-200 mt-8 pt-6 text-center text-sm text-gray-500">
-              <p>© {new Date().getFullYear()} QuickSlots. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} WhenAvailable. All rights reserved.</p>
               <p className="mt-1">Temporary scheduling links that expire after booking.</p>
             </div>
           </div>

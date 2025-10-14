@@ -1,4 +1,4 @@
-# QuickSlots Robots.txt
+# WhenAvailable Robots.txt
 # Allow all search engines to crawl the site
 
 User-agent: *
@@ -11,4 +11,4 @@ Disallow: /api/
 Allow: /$
 
 # Sitemap location
-Sitemap: https://quickslots.vercel.app/sitemap.xml
+Sitemap: https://whenavailable.app/sitemap.xml

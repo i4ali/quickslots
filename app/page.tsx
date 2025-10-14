@@ -88,10 +88,10 @@ export default function Home() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl sm:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            ⚡ QuickSlots
+            ⏰ WhenAvailable
           </h1>
           <p className="text-xl sm:text-2xl text-gray-300 mb-2">
-            Share Your Availability in Seconds
+            Share Your Availability Instantly
           </p>
           <p className="text-gray-400">
             No signup. Perfect for temporary scheduling. Links expire after booking.
@@ -223,7 +223,7 @@ export default function Home() {
 
         {/* Features */}
         <h2 className="text-3xl font-bold text-gray-100 text-center mb-8">
-          Why Choose QuickSlots?
+          Why Choose WhenAvailable?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
@@ -319,7 +319,7 @@ export default function Home() {
             {/* FAQ 1 */}
             <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
               <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
-                How long do QuickSlots links last?
+                How long do WhenAvailable links last?
                 <span className="text-blue-400 text-xl">+</span>
               </summary>
               <p className="text-gray-300 mt-4 leading-relaxed">
@@ -334,18 +334,18 @@ export default function Home() {
                 <span className="text-blue-400 text-xl">+</span>
               </summary>
               <p className="text-gray-300 mt-4 leading-relaxed">
-                No! QuickSlots requires no signup or account creation. Simply enter your email, share your availability, and generate a link instantly.
+                No! WhenAvailable requires no signup or account creation. Simply enter your email, share your availability, and generate a link instantly.
               </p>
             </details>
 
             {/* FAQ 3 */}
             <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
               <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
-                Is QuickSlots free?
+                Is WhenAvailable free?
                 <span className="text-blue-400 text-xl">+</span>
               </summary>
               <p className="text-gray-300 mt-4 leading-relaxed">
-                Yes, QuickSlots is completely free to use. You can create unlimited temporary scheduling links at no cost.
+                Yes, WhenAvailable is completely free to use. You can create unlimited temporary scheduling links at no cost.
               </p>
             </details>
 
@@ -367,7 +367,7 @@ export default function Home() {
                 <span className="text-blue-400 text-xl">+</span>
               </summary>
               <p className="text-gray-300 mt-4 leading-relaxed">
-                QuickSlots uses natural language processing. Simply type times like "tomorrow 2-4pm" or "next Friday at 3pm" and the system automatically understands and converts them.
+                WhenAvailable uses natural language processing. Simply type times like "tomorrow 2-4pm" or "next Friday at 3pm" and the system automatically understands and converts them.
               </p>
             </details>
           </div>
@@ -417,7 +417,7 @@ export default function Home() {
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "How long do QuickSlots links last?",
+                "name": "How long do WhenAvailable links last?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "Links expire after 24 hours or immediately after booking, whichever comes first. All data is automatically deleted for maximum privacy."
@@ -428,15 +428,15 @@ export default function Home() {
                 "name": "Do I need to create an account?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "No! QuickSlots requires no signup or account creation. Simply enter your email, share your availability, and generate a link instantly."
+                  "text": "No! WhenAvailable requires no signup or account creation. Simply enter your email, share your availability, and generate a link instantly."
                 }
               },
               {
                 "@type": "Question",
-                "name": "Is QuickSlots free?",
+                "name": "Is WhenAvailable free?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes, QuickSlots is completely free to use. You can create unlimited temporary scheduling links at no cost."
+                  "text": "Yes, WhenAvailable is completely free to use. You can create unlimited temporary scheduling links at no cost."
                 }
               },
               {
@@ -452,7 +452,7 @@ export default function Home() {
                 "name": "How do I enter my availability?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "QuickSlots uses natural language processing. Simply type times like 'tomorrow 2-4pm' or 'next Friday at 3pm' and the system automatically understands and converts them."
+                  "text": "WhenAvailable uses natural language processing. Simply type times like 'tomorrow 2-4pm' or 'next Friday at 3pm' and the system automatically understands and converts them."
                 }
               }
             ]

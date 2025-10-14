@@ -1,4 +1,4 @@
-# QuickSlots - Product Requirements Document
+# WhenAvailable - Product Requirements Document
 
 **Version:** 1.0
 **Last Updated:** October 5, 2025
@@ -9,7 +9,7 @@
 ## 1. Executive Summary
 
 ### 1.1 Product Vision
-QuickSlots is a temporary scheduling link service that allows users to instantly create shareable availability links without creating an account or connecting a calendar. Think "one minute email" but for scheduling.
+WhenAvailable is a temporary scheduling link service that allows users to instantly create shareable availability links without creating an account or connecting a calendar. Think "one minute email" but for scheduling.
 
 ### 1.2 Value Proposition
 - **For Users:** Share your availability in seconds without the hassle of calendar apps, account creation, or ongoing commitments
@@ -80,7 +80,7 @@ Focus on high traffic volume, good user experience, and SEO optimization.
 - Link generated in <2 seconds
 
 **User Flow:**
-1. User visits quickslots.com
+1. User visits whenavailable.app
 2. Sees input form immediately (no splash screen)
 3. Enters availability
 4. Clicks "Generate Link"
@@ -133,7 +133,7 @@ Focus on high traffic volume, good user experience, and SEO optimization.
 - Auto-generate calendar invite (.ics file)
 
 **Booking Flow:**
-1. Recipient clicks QuickSlots link
+1. Recipient clicks WhenAvailable link
 2. Sees available time slots
 3. Selects a slot
 4. Enters name + email
@@ -150,7 +150,7 @@ Focus on high traffic volume, good user experience, and SEO optimization.
 
 **Expired Link Experience:**
 - Show friendly "This link has expired" message
-- Suggest creating a new QuickSlots link
+- Suggest creating a new WhenAvailable link
 - Display ad unit
 
 **Design Decision:** 24-hour expiration is hardcoded to maintain simplicity and emphasize the truly temporary nature of the service. No user customization needed.
@@ -192,14 +192,14 @@ Focus on high traffic volume, good user experience, and SEO optimization.
 **Requirements:**
 - Tip jar displayed on key pages (homepage after link creation, confirmation page)
 - Suggested amounts: $2, $5, custom amount
-- Clear messaging: "Help keep QuickSlots free and running"
+- Clear messaging: "Help keep WhenAvailable free and running"
 - **Tips do NOT remove ads or unlock features** (purely voluntary support)
 - Integration with Stripe, PayPal, or Buy Me a Coffee
 - One-click donation flow (no account needed)
 - Thank you message after tip (no special treatment)
 
 **Messaging:**
-- "☕ Love QuickSlots? Help keep it running!"
+- "☕ Love WhenAvailable? Help keep it running!"
 - "💝 Support this free tool"
 
 ### 5.3 Revenue Projections (Target)
@@ -270,7 +270,7 @@ Focus on high traffic volume, good user experience, and SEO optimization.
 
 ### 6.1 Link Creator Flow
 ```
-1. Land on quickslots.com
+1. Land on whenavailable.app
 2. See hero section: "Share your availability in seconds"
 3. Fill in basic info:
    - Your Name (optional)
@@ -295,7 +295,7 @@ Focus on high traffic volume, good user experience, and SEO optimization.
 
 ### 6.2 Link Recipient Flow
 ```
-1. Click QuickSlots link (from email, text, etc.)
+1. Click WhenAvailable link (from email, text, etc.)
 2. Land on booking page showing:
    - Top banner ad (minimal)
    - Creator's name and meeting purpose
@@ -556,12 +556,12 @@ Meeting Details:
 [Add to Calendar Button - .ics attachment]
 
 ---
-Scheduled with QuickSlots - Temporary scheduling links
+Scheduled with WhenAvailable - Temporary scheduling links
 ```
 
 **Booking Notification (to creator):**
 ```
-Subject: Someone booked your QuickSlots link!
+Subject: Someone booked your WhenAvailable link!
 
 Good news! Your availability has been booked.
 
@@ -574,7 +574,7 @@ Booking Details:
 [Add to Calendar Button - .ics attachment]
 
 ---
-QuickSlots
+WhenAvailable
 ```
 
 ---
@@ -715,7 +715,7 @@ Focus on core value proposition: **instant, temporary scheduling with zero frict
 2. **Video conferencing:** Auto-generate Zoom/Meet links
 3. **Team scheduling:** "Book with any of these 3 people"
 4. **Payment integration:** Charge for consultations
-5. **API access:** Developers can embed QuickSlots
+5. **API access:** Developers can embed WhenAvailable
 6. **Mobile apps:** Native iOS/Android apps
 7. **Slack/Discord bots:** Generate links from chat
 
@@ -725,7 +725,7 @@ Focus on core value proposition: **instant, temporary scheduling with zero frict
 3. **Reddit/HN organic sharing:** Focus on niche communities
 4. **Partnerships:** Integrate with freelancer platforms
 5. **Chrome extension:** Generate links from selected text
-6. **Email signature integration:** "Schedule with me: [QuickSlots]"
+6. **Email signature integration:** "Schedule with me: [WhenAvailable]"
 
 ---
 
@@ -767,7 +767,7 @@ Focus on core value proposition: **instant, temporary scheduling with zero frict
 6. **Indie Hackers:** Build in public, share journey
 
 ### 13.3 Pre-Launch Checklist
-- [ ] Domain registered (quickslots.com or alternative)
+- [ ] Domain registered (whenavailable.app or alternative)
 - [ ] SSL certificate
 - [ ] Privacy policy + Terms of Service (emphasize zero data retention)
 - [ ] Upstash Redis account setup and tested
@@ -811,10 +811,10 @@ Focus on core value proposition: **instant, temporary scheduling with zero frict
 
 ## 15. Open Questions
 
-1. **Domain name:** Is quickslots.com available? Alternatives: tempslots.com, oneshot.link, disposeslot.com, quickbook.link
+1. **Domain name:** Is whenavailable.app available? Alternatives: tempslots.com, oneshot.link, disposeslot.com, quickbook.link
 2. **Booking confirmation:** Require email verification before confirming booking? (Adds friction)
 3. **Creator notification:** Send email immediately on booking or allow opt-out?
-4. **Link format:** quickslots.com/abc123 or quickslots.com/s/abc123 or quickslots.com/book/abc123?
+4. **Link format:** whenavailable.app/abc123 or whenavailable.app/s/abc123 or whenavailable.app/book/abc123?
 5. **Tip payment provider:** Stripe, PayPal, Buy Me a Coffee, or multiple options?
 
 ---
@@ -825,11 +825,11 @@ Focus on core value proposition: **instant, temporary scheduling with zero frict
 
 | Product | Pros | Cons | Differentiation |
 |---------|------|------|-----------------|
-| Calendly | Full-featured, reliable | Requires account, monthly fee | QuickSlots: No account, free, temporary |
-| Cal.com | Open source, self-host | Still requires setup | QuickSlots: Zero setup, instant |
-| Doodle | Good for group polls | Requires multiple steps | QuickSlots: Direct booking, no polls |
-| When2Meet | Simple, free | Ugly UI, no automation | QuickSlots: Modern UI, auto-expiry |
-| x.ai (Amy) | AI-powered | Expensive, requires email integration | QuickSlots: Simple, predictable, free |
+| Calendly | Full-featured, reliable | Requires account, monthly fee | WhenAvailable: No account, free, temporary |
+| Cal.com | Open source, self-host | Still requires setup | WhenAvailable: Zero setup, instant |
+| Doodle | Good for group polls | Requires multiple steps | WhenAvailable: Direct booking, no polls |
+| When2Meet | Simple, free | Ugly UI, no automation | WhenAvailable: Modern UI, auto-expiry |
+| x.ai (Amy) | AI-powered | Expensive, requires email integration | WhenAvailable: Simple, predictable, free |
 
 ### 16.2 Inspiration Sites
 - **10 Minute Mail:** Simplicity, countdown timer
@@ -868,7 +868,7 @@ Data Management:
 
 ## 17. Conclusion
 
-QuickSlots aims to become the go-to solution for temporary, no-hassle scheduling needs. By focusing on extreme simplicity, zero friction, minimal ads, and optional community support through tips, we can build a sustainable, high-traffic service that solves a real problem while respecting user privacy.
+WhenAvailable aims to become the go-to solution for temporary, no-hassle scheduling needs. By focusing on extreme simplicity, zero friction, minimal ads, and optional community support through tips, we can build a sustainable, high-traffic service that solves a real problem while respecting user privacy.
 
 The key to success will be:
 1. **Lightning-fast execution** - Ship v1 in 4-6 weeks
@@ -887,7 +887,7 @@ Let's build something simple, useful, and profitable.
 ## 18. Infrastructure Teardown & Shutdown
 
 ### 18.1 Overview
-In case you need to shut down QuickSlots completely, this section provides a safe, complete teardown process to destroy all infrastructure and stop all costs.
+In case you need to shut down WhenAvailable completely, this section provides a safe, complete teardown process to destroy all infrastructure and stop all costs.
 
 ### 18.2 Automated Teardown Script
 
@@ -896,12 +896,12 @@ In case you need to shut down QuickSlots completely, this section provides a saf
 ```bash
 #!/bin/bash
 
-# QuickSlots Infrastructure Teardown Script
+# WhenAvailable Infrastructure Teardown Script
 # WARNING: This will DELETE ALL infrastructure and data permanently!
 
 set -e
 
-echo "⚠️  QuickSlots Infrastructure Teardown"
+echo "⚠️  WhenAvailable Infrastructure Teardown"
 echo "======================================"
 echo ""
 echo "This script will PERMANENTLY DELETE:"
@@ -940,7 +940,7 @@ echo ""
 echo "2️⃣  Deleting Upstash Redis database..."
 echo "   ⚠️  Manual step required:"
 echo "   → Go to: https://console.upstash.com/redis"
-echo "   → Delete your QuickSlots database"
+echo "   → Delete your WhenAvailable database"
 read -p "   Press ENTER after completing this step..."
 echo "✅ Upstash Redis database marked for deletion"
 echo ""
@@ -999,7 +999,7 @@ echo "📝 Summary:"
 echo "   - All infrastructure has been destroyed"
 echo "   - All user data has been deleted"
 echo "   - No ongoing costs should occur"
-echo "   - QuickSlots is now fully shut down"
+echo "   - WhenAvailable is now fully shut down"
 echo ""
 echo "🔒 Recommended: Delete this repository if no longer needed:"
 echo "   rm -rf $(pwd)"
@@ -1012,14 +1012,14 @@ If you prefer manual teardown, follow these steps:
 
 **☑️ Step 1: Vercel Project Deletion**
 - Login to [Vercel Dashboard](https://vercel.com/dashboard)
-- Navigate to QuickSlots project
+- Navigate to WhenAvailable project
 - Settings → Delete Project
 - Confirm deletion
 - **Verify:** No deployments remain
 
 **☑️ Step 2: Upstash Redis Deletion**
 - Login to [Upstash Console](https://console.upstash.com/redis)
-- Select QuickSlots database
+- Select WhenAvailable database
 - Delete database
 - Confirm deletion
 - **Verify:** No databases remain (or back to free tier)
@@ -1028,7 +1028,7 @@ If you prefer manual teardown, follow these steps:
 - Cancel domain auto-renewal (if applicable)
 - Remove DNS A/CNAME records pointing to Vercel
 - Update nameservers if migrated to Vercel
-- **Verify:** Domain no longer resolves to QuickSlots
+- **Verify:** Domain no longer resolves to WhenAvailable
 
 **☑️ Step 4: SendGrid Cleanup**
 - Revoke API keys in SendGrid dashboard
@@ -1043,7 +1043,7 @@ If you prefer manual teardown, follow these steps:
 
 **☑️ Step 6: Google AdSense Cleanup**
 - Remove ad units from AdSense dashboard
-- Remove quickslots.com from "Sites" list
+- Remove whenavailable.app from "Sites" list
 - **Verify:** No active ad units
 
 **☑️ Step 7: Environment Variables**
@@ -1086,7 +1086,7 @@ After teardown, **ZERO user data persists:**
 
 ### 18.6 Reversal/Restart Process
 
-If you want to restart QuickSlots after teardown:
+If you want to restart WhenAvailable after teardown:
 
 1. **Recreate Upstash Redis database** (free tier)
 2. **Redeploy to Vercel** (from git repository)

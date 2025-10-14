@@ -1,8 +1,8 @@
-# QuickSlots
+# WhenAvailable
 
-**Temporary scheduling links without the hassle**
+**Share your availability instantly**
 
-Share your availability in seconds. No signup, no calendar sync, no permanent links.
+Know when anyone is available. No signup, no calendar sync, no permanent links.
 
 ## 🚀 Quick Start
 
@@ -35,7 +35,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 📁 Project Structure
 
 ```
-quickslots/
+whenavailable/
 ├── app/                  # Next.js app directory
 │   ├── layout.tsx       # Root layout
 │   ├── page.tsx         # Homepage
@@ -115,4 +115,4 @@ ISC
 
 ---
 
-Built with ❤️ for quick, temporary scheduling needs.
+Built with ❤️ for instant availability sharing.
