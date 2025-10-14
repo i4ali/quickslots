@@ -7,8 +7,5 @@ Allow: /
 # Disallow API routes and admin pages
 Disallow: /api/
 
-# Allow specific pages
-Allow: /$
-
 # Sitemap location
 Sitemap: https://whenavailable.app/sitemap.xml
