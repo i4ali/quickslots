@@ -12,8 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function ScheduleWithoutSharingPost() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://whenavailable.app';
+
   return (
-    <article className="prose prose-lg max-w-none">
+    <>
+      <article className="prose prose-lg max-w-none">
       {/* Header */}
       <header className="mb-12">
         <div className="flex items-center gap-3 mb-4">
@@ -333,5 +336,41 @@ export default function ScheduleWithoutSharingPost() {
         </div>
       </div>
     </article>
+
+      {/* Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "How to Schedule Meetings Without Sharing Your Calendar",
+            "description": "Protect your privacy while scheduling meetings. Learn 5 proven methods to share availability without exposing your entire calendar to others.",
+            "image": `${baseUrl}/og-image.png`,
+            "author": {
+              "@type": "Organization",
+              "name": "WhenAvailable",
+              "url": baseUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "WhenAvailable",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${baseUrl}/og-image.png`
+              }
+            },
+            "datePublished": "2025-10-08",
+            "dateModified": "2025-10-08",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `${baseUrl}/blog/schedule-meetings-without-sharing-calendar`
+            },
+            "articleSection": "Privacy",
+            "keywords": ["schedule meeting without calendar", "privacy scheduling", "share availability without calendar", "meeting scheduler privacy"]
+          })
+        }}
+      />
+    </>
   );
 }

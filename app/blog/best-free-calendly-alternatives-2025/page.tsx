@@ -12,8 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function CalendlyAlternativesPost() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://whenavailable.app';
+
   return (
-    <article className="prose prose-lg max-w-none">
+    <>
+      <article className="prose prose-lg max-w-none">
       {/* Header */}
       <header className="mb-12">
         <div className="flex items-center gap-3 mb-4">
@@ -340,5 +343,41 @@ export default function CalendlyAlternativesPost() {
         </div>
       </div>
     </article>
+
+      {/* Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Best Free Calendly Alternatives 2025",
+            "description": "Looking for a free Calendly alternative? Compare the best scheduling tools in 2025, including privacy-focused options, no-signup solutions, and feature-rich calendars.",
+            "image": `${baseUrl}/og-image.png`,
+            "author": {
+              "@type": "Organization",
+              "name": "WhenAvailable",
+              "url": baseUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "WhenAvailable",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${baseUrl}/og-image.png`
+              }
+            },
+            "datePublished": "2025-10-08",
+            "dateModified": "2025-10-08",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `${baseUrl}/blog/best-free-calendly-alternatives-2025`
+            },
+            "articleSection": "Comparisons",
+            "keywords": ["calendly alternative", "free scheduling tool", "meeting scheduler", "calendly free alternative", "scheduling app"]
+          })
+        }}
+      />
+    </>
   );
 }

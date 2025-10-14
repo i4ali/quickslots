@@ -12,8 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function TemporarySchedulingSolutions2025() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://whenavailable.app';
+
   return (
-    <article className="prose prose-lg max-w-none">
+    <>
+      <article className="prose prose-lg max-w-none">
       {/* Header */}
       <header className="mb-12">
         <div className="flex items-center gap-3 mb-4">
@@ -380,5 +383,41 @@ export default function TemporarySchedulingSolutions2025() {
         </div>
       </div>
     </article>
+
+      {/* Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Best Temporary Scheduling Solutions for 2025",
+            "description": "Compare the best temporary scheduling tools and software for 2025. Find the perfect temporary scheduling solution for meetings, interviews, and appointments without calendar integration.",
+            "image": `${baseUrl}/og-image.png`,
+            "author": {
+              "@type": "Organization",
+              "name": "WhenAvailable",
+              "url": baseUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "WhenAvailable",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${baseUrl}/og-image.png`
+              }
+            },
+            "datePublished": "2025-10-11",
+            "dateModified": "2025-10-11",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `${baseUrl}/blog/temporary-scheduling-solutions-2025`
+            },
+            "articleSection": "Comparisons",
+            "keywords": ["temporary scheduling solutions", "temporary scheduling tools", "temporary scheduling software", "temporary scheduling apps", "best temporary scheduler"]
+          })
+        }}
+      />
+    </>
   );
 }

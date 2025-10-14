@@ -94,7 +94,7 @@ export default function RootLayout({
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://whenavailable.app';
 
   // Schema.org JSON-LD structured data
-  const schemaData = {
+  const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "WhenAvailable",
@@ -120,13 +120,42 @@ export default function RootLayout({
     ]
   };
 
+  // Organization Schema for brand recognition
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "WhenAvailable",
+    "url": baseUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${baseUrl}/og-image.png`,
+      "width": 1200,
+      "height": 630
+    },
+    "description": "WhenAvailable provides temporary scheduling solutions for privacy-first meeting coordination. Create disposable scheduling links that expire after use.",
+    "sameAs": [
+      "https://twitter.com/whenavailable"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "url": baseUrl
+    }
+  };
+
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
-        {/* Schema.org JSON-LD */}
+        {/* WebApplication Schema */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+        />
+
+        {/* Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
 
         {/* Main Content */}

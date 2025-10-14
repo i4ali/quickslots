@@ -12,8 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacySchedulingPost() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://whenavailable.app';
+
   return (
-    <article className="prose prose-lg max-w-none">
+    <>
+      <article className="prose prose-lg max-w-none">
       {/* Header */}
       <header className="mb-12">
         <div className="flex items-center gap-3 mb-4">
@@ -394,5 +397,41 @@ export default function PrivacySchedulingPost() {
         </div>
       </div>
     </article>
+
+      {/* Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Privacy-First Scheduling Tools: Complete Guide 2025",
+            "description": "Compare the most privacy-focused scheduling tools. Learn what makes a scheduler truly private and which tools respect your data in 2025.",
+            "image": `${baseUrl}/og-image.png`,
+            "author": {
+              "@type": "Organization",
+              "name": "WhenAvailable",
+              "url": baseUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "WhenAvailable",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${baseUrl}/og-image.png`
+              }
+            },
+            "datePublished": "2025-10-08",
+            "dateModified": "2025-10-08",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `${baseUrl}/blog/privacy-first-scheduling-tools`
+            },
+            "articleSection": "Privacy",
+            "keywords": ["privacy scheduling app", "privacy-first scheduling", "secure scheduling tool", "private calendar scheduler"]
+          })
+        }}
+      />
+    </>
   );
 }
