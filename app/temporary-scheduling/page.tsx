@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "What is Temporary Scheduling? Complete Guide 2025 | QuickSlots",
+  title: "What is Temporary Scheduling? Complete Guide 2025 | WhenAvailable",
   description: "Comprehensive guide to temporary scheduling: what it is, how it works, benefits, use cases, and best practices. Learn why temporary scheduling tools are replacing traditional calendar sharing.",
   keywords: [
     "temporary scheduling",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "temporary scheduling guide"
   ],
   openGraph: {
-    title: "What is Temporary Scheduling? Complete Guide | QuickSlots",
+    title: "What is Temporary Scheduling? Complete Guide | WhenAvailable",
     description: "Everything you need to know about temporary scheduling: definition, benefits, use cases, and best practices for privacy-first meeting coordination.",
   },
 };
@@ -165,7 +165,7 @@ export default function TemporarySchedulingPage() {
                 <strong>⚡ Try it yourself:</strong>
               </p>
               <p className="text-gray-700 mb-4">
-                Create a temporary scheduling link in under 30 seconds with QuickSlots—no account, no calendar connection, completely free.
+                Create a temporary scheduling link in under 30 seconds with WhenAvailable—no account, no calendar connection, completely free.
               </p>
               <Link
                 href="/"
@@ -459,10 +459,10 @@ export default function TemporarySchedulingPage() {
 
             <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-8 text-center mb-6">
               <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                Try QuickSlots - The Best Temporary Scheduling Tool
+                Try WhenAvailable - The Best Temporary Scheduling Tool
               </h3>
               <p className="text-gray-700 mb-4 text-lg">
-                QuickSlots checks all the boxes: no signup, auto-deletes after 24 hours, natural language input, perfect for temporary scheduling needs.
+                WhenAvailable checks all the boxes: no signup, auto-deletes after 24 hours, natural language input, perfect for temporary scheduling needs.
               </p>
               <div className="flex flex-wrap justify-center gap-4 mb-6">
                 <div className="flex items-center text-sm text-gray-700">
@@ -542,7 +542,7 @@ export default function TemporarySchedulingPage() {
                   Is temporary scheduling free?
                 </summary>
                 <p className="text-gray-700 mt-3">
-                  Most temporary scheduling tools are completely free because they don't store data long-term or require expensive infrastructure. QuickSlots, for example, is 100% free with no limits.
+                  Most temporary scheduling tools are completely free because they don't store data long-term or require expensive infrastructure. WhenAvailable, for example, is 100% free with no limits.
                 </p>
               </details>
 
@@ -570,7 +570,7 @@ export default function TemporarySchedulingPage() {
             </p>
 
             <p className="text-gray-700 leading-relaxed mb-6">
-              Ready to experience temporary scheduling? <Link href="/" className="text-blue-600 font-semibold hover:underline">Try QuickSlots free</Link> and create your first temporary scheduling link in under 30 seconds.
+              Ready to experience temporary scheduling? <Link href="/" className="text-blue-600 font-semibold hover:underline">Try WhenAvailable free</Link> and create your first temporary scheduling link in under 30 seconds.
             </p>
           </section>
 
@@ -612,14 +612,14 @@ export default function TemporarySchedulingPage() {
             "description": "Comprehensive guide to temporary scheduling: what it is, how it works, benefits, use cases, and best practices.",
             "author": {
               "@type": "Organization",
-              "name": "QuickSlots"
+              "name": "WhenAvailable"
             },
             "publisher": {
               "@type": "Organization",
-              "name": "QuickSlots",
+              "name": "WhenAvailable",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://quickslots.vercel.app/og-image.png"
+                "url": "https://whenavailable.app/og-image.png"
               }
             },
             "datePublished": "2025-10-11",

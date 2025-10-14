@@ -1,5 +1,5 @@
 /**
- * Email Client for QuickSlots
+ * Email Client for WhenAvailable
  *
  * SendGrid integration for booking notifications
  */
@@ -139,11 +139,11 @@ export async function sendBookingConfirmation(
   try {
     // Generate .ics file attachment
     const icsContent = generateBookingICS({
-      creatorName: data.slot.creatorName || 'QuickSlots User',
+      creatorName: data.slot.creatorName || 'WhenAvailable User',
       creatorEmail: data.slot.creatorEmail,
       bookerName: data.booking.bookerName,
       bookerEmail: data.booking.bookerEmail,
-      meetingPurpose: data.slot.meetingPurpose || 'QuickSlots Meeting',
+      meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
       selectedTime: data.booking.selectedTime,
       duration: 60, // Default 60 minutes
     });
@@ -179,11 +179,11 @@ export async function sendBookingNotification(
   try {
     // Generate .ics file attachment
     const icsContent = generateBookingICS({
-      creatorName: data.slot.creatorName || 'QuickSlots User',
+      creatorName: data.slot.creatorName || 'WhenAvailable User',
       creatorEmail: data.slot.creatorEmail,
       bookerName: data.booking.bookerName,
       bookerEmail: data.booking.bookerEmail,
-      meetingPurpose: data.slot.meetingPurpose || 'QuickSlots Meeting',
+      meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
       selectedTime: data.booking.selectedTime,
       duration: 60, // Default 60 minutes
     });

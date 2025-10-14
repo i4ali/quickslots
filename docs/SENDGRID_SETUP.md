@@ -1,6 +1,6 @@
 # SendGrid Email Setup Guide
 
-This guide explains how to set up SendGrid for QuickSlots email notifications.
+This guide explains how to set up SendGrid for WhenAvailable email notifications.
 
 ## Why SendGrid?
 
@@ -32,11 +32,11 @@ Perfect for sending booking confirmations!
 1. In SendGrid dashboard, go to **Settings → Sender Authentication**
 2. Click **"Verify a Single Sender"**
 3. Fill in the form:
-   - **From Name:** QuickSlots
+   - **From Name:** WhenAvailable
    - **From Email Address:** Your email (e.g., noreply@yourdomain.com or your-email@gmail.com)
    - **Reply To:** Same as from email
    - **Company Address:** Your address
-   - **Nickname:** QuickSlots Sender
+   - **Nickname:** WhenAvailable Sender
 4. Click **"Create"**
 5. **Check your email** and click the verification link
 6. Wait for verification (usually instant)
@@ -57,7 +57,7 @@ If you have a custom domain:
 
 1. Go to **Settings → API Keys**
 2. Click **"Create API Key"**
-3. Enter name: `QuickSlots Development`
+3. Enter name: `WhenAvailable Development`
 4. Select **"Full Access"** (or "Restricted Access" with Mail Send permission)
 5. Click **"Create & View"**
 6. **Copy the API key immediately** (you won't see it again!)
@@ -72,7 +72,7 @@ If you have a custom domain:
 ```bash
 SENDGRID_API_KEY=SG.your-api-key-here
 SENDGRID_FROM_EMAIL=your-verified-email@example.com
-SENDGRID_FROM_NAME=QuickSlots
+SENDGRID_FROM_NAME=WhenAvailable
 ```
 
 **Important:** Use the exact email you verified in Step 2!
@@ -119,7 +119,7 @@ If `configured` is `false`, double-check your API key!
 
 ## Email Templates
 
-QuickSlots sends two types of emails:
+WhenAvailable sends two types of emails:
 
 ### 1. **Booking Confirmation** (to Booker)
 Sent when someone books a time slot.
@@ -208,7 +208,7 @@ Or errors:
 - Forever free
 - No credit card required
 
-**Estimated Usage for QuickSlots:**
+**Estimated Usage for WhenAvailable:**
 - 2 emails per booking (confirmation + notification)
 - 50 bookings/day = 100 emails/day
 - **Perfect for MVP!** 🎉

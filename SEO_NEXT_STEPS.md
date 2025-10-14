@@ -1,4 +1,4 @@
-# QuickSlots SEO Implementation - Next Steps
+# WhenAvailable SEO Implementation - Next Steps
 
 ## ✅ Completed (Technical SEO Quick Wins)
 
@@ -74,18 +74,18 @@ mkdir -p app/blog
 
 1. **"Best Free Calendly Alternatives 2025"**
    - Target: "calendly alternative" (high search volume)
-   - Include QuickSlots comparison table
+   - Include WhenAvailable comparison table
    - Link to homepage
 
 2. **"How to Schedule Meetings Without Sharing Your Calendar"**
    - Target: "schedule meeting without calendar access"
    - Privacy-focused angle
-   - Natural QuickSlots integration
+   - Natural WhenAvailable integration
 
 3. **"Top 10 Privacy-First Scheduling Tools"**
    - Target: "privacy scheduling app"
    - Include comparison chart
-   - QuickSlots as #1
+   - WhenAvailable as #1
 
 4. **"Temporary Scheduling Links: The Complete Guide"**
    - Target: "temporary scheduling link"
@@ -95,13 +95,13 @@ mkdir -p app/blog
 5. **"No-Signup Scheduling Tools for Quick Meetings"**
    - Target: "no signup meeting scheduler"
    - Feature comparison
-   - Direct link to QuickSlots
+   - Direct link to WhenAvailable
 
 ### Blog Implementation
 ```tsx
 // app/blog/layout.tsx
 export const metadata = {
-  title: 'Blog - QuickSlots',
+  title: 'Blog - WhenAvailable',
   description: 'Tips, guides, and best practices for scheduling meetings',
 }
 ```
@@ -136,7 +136,7 @@ Secondary:
 
 1. **Add h2/h3 hierarchy to homepage**
    ```tsx
-   <h2>Why Choose QuickSlots?</h2>
+   <h2>Why Choose WhenAvailable?</h2>
    <h3>Privacy-First Design</h3>
    <h3>No Account Required</h3>
    ```

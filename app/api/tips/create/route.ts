@@ -38,8 +38,8 @@ export async function POST(request: NextRequest) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'Support QuickSlots',
-              description: 'Help keep QuickSlots free and running for everyone!',
+              name: 'Support WhenAvailable',
+              description: 'Help keep WhenAvailable free and running for everyone!',
               images: [], // You can add a logo URL here later
             },
             unit_amount: amountInCents,
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
       success_url: `${baseUrl}/tip/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/tip/cancelled`,
       payment_intent_data: {
-        description: 'QuickSlots Tip/Donation',
+        description: 'WhenAvailable Tip/Donation',
       },
     });
 

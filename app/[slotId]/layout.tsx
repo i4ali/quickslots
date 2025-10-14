@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Book a Time Slot - QuickSlots",
+    title: "Book a Time Slot - WhenAvailable",
     description: "Select from available time slots to book a meeting. Quick and easy scheduling with automatic email confirmations.",
     openGraph: {
-      title: "Book a Time Slot - QuickSlots",
+      title: "Book a Time Slot - WhenAvailable",
       description: "Select from available time slots to book a meeting.",
       type: "website",
     },

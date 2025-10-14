@@ -40,7 +40,7 @@ export function CookieConsent() {
                   We use cookies
                 </h3>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  QuickSlots uses essential cookies for functionality and may use advertising cookies
+                  WhenAvailable uses essential cookies for functionality and may use advertising cookies
                   (Google AdSense) to support the free service. We do not track you across websites.{' '}
                   <Link
                     href="/privacy"

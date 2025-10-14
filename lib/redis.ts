@@ -1,5 +1,5 @@
 /**
- * Redis Client for QuickSlots
+ * Redis Client for WhenAvailable
  *
  * This module provides a typed Redis client using Upstash Redis
  * with automatic TTL (Time-To-Live) for temporary data storage.

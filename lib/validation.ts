@@ -1,5 +1,5 @@
 /**
- * Validation utility functions for QuickSlots forms
+ * Validation utility functions for WhenAvailable forms
  */
 
 /**

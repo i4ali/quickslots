@@ -211,7 +211,7 @@ export default function BookingPage() {
                 Create Your Own Link
               </button>
               <p className="text-sm text-gray-400">
-                QuickSlots links expire after 24 hours or once booked
+                WhenAvailable links expire after 24 hours or once booked
               </p>
             </div>
           </div>

@@ -50,7 +50,7 @@ export default function NotFound() {
 
         {/* Footer Text */}
         <p className="text-sm text-gray-500 mt-8">
-          QuickSlots - Temporary scheduling links that expire after booking
+          WhenAvailable - Temporary scheduling links that expire after booking
         </p>
       </div>
     </main>
@@ -58,6 +58,6 @@ export default function NotFound() {
 }
 
 export const metadata = {
-  title: '404 - Page Not Found | QuickSlots',
+  title: '404 - Page Not Found | WhenAvailable',
   description: 'The page you are looking for does not exist or has expired.',
 };

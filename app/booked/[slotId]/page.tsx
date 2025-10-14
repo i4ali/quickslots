@@ -88,7 +88,7 @@ export default function BookingConfirmationPage() {
         creatorEmail: bookingData.creatorEmail,
         bookerName: bookingData.bookerName,
         bookerEmail: bookingData.bookerEmail,
-        meetingPurpose: bookingData.meetingPurpose || 'QuickSlots Meeting',
+        meetingPurpose: bookingData.meetingPurpose || 'WhenAvailable Meeting',
         selectedTime: bookingData.selectedTime,
         duration: 60, // Default 60 minutes
       });

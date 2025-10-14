@@ -1,4 +1,4 @@
-# QuickSlots Development Roadmap
+# WhenAvailable Development Roadmap
 
 **Last Updated:** October 7, 2025 (Evening)
 **Timeline:** 6 weeks to MVP launch
@@ -8,7 +8,7 @@
 
 ## Overview
 
-This roadmap breaks down QuickSlots development into **4 phases** with **24 trackable feature stories**. Each story can be checked off as completed.
+This roadmap breaks down WhenAvailable development into **4 phases** with **24 trackable feature stories**. Each story can be checked off as completed.
 
 **Progress Tracking:**
 - ☐ = Not started
@@ -439,7 +439,7 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 - [x] Tip jar component created (reusable) - TipButton component
 - [x] Suggested amounts: $2, $5, custom
 - [x] Placed on link created page and booking confirmation page
-- [x] Clear messaging: "Help keep QuickSlots free and running"
+- [x] Clear messaging: "Help keep WhenAvailable free and running"
 - [x] One-click donation flow
 - [x] Thank you message after tip (no special treatment) - /tip/success page
 - [x] No removal of ads after tipping
@@ -710,7 +710,7 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 - [ ] Vercel account created
 - [ ] Project connected to Git repository
 - [ ] Environment variables configured in Vercel
-- [ ] Custom domain connected (quickslots.com or alternative)
+- [ ] Custom domain connected (whenavailable.app or alternative)
 - [ ] SSL certificate active (automatic with Vercel)
 - [ ] Production deployment successful
 - [ ] Preview deployments working for PRs
@@ -741,7 +741,7 @@ This roadmap breaks down QuickSlots development into **4 phases** with **24 trac
 ---
 
 ### ☐ Story 4.9: Public Launch
-**Description:** Launch QuickSlots to the world!
+**Description:** Launch WhenAvailable to the world!
 
 **Acceptance Criteria:**
 - [ ] Product Hunt submission live

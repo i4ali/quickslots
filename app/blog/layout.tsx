@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog - QuickSlots",
+  title: "Blog - WhenAvailable",
   description: "Tips, guides, and best practices for scheduling meetings efficiently. Learn about privacy-first scheduling tools and alternatives to traditional calendar apps.",
   openGraph: {
-    title: "Blog - QuickSlots",
+    title: "Blog - WhenAvailable",
     description: "Tips, guides, and best practices for scheduling meetings efficiently.",
   },
 };
@@ -24,7 +24,7 @@ export default function BlogLayout({
             href="/"
             className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
           >
-            ← Back to QuickSlots
+            ← Back to WhenAvailable
           </Link>
         </div>
       </header>
@@ -38,7 +38,7 @@ export default function BlogLayout({
       <footer className="border-t border-gray-200 bg-white mt-16">
         <div className="max-w-4xl mx-auto px-4 py-12 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Ready to try QuickSlots?
+            Ready to try WhenAvailable?
           </h2>
           <p className="text-gray-600 mb-6">
             Create temporary scheduling links in seconds. No signup required.

@@ -1,6 +1,6 @@
-# QuickSlots Scripts
+# WhenAvailable Scripts
 
-Utility scripts for managing QuickSlots.
+Utility scripts for managing WhenAvailable.
 
 ## clear-redis.ts
 
@@ -41,7 +41,7 @@ npx tsx scripts/clear-redis.ts
 ### Example output:
 
 ```
-🧹 QuickSlots Redis Data Cleanup Script
+🧹 WhenAvailable Redis Data Cleanup Script
 ========================================
 
 ✅ Connected to Upstash Redis

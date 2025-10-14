@@ -36,7 +36,7 @@ function TipSuccessContent() {
             Thank You! 💚
           </h1>
           <p className="text-lg text-gray-300 mb-6">
-            Your support helps keep QuickSlots free and running for everyone.
+            Your support helps keep WhenAvailable free and running for everyone.
           </p>
 
           {/* Details */}

@@ -382,7 +382,7 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "HowTo",
             "name": "How to Create a Temporary Scheduling Link",
-            "description": "Learn how to share your availability and book meetings using QuickSlots",
+            "description": "Learn how to share your availability and book meetings using WhenAvailable",
             "step": [
               {
                 "@type": "HowToStep",

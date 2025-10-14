@@ -93,13 +93,13 @@ export default function TemporarySchedulingSolutions2025() {
         </ul>
       </div>
 
-      {/* QuickSlots - #1 */}
-      <h2>1. QuickSlots - Best Overall Temporary Scheduling Tool</h2>
+      {/* WhenAvailable - #1 */}
+      <h2>1. WhenAvailable - Best Overall Temporary Scheduling Tool</h2>
 
       <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 my-6 not-prose">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-2xl font-bold text-gray-900">
-            ⚡ QuickSlots
+            ⚡ WhenAvailable
           </h3>
           <span className="px-3 py-1 bg-green-100 text-green-700 text-sm font-bold rounded-full">
             RECOMMENDED
@@ -107,7 +107,7 @@ export default function TemporarySchedulingSolutions2025() {
         </div>
 
         <p className="text-gray-700 mb-4">
-          QuickSlots is purpose-built for temporary scheduling. No accounts, no calendar integration, links expire after 24 hours. The purest implementation of temporary scheduling available.
+          WhenAvailable is purpose-built for temporary scheduling. No accounts, no calendar integration, links expire after 24 hours. The purest implementation of temporary scheduling available.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -140,19 +140,19 @@ export default function TemporarySchedulingSolutions2025() {
           href="/"
           className="inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Try QuickSlots Free →
+          Try WhenAvailable Free →
         </Link>
       </div>
 
       <p>
-        <strong>Why QuickSlots wins:</strong> It's the only tool designed exclusively for temporary scheduling. While other tools added "one-time link" features as afterthoughts, QuickSlots was built from the ground up with ephemerality in mind. The natural language input ("tomorrow 2-4pm") makes it incredibly fast to use.
+        <strong>Why WhenAvailable wins:</strong> It's the only tool designed exclusively for temporary scheduling. While other tools added "one-time link" features as afterthoughts, WhenAvailable was built from the ground up with ephemerality in mind. The natural language input ("tomorrow 2-4pm") makes it incredibly fast to use.
       </p>
 
       {/* Comparison Table */}
       <h2>Temporary Scheduling Solutions Comparison</h2>
 
       <p>
-        While QuickSlots specializes in temporary scheduling, here's how it compares to traditional scheduling tools attempting to offer temporary features:
+        While WhenAvailable specializes in temporary scheduling, here's how it compares to traditional scheduling tools attempting to offer temporary features:
       </p>
 
       <div className="overflow-x-auto my-8 not-prose">
@@ -168,7 +168,7 @@ export default function TemporarySchedulingSolutions2025() {
           </thead>
           <tbody className="divide-y divide-gray-200">
             <tr className="bg-blue-50">
-              <td className="px-4 py-3 font-bold text-gray-900">QuickSlots</td>
+              <td className="px-4 py-3 font-bold text-gray-900">WhenAvailable</td>
               <td className="px-4 py-3 text-green-600 font-medium">No</td>
               <td className="px-4 py-3 text-green-600 font-medium">24 hours max</td>
               <td className="px-4 py-3 text-green-600 font-medium">&lt;30 seconds</td>
@@ -206,7 +206,7 @@ export default function TemporarySchedulingSolutions2025() {
         Not every scheduling scenario needs temporary scheduling software. Here's when to use which:
       </p>
 
-      <h3>Use Temporary Scheduling (QuickSlots) When:</h3>
+      <h3>Use Temporary Scheduling (WhenAvailable) When:</h3>
       <ul>
         <li><strong>Privacy is paramount:</strong> Job interviews, sensitive consultations, confidential meetings</li>
         <li><strong>One-time meetings:</strong> Networking coffee chats, initial sales calls, single consultations</li>
@@ -231,7 +231,7 @@ export default function TemporarySchedulingSolutions2025() {
         <strong>Scenario:</strong> You're actively employed but interviewing elsewhere. You can't let your current employer see "Interview" blocks on your calendar.
       </p>
       <p>
-        <strong>Solution:</strong> Use QuickSlots to create temporary scheduling links for each interview. Share 3-4 time slots you've personally verified are available. After the interview is booked, the link expires and all data deletes—no trace on any calendar system that your employer might access.
+        <strong>Solution:</strong> Use WhenAvailable to create temporary scheduling links for each interview. Share 3-4 time slots you've personally verified are available. After the interview is booked, the link expires and all data deletes—no trace on any calendar system that your employer might access.
       </p>
 
       <h3>Use Case 2: Freelancer Managing Client Discovery Calls</h3>
@@ -247,7 +247,7 @@ export default function TemporarySchedulingSolutions2025() {
         <strong>Scenario:</strong> A professor wants to offer one-time office hours to a specific student without giving permanent calendar access.
       </p>
       <p>
-        <strong>Solution:</strong> Generate a QuickSlots link with available times and email it to the student. After booking, the link expires automatically—clean boundary maintenance with no ongoing calendar sharing.
+        <strong>Solution:</strong> Generate a WhenAvailable link with available times and email it to the student. After booking, the link expires automatically—clean boundary maintenance with no ongoing calendar sharing.
       </p>
 
       {/* How to Choose */}
@@ -260,42 +260,42 @@ export default function TemporarySchedulingSolutions2025() {
       <ol>
         <li><strong>Do I need this for one-time or recurring meetings?</strong>
           <ul>
-            <li>One-time → QuickSlots</li>
+            <li>One-time → WhenAvailable</li>
             <li>Recurring → Traditional tools (Calendly, Cal.com)</li>
           </ul>
         </li>
 
         <li><strong>How important is privacy and data deletion?</strong>
           <ul>
-            <li>Critical → QuickSlots (data auto-deletes after 24 hours)</li>
+            <li>Critical → WhenAvailable (data auto-deletes after 24 hours)</li>
             <li>Less concerned → Traditional tools acceptable</li>
           </ul>
         </li>
 
         <li><strong>Do I want calendar integration?</strong>
           <ul>
-            <li>No, manual is fine → QuickSlots</li>
+            <li>No, manual is fine → WhenAvailable</li>
             <li>Yes, need sync → Traditional tools</li>
           </ul>
         </li>
 
         <li><strong>What's my budget?</strong>
           <ul>
-            <li>$0 → QuickSlots (completely free)</li>
+            <li>$0 → WhenAvailable (completely free)</li>
             <li>Can pay for features → Traditional tools with paid tiers</li>
           </ul>
         </li>
       </ol>
 
       <p>
-        <strong>Our recommendation:</strong> For 95% of one-time scheduling needs, QuickSlots is the best temporary scheduling solution. It's free, fast, and purpose-built for exactly this use case.
+        <strong>Our recommendation:</strong> For 95% of one-time scheduling needs, WhenAvailable is the best temporary scheduling solution. It's free, fast, and purpose-built for exactly this use case.
       </p>
 
       {/* Getting Started */}
       <h2>Getting Started with Temporary Scheduling</h2>
 
       <p>
-        Ready to try temporary scheduling? Here's how to get started with QuickSlots:
+        Ready to try temporary scheduling? Here's how to get started with WhenAvailable:
       </p>
 
       <ol>
@@ -334,7 +334,7 @@ export default function TemporarySchedulingSolutions2025() {
       <h2>Conclusion: The Right Tool for the Right Job</h2>
 
       <p>
-        Temporary scheduling solutions like QuickSlots fill a critical gap in the scheduling tool landscape. While traditional platforms excel at recurring availability, temporary scheduling software offers unmatched privacy, speed, and simplicity for one-time meetings.
+        Temporary scheduling solutions like WhenAvailable fill a critical gap in the scheduling tool landscape. While traditional platforms excel at recurring availability, temporary scheduling software offers unmatched privacy, speed, and simplicity for one-time meetings.
       </p>
 
       <p>
@@ -342,11 +342,11 @@ export default function TemporarySchedulingSolutions2025() {
       </p>
 
       <p>
-        <strong>Bottom line:</strong> For one-time, privacy-sensitive scheduling, <Link href="/">QuickSlots</Link> is the best temporary scheduling solution in 2025. For recurring availability with calendar integration, stick with traditional tools like Calendly or Cal.com.
+        <strong>Bottom line:</strong> For one-time, privacy-sensitive scheduling, <Link href="/">WhenAvailable</Link> is the best temporary scheduling solution in 2025. For recurring availability with calendar integration, stick with traditional tools like Calendly or Cal.com.
       </p>
 
       <p>
-        The future of scheduling isn't one-size-fits-all—it's having the right tool for each specific need. Temporary scheduling tools like QuickSlots represent the privacy-first, ephemeral future of meeting coordination.
+        The future of scheduling isn't one-size-fits-all—it's having the right tool for each specific need. Temporary scheduling tools like WhenAvailable represent the privacy-first, ephemeral future of meeting coordination.
       </p>
 
       {/* Related Articles */}

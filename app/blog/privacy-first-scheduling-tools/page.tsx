@@ -96,10 +96,10 @@ export default function PrivacySchedulingPost() {
       {/* Tool Comparison */}
       <h2>Privacy-First Scheduling Tools Compared</h2>
 
-      {/* QuickSlots */}
+      {/* WhenAvailable */}
       <div className="bg-green-50 border-2 border-green-200 rounded-xl p-6 my-8 not-prose">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-2xl font-bold text-gray-900">QuickSlots</h3>
+          <h3 className="text-2xl font-bold text-gray-900">WhenAvailable</h3>
           <span className="px-3 py-1 bg-green-600 text-white text-sm font-bold rounded-full">
             MOST PRIVATE
           </span>
@@ -167,7 +167,7 @@ export default function PrivacySchedulingPost() {
           href="/"
           className="inline-block px-8 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-colors"
         >
-          Try QuickSlots Free →
+          Try WhenAvailable Free →
         </Link>
       </div>
 
@@ -225,7 +225,7 @@ export default function PrivacySchedulingPost() {
           <thead className="bg-gray-50">
             <tr>
               <th className="px-4 py-3 text-left font-semibold text-gray-900 border-b">Feature</th>
-              <th className="px-4 py-3 text-left font-semibold text-gray-900 border-b">QuickSlots</th>
+              <th className="px-4 py-3 text-left font-semibold text-gray-900 border-b">WhenAvailable</th>
               <th className="px-4 py-3 text-left font-semibold text-gray-900 border-b">Cal.com</th>
               <th className="px-4 py-3 text-left font-semibold text-gray-900 border-b">Doodle</th>
               <th className="px-4 py-3 text-left font-semibold text-gray-900 border-b">Calendly</th>
@@ -315,7 +315,7 @@ export default function PrivacySchedulingPost() {
 
       <p><strong>For maximum privacy (one-time meetings):</strong></p>
       <p>
-        Use <Link href="/">QuickSlots</Link> - zero data retention, no account, complete anonymity
+        Use <Link href="/">WhenAvailable</Link> - zero data retention, no account, complete anonymity
       </p>
 
       <p><strong>For technical control:</strong></p>
@@ -337,7 +337,7 @@ export default function PrivacySchedulingPost() {
       <h2>Conclusion</h2>
 
       <p>
-        Privacy in scheduling tools exists on a spectrum. The most private option is using temporary, account-free tools like <Link href="/">QuickSlots</Link> that delete data automatically. The least private are enterprise tools that store everything forever and share data with partners.
+        Privacy in scheduling tools exists on a spectrum. The most private option is using temporary, account-free tools like <Link href="/">WhenAvailable</Link> that delete data automatically. The least private are enterprise tools that store everything forever and share data with partners.
       </p>
 
       <p>
@@ -359,7 +359,7 @@ export default function PrivacySchedulingPost() {
           Create Private Link Free →
         </Link>
         <p className="text-sm text-gray-500 mt-4">
-          QuickSlots - The privacy-first alternative to Calendly
+          WhenAvailable - The privacy-first alternative to Calendly
         </p>
       </div>
 

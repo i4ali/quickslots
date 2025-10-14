@@ -61,7 +61,7 @@ export default function ScheduleWithoutSharingPost() {
 
       <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 my-6 not-prose">
         <h3 className="text-lg font-bold text-gray-900 mb-3">
-          ⚡ Try QuickSlots for Maximum Privacy
+          ⚡ Try WhenAvailable for Maximum Privacy
         </h3>
         <p className="text-gray-700 mb-4">
           Create a temporary link with your available times. Share it once, it gets booked, then it's gone forever. No calendar access needed.
@@ -148,7 +148,7 @@ export default function ScheduleWithoutSharingPost() {
       </p>
 
       <ul>
-        <li><strong>QuickSlots:</strong> No calendar connection, manual time entry, data auto-deletes</li>
+        <li><strong>WhenAvailable:</strong> No calendar connection, manual time entry, data auto-deletes</li>
         <li><strong>Cal.com:</strong> Self-hosting option, you control all data</li>
         <li><strong>Doodle:</strong> Poll-based scheduling, no calendar required</li>
       </ul>
@@ -247,7 +247,7 @@ export default function ScheduleWithoutSharingPost() {
 
       <h3>5. Prefer One-Time Solutions</h3>
       <p>
-        For one-off meetings, use temporary solutions like <Link href="/">QuickSlots</Link> instead of ongoing calendar access.
+        For one-off meetings, use temporary solutions like <Link href="/">WhenAvailable</Link> instead of ongoing calendar access.
       </p>
 
       {/* Common Scenarios */}
@@ -256,7 +256,7 @@ export default function ScheduleWithoutSharingPost() {
       <h3>Job Interviews</h3>
       <p>
         <strong>Problem:</strong> Don't want current employer seeing interview activity<br />
-        <strong>Solution:</strong> Use <Link href="/">QuickSlots</Link> temporary links. Create link, share once, data deletes after 24 hours
+        <strong>Solution:</strong> Use <Link href="/">WhenAvailable</Link> temporary links. Create link, share once, data deletes after 24 hours
       </p>
 
       <h3>Sales Calls</h3>
@@ -285,7 +285,7 @@ export default function ScheduleWithoutSharingPost() {
       </p>
 
       <ul>
-        <li><strong>For maximum privacy:</strong> Use temporary links like <Link href="/">QuickSlots</Link></li>
+        <li><strong>For maximum privacy:</strong> Use temporary links like <Link href="/">WhenAvailable</Link></li>
         <li><strong>For complete control:</strong> Manually propose times via email</li>
         <li><strong>For frequent scheduling:</strong> Create a separate public calendar</li>
         <li><strong>For technical users:</strong> Self-host your scheduling tool</li>
@@ -307,7 +307,7 @@ export default function ScheduleWithoutSharingPost() {
           href="/"
           className="inline-block px-8 py-3 bg-purple-600 text-white font-bold rounded-lg hover:bg-purple-700 transition-colors text-lg"
         >
-          Try QuickSlots Free →
+          Try WhenAvailable Free →
         </Link>
         <p className="text-sm text-gray-500 mt-4">
           No signup • No calendar connection • Maximum privacy

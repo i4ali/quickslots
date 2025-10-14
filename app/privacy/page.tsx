@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - QuickSlots",
-  description: "QuickSlots privacy policy. Zero data retention - all data auto-deletes after 24 hours.",
+  title: "Privacy Policy - WhenAvailable",
+  description: "WhenAvailable privacy policy. Zero data retention - all data auto-deletes after 24 hours.",
 };
 
 export default function PrivacyPage() {
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
           {/* Introduction */}
           <section>
             <p className="text-lg text-gray-700 leading-relaxed">
-              At QuickSlots, your privacy is our top priority. This Privacy Policy explains how we collect,
+              At WhenAvailable, your privacy is our top priority. This Privacy Policy explains how we collect,
               use, and protect your information when you use our temporary scheduling service.
             </p>
           </section>
@@ -97,7 +97,7 @@ export default function PrivacyPage() {
               3. Data Retention & Auto-Deletion
             </h2>
             <p className="text-gray-700 mb-4">
-              QuickSlots is built with privacy-first principles:
+              WhenAvailable is built with privacy-first principles:
             </p>
             <div className="bg-gray-50 border-l-4 border-blue-500 p-4 mb-4">
               <ul className="space-y-2 text-gray-700">
@@ -119,7 +119,7 @@ export default function PrivacyPage() {
               4. Third-Party Services
             </h2>
             <p className="text-gray-700 mb-4">
-              QuickSlots uses the following third-party services:
+              WhenAvailable uses the following third-party services:
             </p>
 
             <div className="space-y-4">
@@ -170,7 +170,7 @@ export default function PrivacyPage() {
               5. Cookies & Tracking
             </h2>
             <p className="text-gray-700 mb-4">
-              QuickSlots uses minimal cookies:
+              WhenAvailable uses minimal cookies:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
               <li><strong>Essential Cookies:</strong> Required for site functionality (session management)</li>
@@ -231,7 +231,7 @@ export default function PrivacyPage() {
               8. Children's Privacy
             </h2>
             <p className="text-gray-700">
-              QuickSlots is not intended for children under 13. We do not knowingly collect information
+              WhenAvailable is not intended for children under 13. We do not knowingly collect information
               from children under 13. If you believe a child has provided information to us, please contact
               us immediately.
             </p>
@@ -247,7 +247,7 @@ export default function PrivacyPage() {
             </p>
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
               <p className="text-gray-700">
-                <strong>Email:</strong> privacy@quickslots.app<br />
+                <strong>Email:</strong> privacy@whenavailable.app<br />
                 <strong>Response Time:</strong> Within 48 hours
               </p>
             </div>
@@ -260,7 +260,7 @@ export default function PrivacyPage() {
             </h2>
             <p className="text-gray-700">
               We may update this Privacy Policy periodically. Changes will be posted on this page with
-              an updated "Last Updated" date. Continued use of QuickSlots after changes constitutes
+              an updated "Last Updated" date. Continued use of WhenAvailable after changes constitutes
               acceptance of the updated policy.
             </p>
           </section>
@@ -268,7 +268,7 @@ export default function PrivacyPage() {
           {/* Footer */}
           <section className="border-t pt-6 mt-8">
             <p className="text-sm text-gray-500 text-center">
-              By using QuickSlots, you agree to this Privacy Policy and our{' '}
+              By using WhenAvailable, you agree to this Privacy Policy and our{' '}
               <Link href="/terms" className="text-blue-600 hover:underline">
                 Terms of Service
               </Link>.

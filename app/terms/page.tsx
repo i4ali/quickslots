@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms of Service - QuickSlots",
-  description: "QuickSlots terms of service. Free temporary scheduling links with no signup required.",
+  title: "Terms of Service - WhenAvailable",
+  description: "WhenAvailable terms of service. Free temporary scheduling links with no signup required.",
 };
 
 export default function TermsPage() {
@@ -33,8 +33,8 @@ export default function TermsPage() {
           {/* Introduction */}
           <section>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Welcome to QuickSlots! These Terms of Service ("Terms") govern your access to and use of
-              QuickSlots' temporary scheduling service. By using QuickSlots, you agree to these Terms.
+              Welcome to WhenAvailable! These Terms of Service ("Terms") govern your access to and use of
+              WhenAvailable' temporary scheduling service. By using WhenAvailable, you agree to these Terms.
             </p>
           </section>
 
@@ -44,14 +44,14 @@ export default function TermsPage() {
               1. Acceptance of Terms
             </h2>
             <p className="text-gray-700 mb-4">
-              By accessing or using QuickSlots, you agree to be bound by these Terms and our{' '}
+              By accessing or using WhenAvailable, you agree to be bound by these Terms and our{' '}
               <Link href="/privacy" className="text-blue-600 hover:underline">
                 Privacy Policy
               </Link>.
               If you do not agree to these Terms, do not use the service.
             </p>
             <p className="text-gray-700">
-              You must be at least 13 years old to use QuickSlots. By using the service, you represent
+              You must be at least 13 years old to use WhenAvailable. By using the service, you represent
               and warrant that you meet this age requirement.
             </p>
           </section>
@@ -62,7 +62,7 @@ export default function TermsPage() {
               2. Service Description
             </h2>
             <p className="text-gray-700 mb-4">
-              QuickSlots provides a free, temporary scheduling service that allows users to:
+              WhenAvailable provides a free, temporary scheduling service that allows users to:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
               <li>Create temporary scheduling links that expire after 24 hours</li>
@@ -72,7 +72,7 @@ export default function TermsPage() {
             </ul>
             <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mt-4">
               <p className="text-blue-900">
-                <strong>Important:</strong> QuickSlots is a temporary scheduling tool, not a calendar
+                <strong>Important:</strong> WhenAvailable is a temporary scheduling tool, not a calendar
                 management system. All data automatically deletes after 24 hours. We are not responsible
                 for missed meetings or lost scheduling information.
               </p>
@@ -91,7 +91,7 @@ export default function TermsPage() {
               <li>Not create scheduling links for meetings you do not intend to honor</li>
               <li>Respond promptly to booking confirmations received via email</li>
               <li>Save calendar (.ics) files or add meetings to your calendar immediately</li>
-              <li>Not rely solely on QuickSlots for critical scheduling (data expires in 24 hours)</li>
+              <li>Not rely solely on WhenAvailable for critical scheduling (data expires in 24 hours)</li>
               <li>Comply with all applicable laws and regulations</li>
             </ul>
           </section>
@@ -101,7 +101,7 @@ export default function TermsPage() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               4. Prohibited Uses
             </h2>
-            <p className="text-gray-700 mb-4">You may NOT use QuickSlots to:</p>
+            <p className="text-gray-700 mb-4">You may NOT use WhenAvailable to:</p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
               <li>Send spam or unsolicited scheduling requests</li>
               <li>Harass, abuse, or harm others</li>
@@ -124,7 +124,7 @@ export default function TermsPage() {
               5. Intellectual Property
             </h2>
             <p className="text-gray-700 mb-4">
-              QuickSlots and its original content, features, and functionality are owned by QuickSlots
+              WhenAvailable and its original content, features, and functionality are owned by WhenAvailable
               and are protected by international copyright, trademark, and other intellectual property laws.
             </p>
             <p className="text-gray-700">
@@ -139,7 +139,7 @@ export default function TermsPage() {
               6. Service Availability & Modifications
             </h2>
             <p className="text-gray-700 mb-4">
-              QuickSlots is provided "as is" and "as available." We reserve the right to:
+              WhenAvailable is provided "as is" and "as available." We reserve the right to:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
               <li>Modify, suspend, or discontinue the service at any time</li>
@@ -162,7 +162,7 @@ export default function TermsPage() {
                 THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND.
               </p>
               <p className="text-gray-700 mb-2">
-                QuickSlots makes no warranties, expressed or implied, including but not limited to:
+                WhenAvailable makes no warranties, expressed or implied, including but not limited to:
               </p>
               <ul className="list-disc list-inside space-y-1 text-gray-700 ml-4 text-sm">
                 <li>Merchantability or fitness for a particular purpose</li>
@@ -206,7 +206,7 @@ export default function TermsPage() {
               9. Indemnification
             </h2>
             <p className="text-gray-700">
-              You agree to indemnify and hold QuickSlots harmless from any claims, damages, losses,
+              You agree to indemnify and hold WhenAvailable harmless from any claims, damages, losses,
               liabilities, and expenses (including legal fees) arising from:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4 mt-4">
@@ -223,7 +223,7 @@ export default function TermsPage() {
               10. Third-Party Services
             </h2>
             <p className="text-gray-700 mb-4">
-              QuickSlots integrates with third-party services (Upstash, SendGrid, Stripe, Google AdSense).
+              WhenAvailable integrates with third-party services (Upstash, SendGrid, Stripe, Google AdSense).
               These services have their own terms and privacy policies:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
@@ -243,7 +243,7 @@ export default function TermsPage() {
               11. Tips & Donations
             </h2>
             <p className="text-gray-700 mb-4">
-              QuickSlots offers an optional tip/donation system powered by Stripe:
+              WhenAvailable offers an optional tip/donation system powered by Stripe:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
               <li>Tips are voluntary and non-refundable</li>
@@ -259,12 +259,12 @@ export default function TermsPage() {
               12. Termination
             </h2>
             <p className="text-gray-700">
-              We may terminate or suspend your access to QuickSlots immediately, without prior notice,
+              We may terminate or suspend your access to WhenAvailable immediately, without prior notice,
               for any reason, including violation of these Terms. Upon termination, your right to use
               the service will cease immediately.
             </p>
             <p className="text-gray-700 mt-4">
-              Since QuickSlots requires no account or login, termination typically involves IP address
+              Since WhenAvailable requires no account or login, termination typically involves IP address
               blocking to prevent further access.
             </p>
           </section>
@@ -279,7 +279,7 @@ export default function TermsPage() {
               without regard to its conflict of law provisions.
             </p>
             <p className="text-gray-700">
-              Any disputes arising from these Terms or your use of QuickSlots shall be resolved through
+              Any disputes arising from these Terms or your use of WhenAvailable shall be resolved through
               binding arbitration, except where prohibited by law.
             </p>
           </section>
@@ -291,7 +291,7 @@ export default function TermsPage() {
             </h2>
             <p className="text-gray-700">
               We reserve the right to modify these Terms at any time. Changes will be posted on this page
-              with an updated "Last Updated" date. Your continued use of QuickSlots after changes
+              with an updated "Last Updated" date. Your continued use of WhenAvailable after changes
               constitutes acceptance of the modified Terms.
             </p>
             <p className="text-gray-700 mt-4">
@@ -318,7 +318,7 @@ export default function TermsPage() {
             </h2>
             <p className="text-gray-700">
               These Terms, together with our Privacy Policy, constitute the entire agreement between you
-              and QuickSlots regarding the service, and supersede all prior agreements and understandings.
+              and WhenAvailable regarding the service, and supersede all prior agreements and understandings.
             </p>
           </section>
 
@@ -341,7 +341,7 @@ export default function TermsPage() {
           {/* Footer */}
           <section className="border-t pt-6 mt-8">
             <p className="text-sm text-gray-500 text-center">
-              By using QuickSlots, you acknowledge that you have read, understood, and agree to be bound by
+              By using WhenAvailable, you acknowledge that you have read, understood, and agree to be bound by
               these Terms of Service and our{' '}
               <Link href="/privacy" className="text-blue-600 hover:underline">
                 Privacy Policy

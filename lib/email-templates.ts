@@ -1,5 +1,5 @@
 /**
- * Email Templates for QuickSlots
+ * Email Templates for WhenAvailable
  *
  * Plain text email templates for booking notifications
  */
@@ -87,8 +87,8 @@ What's Next:
 Questions? Reply to this email to contact the organizer.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Scheduled with QuickSlots - Temporary scheduling links
-${process.env.NEXT_PUBLIC_APP_URL || 'https://quickslots.com'}
+Scheduled with WhenAvailable - Temporary scheduling links
+${process.env.NEXT_PUBLIC_APP_URL || 'https://whenavailable.app'}
   `.trim();
 
   return { subject, text };
@@ -112,7 +112,7 @@ export function generateBookingNotificationEmail(data: BookingNotificationData):
   const meetingDate = formatDate(booking.selectedTime);
   const meetingTime = formatTimeWithTimezone(booking.selectedTime, slot.timezone);
 
-  const subject = `Someone booked your QuickSlots link!`;
+  const subject = `Someone booked your WhenAvailable link!`;
 
   const text = `
 Good news! Your availability has been booked.
@@ -135,8 +135,8 @@ What's Next:
 • The scheduling link has expired after this booking
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-QuickSlots - Temporary scheduling links
-${process.env.NEXT_PUBLIC_APP_URL || 'https://quickslots.com'}
+WhenAvailable - Temporary scheduling links
+${process.env.NEXT_PUBLIC_APP_URL || 'https://whenavailable.app'}
   `.trim();
 
   return { subject, text };
@@ -150,10 +150,10 @@ export function generateTestEmail(recipientEmail: string): {
   subject: string;
   text: string;
 } {
-  const subject = 'QuickSlots Email Test';
+  const subject = 'WhenAvailable Email Test';
 
   const text = `
-This is a test email from QuickSlots.
+This is a test email from WhenAvailable.
 
 If you're seeing this, your email configuration is working correctly!
 
@@ -164,8 +164,8 @@ Timestamp: ${new Date().toISOString()}
 Environment: ${process.env.NODE_ENV || 'development'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-QuickSlots - Temporary scheduling links
-${process.env.NEXT_PUBLIC_APP_URL || 'https://quickslots.com'}
+WhenAvailable - Temporary scheduling links
+${process.env.NEXT_PUBLIC_APP_URL || 'https://whenavailable.app'}
   `.trim();
 
   return { subject, text };

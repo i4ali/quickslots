@@ -146,7 +146,7 @@ export function loadAndValidateEnv(): EnvConfig {
     email: {
       apiKey: getEnvVar('SENDGRID_API_KEY', false),
       fromEmail: fromEmail,
-      fromName: getEnvVar('SENDGRID_FROM_NAME', false) || 'QuickSlots',
+      fromName: getEnvVar('SENDGRID_FROM_NAME', false) || 'WhenAvailable',
     },
     stripe: {
       secretKey: getEnvVar('STRIPE_SECRET_KEY', false),

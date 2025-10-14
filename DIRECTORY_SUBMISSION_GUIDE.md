@@ -1,13 +1,13 @@
-# Directory Submission Guide for QuickSlots
+# Directory Submission Guide for WhenAvailable
 
-This guide helps you submit QuickSlots to high-traffic directories for free backlinks and exposure.
+This guide helps you submit WhenAvailable to high-traffic directories for free backlinks and exposure.
 
 ## 📋 Pre-Submission Checklist
 
 Before submitting, prepare these assets:
 
 ### Product Information
-- **Name:** QuickSlots
+- **Name:** WhenAvailable
 - **Tagline:** Temporary scheduling links that expire after booking
 - **Website:** https://quickslots.vercel.app
 - **Category:** Productivity / Scheduling / Calendar
@@ -20,12 +20,12 @@ Create temporary scheduling links in seconds. No signup required, links expire a
 
 ### Description (Medium - 500 chars)
 ```
-QuickSlots is a privacy-first scheduling tool that creates temporary links for one-time meetings. Unlike traditional schedulers, QuickSlots requires no signup, stores no data permanently (auto-deletes after 24 hours), and links expire immediately after booking. Perfect for recruiters, consultants, job seekers, or anyone who values privacy. Features natural language time input, automatic timezone detection, and email confirmations with calendar files.
+WhenAvailable is a privacy-first scheduling tool that creates temporary links for one-time meetings. Unlike traditional schedulers, WhenAvailable requires no signup, stores no data permanently (auto-deletes after 24 hours), and links expire immediately after booking. Perfect for recruiters, consultants, job seekers, or anyone who values privacy. Features natural language time input, automatic timezone detection, and email confirmations with calendar files.
 ```
 
 ### Description (Long - 1000+ chars)
 ```
-QuickSlots revolutionizes meeting scheduling with a privacy-first, temporary approach. Instead of sharing your calendar or creating permanent scheduling pages, QuickSlots generates single-use links that self-destruct after booking.
+WhenAvailable revolutionizes meeting scheduling with a privacy-first, temporary approach. Instead of sharing your calendar or creating permanent scheduling pages, WhenAvailable generates single-use links that self-destruct after booking.
 
 Key Features:
 • No signup required - completely anonymous
@@ -44,7 +44,7 @@ Perfect for:
 - Anyone who values calendar privacy
 - One-time meetings that don't need recurring scheduling
 
-Unlike Calendly, Cal.com, or other scheduling tools that store your data indefinitely and require accounts, QuickSlots takes privacy seriously. No tracking, no analytics, no permanent storage. Create a link, share it once, get booked, and it's gone forever.
+Unlike Calendly, Cal.com, or other scheduling tools that store your data indefinitely and require accounts, WhenAvailable takes privacy seriously. No tracking, no analytics, no permanent storage. Create a link, share it once, get booked, and it's gone forever.
 
 Built for modern professionals who want the convenience of scheduling automation without sacrificing privacy.
 ```
@@ -69,7 +69,7 @@ Built for modern professionals who want the convenience of scheduling automation
 1. Create a Product Hunt account
 2. Click "Submit" in top nav
 3. Fill in product details:
-   - **Name:** QuickSlots
+   - **Name:** WhenAvailable
    - **Tagline:** Temporary scheduling links that expire after booking
    - **Link:** https://quickslots.vercel.app
    - **First Comment:** (Write a personal story about why you built it)
@@ -96,7 +96,7 @@ Built for modern professionals who want the convenience of scheduling automation
 1. Create account at https://alternativeto.net/user/register/
 2. Go to https://alternativeto.net/software/add/
 3. Fill in details:
-   - **Name:** QuickSlots
+   - **Name:** WhenAvailable
    - **Category:** Business & Commerce → Office & Productivity
    - **Platforms:** Web-based
    - **License:** Freeware (100% free)
@@ -125,7 +125,7 @@ Built for modern professionals who want the convenience of scheduling automation
 3. Click "Add option" on questions like:
    - "What are the best scheduling apps?"
    - "What are the best Calendly alternatives?"
-4. Add QuickSlots with pros/cons:
+4. Add WhenAvailable with pros/cons:
    - **Pros:** Privacy-first, no signup, free forever, temporary links
    - **Cons:** No recurring bookings, limited to 5 slots per link
 
@@ -140,7 +140,7 @@ Built for modern professionals who want the convenience of scheduling automation
 1. Go to https://www.capterra.com/vendors/sign-up
 2. Create vendor account
 3. Submit product listing:
-   - **Software name:** QuickSlots
+   - **Software name:** WhenAvailable
    - **Category:** Appointment Scheduling Software
    - **Deployment:** Cloud/SaaS/Web-based
    - **Pricing:** Free
@@ -210,7 +210,7 @@ Built for modern professionals who want the convenience of scheduling automation
 **Impact:** ⭐⭐⭐ (Early adopters)
 **Cost:** FREE
 
-**Only applicable if you position QuickSlots as "beta" - otherwise skip**
+**Only applicable if you position WhenAvailable as "beta" - otherwise skip**
 
 ---
 
@@ -221,7 +221,7 @@ Built for modern professionals who want the convenience of scheduling automation
 
 **Submission Steps:**
 1. Create account (must be old to submit)
-2. Post as "Show HN: QuickSlots - Privacy-first scheduling with temporary links"
+2. Post as "Show HN: WhenAvailable - Privacy-first scheduling with temporary links"
 3. Include:
    - Clear problem statement
    - How it's different
@@ -231,7 +231,7 @@ Built for modern professionals who want the convenience of scheduling automation
 5. Best time: Tuesday-Thursday 8-10am PST
 
 **Title Examples:**
-- "Show HN: QuickSlots – Temporary scheduling links that auto-delete"
+- "Show HN: WhenAvailable – Temporary scheduling links that auto-delete"
 - "Show HN: Privacy-first Calendly alternative with zero data retention"
 
 ---
@@ -258,7 +258,7 @@ Built for modern professionals who want the convenience of scheduling automation
 
 **Title Templates:**
 - "[Project] Built a privacy-first scheduling tool that auto-deletes data"
-- "Fed up with Calendly storing my data forever, so I built QuickSlots"
+- "Fed up with Calendly storing my data forever, so I built WhenAvailable"
 - "How I schedule meetings without sharing my calendar"
 
 ---
@@ -303,7 +303,7 @@ Before submitting anywhere, prepare:
 
 ### For "About" Sections:
 ```
-QuickSlots creates temporary scheduling links that expire after booking. Unlike traditional scheduling tools, we don't require signups, don't store data permanently (auto-deletes after 24 hours), and prioritize your privacy. Perfect for one-time meetings, job interviews, consulting calls, or anyone who values calendar privacy.
+WhenAvailable creates temporary scheduling links that expire after booking. Unlike traditional scheduling tools, we don't require signups, don't store data permanently (auto-deletes after 24 hours), and prioritize your privacy. Perfect for one-time meetings, job interviews, consulting calls, or anyone who values calendar privacy.
 ```
 
 ### For "What Makes It Different":
@@ -366,7 +366,7 @@ After submitting to directories:
 
 Beyond directories, get backlinks from:
 
-1. **Comparison articles:** "QuickSlots vs Calendly"
+1. **Comparison articles:** "WhenAvailable vs Calendly"
 2. **Listicles:** "10 Best Calendly Alternatives"
 3. **GitHub awesome lists:** Search for "awesome-productivity"
 4. **Quora answers:** Answer questions about scheduling tools
@@ -411,7 +411,7 @@ Based on typical submission campaigns:
 ## 🎯 Next Steps
 
 1. **Choose a Product Hunt launch date** (Tuesday-Thursday, 2-3 weeks out)
-2. **Take screenshots** of QuickSlots in action
+2. **Take screenshots** of WhenAvailable in action
 3. **Start with AlternativeTo** (easiest, fast approval)
 4. **Track results** in a spreadsheet
 5. **Iterate based on feedback** from early submissions

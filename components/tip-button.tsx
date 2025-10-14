@@ -61,7 +61,7 @@ export function TipButton({ className = '' }: TipButtonProps) {
       {/* Header */}
       <div className="text-center mb-4">
         <h3 className="text-xl font-bold text-gray-100 mb-2">
-          ☕ Love QuickSlots?
+          ☕ Love WhenAvailable?
         </h3>
         <p className="text-sm text-gray-300">
           Help keep this free tool running! Tips do not remove ads or unlock features.
@@ -172,7 +172,7 @@ export function TipButton({ className = '' }: TipButtonProps) {
 
       {/* Footer Message */}
       <p className="text-xs text-gray-400 text-center mt-4">
-        💝 Your support helps keep QuickSlots free for everyone
+        💝 Your support helps keep WhenAvailable free for everyone
       </p>
     </div>
   );

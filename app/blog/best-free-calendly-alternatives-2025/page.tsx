@@ -37,7 +37,7 @@ export default function CalendlyAlternativesPost() {
       {/* CTA Box */}
       <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 my-8 not-prose">
         <h3 className="text-lg font-bold text-gray-900 mb-2">
-          ⚡ Try QuickSlots - The Privacy-First Alternative
+          ⚡ Try WhenAvailable - The Privacy-First Alternative
         </h3>
         <p className="text-gray-700 mb-4">
           Create temporary scheduling links in seconds. No signup required, links expire after booking. Perfect for one-time meetings.
@@ -66,19 +66,19 @@ export default function CalendlyAlternativesPost() {
         Let's explore the best free Calendly alternatives that address these concerns.
       </p>
 
-      {/* Alternative 1 - QuickSlots */}
-      <h2>1. QuickSlots - Best for Privacy & One-Time Meetings</h2>
+      {/* Alternative 1 - WhenAvailable */}
+      <h2>1. WhenAvailable - Best for Privacy & One-Time Meetings</h2>
 
       <div className="bg-white border border-gray-200 rounded-lg p-6 my-6 not-prose">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-bold text-gray-900">QuickSlots</h3>
+          <h3 className="text-xl font-bold text-gray-900">WhenAvailable</h3>
           <span className="px-3 py-1 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
             100% FREE
           </span>
         </div>
 
         <p className="text-gray-700 mb-4">
-          QuickSlots is a unique <Link href="/temporary-scheduling">temporary scheduling tool</Link> designed for one-time bookings with maximum privacy.
+          WhenAvailable is a unique <Link href="/temporary-scheduling">temporary scheduling tool</Link> designed for one-time bookings with maximum privacy.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -110,7 +110,7 @@ export default function CalendlyAlternativesPost() {
           href="/"
           className="inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Try QuickSlots Free →
+          Try WhenAvailable Free →
         </Link>
       </div>
 
@@ -197,7 +197,7 @@ export default function CalendlyAlternativesPost() {
           </thead>
           <tbody className="divide-y divide-gray-200">
             <tr>
-              <td className="px-4 py-3 font-medium text-blue-600">QuickSlots</td>
+              <td className="px-4 py-3 font-medium text-blue-600">WhenAvailable</td>
               <td className="px-4 py-3 text-gray-700">One-time meetings</td>
               <td className="px-4 py-3 text-green-600">✓ Forever free</td>
               <td className="px-4 py-3 text-green-600">★★★★★</td>
@@ -239,27 +239,27 @@ export default function CalendlyAlternativesPost() {
 
       <h3>1. Meeting Frequency</h3>
       <p>
-        <strong>One-time or infrequent meetings?</strong> QuickSlots or Google Calendar<br />
+        <strong>One-time or infrequent meetings?</strong> WhenAvailable or Google Calendar<br />
         <strong>Regular recurring bookings?</strong> Cal.com or traditional alternatives
       </p>
 
       <h3>2. Privacy Requirements</h3>
       <p>
-        <strong>Maximum privacy needed?</strong> QuickSlots (auto-deletes data)<br />
+        <strong>Maximum privacy needed?</strong> WhenAvailable (auto-deletes data)<br />
         <strong>Want data control?</strong> Cal.com (self-hosting)<br />
         <strong>Standard privacy is fine?</strong> Any option works
       </p>
 
       <h3>3. Budget</h3>
       <p>
-        <strong>$0 budget:</strong> QuickSlots, Google Calendar, Cal.com free<br />
+        <strong>$0 budget:</strong> WhenAvailable, Google Calendar, Cal.com free<br />
         <strong>Small budget:</strong> Tidycal ($29 one-time)<br />
         <strong>Flexible budget:</strong> Any paid plan
       </p>
 
       <h3>4. Features Needed</h3>
       <p>
-        <strong>Basic scheduling only?</strong> QuickSlots, Google Calendar<br />
+        <strong>Basic scheduling only?</strong> WhenAvailable, Google Calendar<br />
         <strong>Team features?</strong> Cal.com, Calendly<br />
         <strong>Group polls?</strong> Doodle
       </p>
@@ -273,7 +273,7 @@ export default function CalendlyAlternativesPost() {
 
       <ul>
         <li>
-          <strong>For privacy-conscious users or one-time meetings:</strong> <Link href="/">QuickSlots</Link> is unbeatable with zero signup and automatic data deletion
+          <strong>For privacy-conscious users or one-time meetings:</strong> <Link href="/">WhenAvailable</Link> is unbeatable with zero signup and automatic data deletion
         </li>
         <li>
           <strong>For open-source enthusiasts:</strong> Cal.com offers the most control and customization
@@ -287,7 +287,7 @@ export default function CalendlyAlternativesPost() {
       </ul>
 
       <p>
-        Most users find that <Link href="/">QuickSlots</Link> perfectly balances simplicity, privacy, and cost (it's free!). Try creating your first temporary scheduling link in under 30 seconds.
+        Most users find that <Link href="/">WhenAvailable</Link> perfectly balances simplicity, privacy, and cost (it's free!). Try creating your first temporary scheduling link in under 30 seconds.
       </p>
 
       {/* Final CTA */}
@@ -296,7 +296,7 @@ export default function CalendlyAlternativesPost() {
           Ready to Try a Better Way?
         </h3>
         <p className="text-gray-700 mb-6 text-lg">
-          Create your first temporary scheduling link with QuickSlots. No signup, no credit card, no data retention.
+          Create your first temporary scheduling link with WhenAvailable. No signup, no credit card, no data retention.
         </p>
         <Link
           href="/"

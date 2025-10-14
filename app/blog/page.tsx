@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog - Scheduling Tips & Guides | QuickSlots",
+  title: "Blog - Scheduling Tips & Guides | WhenAvailable",
   description: "Learn about privacy-first scheduling, temporary calendar links, and alternatives to traditional meeting schedulers. Expert tips for efficient meeting management.",
 };
 
@@ -47,7 +47,7 @@ export default function BlogPage() {
       {/* Blog Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          QuickSlots Blog
+          WhenAvailable Blog
         </h1>
         <p className="text-xl text-gray-600">
           Tips, guides, and insights for better meeting scheduling

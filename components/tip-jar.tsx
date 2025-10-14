@@ -37,7 +37,7 @@ export function TipJar() {
           Thank You!
         </h3>
         <p className="text-gray-600">
-          Your support helps keep QuickSlots free for everyone
+          Your support helps keep WhenAvailable free for everyone
         </p>
       </div>
     );
@@ -48,7 +48,7 @@ export function TipJar() {
       <div className="text-center mb-6">
         <div className="text-4xl mb-3">☕</div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">
-          Love QuickSlots?
+          Love WhenAvailable?
         </h3>
         <p className="text-gray-700">
           Help keep this service free and running for everyone!

@@ -106,7 +106,7 @@ export function generateICS(options: ICSEventOptions): string {
   const lines: string[] = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//QuickSlots//Calendar File//EN',
+    'PRODID:-//WhenAvailable//Calendar File//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:REQUEST',
     'BEGIN:VEVENT',
@@ -174,8 +174,8 @@ export function downloadICS(icsContent: string, filename: string = 'meeting.ics'
 }
 
 /**
- * Generate .ics content for a QuickSlots booking
- * Helper function specific to QuickSlots data structure
+ * Generate .ics content for a WhenAvailable booking
+ * Helper function specific to WhenAvailable data structure
  */
 export function generateBookingICS(params: {
   creatorName: string;
@@ -191,7 +191,7 @@ export function generateBookingICS(params: {
     creatorEmail,
     bookerName,
     bookerEmail,
-    meetingPurpose = 'QuickSlots Meeting',
+    meetingPurpose = 'WhenAvailable Meeting',
     selectedTime,
     duration = 60,
   } = params;
@@ -204,20 +204,20 @@ export function generateBookingICS(params: {
 
   // Build description
   const descriptionParts = [
-    `Meeting scheduled via QuickSlots`,
+    `Meeting scheduled via WhenAvailable`,
     ``,
     `Host: ${creatorName} (${creatorEmail})`,
     `Attendee: ${bookerName} (${bookerEmail})`,
   ];
 
-  if (meetingPurpose && meetingPurpose !== 'QuickSlots Meeting') {
+  if (meetingPurpose && meetingPurpose !== 'WhenAvailable Meeting') {
     descriptionParts.push(``, `Purpose: ${meetingPurpose}`);
   }
 
   const description = descriptionParts.join('\\n');
 
   return generateICS({
-    title: meetingPurpose || 'QuickSlots Meeting',
+    title: meetingPurpose || 'WhenAvailable Meeting',
     description,
     startTime,
     endTime,

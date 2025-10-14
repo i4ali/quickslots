@@ -35,7 +35,7 @@ export default function TipCancelledPage() {
           {/* Details */}
           <div className="bg-slate-900/50 border-2 border-slate-600 rounded-lg p-6 mb-6">
             <p className="text-gray-300">
-              QuickSlots will always remain free. If you change your mind, you can support us anytime!
+              WhenAvailable will always remain free. If you change your mind, you can support us anytime!
             </p>
           </div>
 

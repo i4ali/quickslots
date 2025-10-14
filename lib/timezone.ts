@@ -1,5 +1,5 @@
 /**
- * Timezone utility functions for QuickSlots
+ * Timezone utility functions for WhenAvailable
  */
 
 /**

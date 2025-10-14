@@ -1,6 +1,6 @@
 # Upstash Redis Setup Guide
 
-This guide explains how to set up Upstash Redis for QuickSlots.
+This guide explains how to set up Upstash Redis for WhenAvailable.
 
 ## Why Upstash Redis?
 
@@ -85,7 +85,7 @@ If `connected` is `false`, double-check your credentials!
 
 ## Redis Operations
 
-QuickSlots uses Redis for:
+WhenAvailable uses Redis for:
 
 ### 1. **Storing Slots** (Creator's Availability)
 - Key pattern: `slot:{id}`
@@ -192,7 +192,7 @@ Monitor usage in [Upstash Console](https://console.upstash.com):
 - 500,000 commands/month
 - Unlimited databases
 
-**Estimated Usage for QuickSlots:**
+**Estimated Usage for WhenAvailable:**
 - Each slot: ~1 KB
 - Each booking: ~500 bytes
 - 10,000 links/month = ~10 MB storage
