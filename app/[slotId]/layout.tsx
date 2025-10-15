@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAdSense } from "@/components/google-adsense";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -21,5 +22,10 @@ export default function BookingLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <GoogleAdSense />
+      {children}
+    </>
+  );
 }
