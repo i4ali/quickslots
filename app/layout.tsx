@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import { CookieConsent } from "@/components/cookie-consent";
 import { Analytics } from "@vercel/analytics/react";
-import { GoogleAdSense } from "@/components/google-adsense";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -146,8 +145,6 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      {/* TEMPORARY: AdSense verification - Remove after site is verified */}
-      <GoogleAdSense />
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         {/* WebApplication Schema */}
         <script
