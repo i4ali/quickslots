@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { formatInTimezone, getTimezoneAbbr } from '@/lib/timezone';
+import { DisplayAd } from '@/components/display-ad';
 
 // Metadata can't be exported from client components, but we can add it via layout
 // For now, add head tags manually in the component
@@ -256,6 +257,14 @@ export default function BookingPage() {
               <span className="font-mono">{getTimezoneAbbr(userTimezone)}</span>
             </p>
           </div>
+
+          {/* Ad Placement 1: After timezone info */}
+          <DisplayAd
+            adSlot="REPLACE_WITH_YOUR_AD_SLOT_ID"
+            adFormat="auto"
+            fullWidthResponsive={true}
+            className="mb-6"
+          />
 
           {/* Available Slots */}
           <div className="mb-8">
@@ -514,6 +523,14 @@ export default function BookingPage() {
             </li>
           </ul>
         </div>
+
+        {/* Ad Placement 2: After info section */}
+        <DisplayAd
+          adSlot="REPLACE_WITH_YOUR_AD_SLOT_ID_2"
+          adFormat="auto"
+          fullWidthResponsive={true}
+          className="mt-8"
+        />
       </div>
     </div>
   );

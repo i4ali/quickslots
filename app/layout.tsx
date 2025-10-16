@@ -32,9 +32,6 @@ export const metadata: Metadata = {
   creator: "WhenAvailable",
   publisher: "WhenAvailable",
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://whenavailable.app'),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "WhenAvailable - Share Availability Instantly | No Signup Required",
     description: "Create temporary scheduling links that expire after booking. Perfect for meetings, interviews, and appointments. No signup required.",

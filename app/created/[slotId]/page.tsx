@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { CopyButton } from '@/components/copy-button';
 import { CountdownTimer } from '@/components/countdown-timer';
 import { TipButton } from '@/components/tip-button';
+import { DisplayAd } from '@/components/display-ad';
 
 export default function LinkCreatedPage() {
   const params = useParams();
@@ -156,6 +157,14 @@ export default function LinkCreatedPage() {
 
         {/* Tip Button */}
         <TipButton className="mb-8" />
+
+        {/* Ad Placement: After tip button */}
+        <DisplayAd
+          adSlot="REPLACE_WITH_YOUR_AD_SLOT_ID"
+          adFormat="auto"
+          fullWidthResponsive={true}
+          className="mb-8"
+        />
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">
