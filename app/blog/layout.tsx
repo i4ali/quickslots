@@ -8,6 +8,17 @@ export const metadata: Metadata = {
     title: "Blog - WhenAvailable",
     description: "Tips, guides, and best practices for scheduling meetings efficiently.",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': 0,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function BlogLayout({
