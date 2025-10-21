@@ -79,7 +79,6 @@ export default function LinkCreatedPage() {
       <div className="max-w-3xl mx-auto px-4 py-12 sm:py-20">
         {/* Success Header */}
         <div className="text-center mb-12">
-          <div className="text-6xl mb-4">🎉</div>
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
             Your Link is Ready!
           </h1>
