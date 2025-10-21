@@ -57,21 +57,21 @@ export function TipButton({ className = '' }: TipButtonProps) {
   };
 
   return (
-    <div className={`bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-2 border-blue-500/30 rounded-xl p-6 ${className}`}>
+    <div className={`bg-blue-50 border-2 border-blue-200 rounded-xl p-6 ${className}`}>
       {/* Header */}
       <div className="text-center mb-4">
-        <h3 className="text-xl font-bold text-gray-100 mb-2">
+        <h3 className="text-xl font-bold text-gray-900 mb-2">
           ☕ Love WhenAvailable?
         </h3>
-        <p className="text-sm text-gray-300">
+        <p className="text-sm text-gray-700">
           Help keep this free tool running! Tips do not remove ads or unlock features.
         </p>
       </div>
 
       {/* Error Display */}
       {error && (
-        <div className="mb-4 bg-red-500/10 border border-red-500/30 rounded-lg p-3">
-          <p className="text-sm text-red-400">⚠️ {error}</p>
+        <div className="mb-4 bg-red-50 border border-red-300 rounded-lg p-3">
+          <p className="text-sm text-red-700">⚠️ {error}</p>
         </div>
       )}
 
@@ -122,7 +122,7 @@ export function TipButton({ className = '' }: TipButtonProps) {
       {/* Custom Amount */}
       <div className="flex gap-2">
         <div className="flex-1 relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-medium">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 font-medium">$</span>
           <input
             type="number"
             min="1"
@@ -139,13 +139,13 @@ export function TipButton({ className = '' }: TipButtonProps) {
               }
             }}
             disabled={isLoading}
-            className="w-full pl-8 pr-4 py-3 bg-slate-900/70 border-2 border-slate-500 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full pl-8 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           />
         </div>
         <button
           onClick={handleCustomTip}
           disabled={isLoading || !customAmount}
-          className="px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-700 hover:shadow-lg active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 shadow-md hover:shadow-lg active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading && selectedAmount === null ? (
             <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
@@ -171,7 +171,7 @@ export function TipButton({ className = '' }: TipButtonProps) {
       </div>
 
       {/* Footer Message */}
-      <p className="text-xs text-gray-400 text-center mt-4">
+      <p className="text-xs text-gray-600 text-center mt-4">
         💝 Your support helps keep WhenAvailable free for everyone
       </p>
     </div>
