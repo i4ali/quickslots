@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { CopyButton } from '@/components/copy-button';
 import { CountdownTimer } from '@/components/countdown-timer';
 import { TipButton } from '@/components/tip-button';
@@ -33,10 +34,10 @@ export default function LinkCreatedPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-300">Loading...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
         </div>
       </div>
     );
@@ -44,15 +45,15 @@ export default function LinkCreatedPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="max-w-md w-full">
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-700 p-8 text-center">
+          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 text-center">
             <div className="text-6xl mb-4">⚠️</div>
-            <h1 className="text-2xl font-bold text-gray-100 mb-2">Something went wrong</h1>
-            <p className="text-gray-300 mb-6">{error}</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong</h1>
+            <p className="text-gray-600 mb-6">{error}</p>
             <button
               onClick={handleCreateAnother}
-              className="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+              className="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md"
             >
               Return to Homepage
             </button>
@@ -63,28 +64,39 @@ export default function LinkCreatedPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      <div className="max-w-3xl mx-auto px-4 py-16 sm:py-24">
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <nav className="border-b border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+              WhenAvailable
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-3xl mx-auto px-4 py-12 sm:py-20">
         {/* Success Header */}
         <div className="text-center mb-12">
           <div className="text-6xl mb-4">🎉</div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-100 mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
             Your Link is Ready!
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-gray-600">
             Share it with anyone you want to meet
           </p>
         </div>
 
         {/* Main Card */}
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-700 p-8 mb-8">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 mb-8">
           {/* Shareable Link Section */}
           <div className="mb-8">
-            <label className="block text-sm font-semibold text-gray-200 mb-3">
+            <label className="block text-sm font-semibold text-gray-900 mb-3">
               Your Shareable Link
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
-              <div className="flex-1 px-4 py-3 bg-slate-900/50 border-2 border-slate-600 rounded-lg font-mono text-sm text-gray-100 break-all">
+              <div className="flex-1 px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg font-mono text-sm text-gray-900 break-all">
                 {shareableUrl}
               </div>
               <CopyButton text={shareableUrl} />
@@ -93,10 +105,10 @@ export default function LinkCreatedPage() {
 
           {/* Expiration Countdown */}
           {expiresAt && (
-            <div className="mb-8 p-4 bg-blue-600/10 border border-blue-500/30 rounded-lg">
+            <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <div className="flex items-center gap-3">
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-blue-300 mb-1">
+                  <p className="text-sm font-semibold text-blue-900 mb-1">
                     Link expires in:
                   </p>
                   <CountdownTimer expiresAt={expiresAt} />
@@ -107,48 +119,48 @@ export default function LinkCreatedPage() {
 
           {/* What Happens Next */}
           <div className="mb-8">
-            <h2 className="text-lg font-bold text-gray-100 mb-4 flex items-center gap-2">
-              <span>📋</span> What Happens Next?
+            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <span>📋</span> What happens next?
             </h2>
             <div className="space-y-3">
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-sm font-bold border border-blue-500/30">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                   1
                 </div>
-                <p className="text-gray-300 pt-0.5">
-                  <strong className="text-gray-200">Share your link</strong> via email, text message, or any chat app
+                <p className="text-gray-600 pt-0.5">
+                  <strong className="text-gray-900">Share your link</strong> via email, text message, or any chat app
                 </p>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-sm font-bold border border-blue-500/30">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                   2
                 </div>
-                <p className="text-gray-300 pt-0.5">
-                  <strong className="text-gray-200">They pick a time</strong> from your available slots
+                <p className="text-gray-600 pt-0.5">
+                  <strong className="text-gray-900">They pick a time</strong> from your available slots
                 </p>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-sm font-bold border border-blue-500/30">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                   3
                 </div>
-                <p className="text-gray-300 pt-0.5">
-                  <strong className="text-gray-200">You both get notified</strong> instantly via email with calendar invites
+                <p className="text-gray-600 pt-0.5">
+                  <strong className="text-gray-900">You both get notified</strong> instantly via email with calendar invites
                 </p>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-sm font-bold border border-blue-500/30">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                   4
                 </div>
-                <p className="text-gray-300 pt-0.5">
-                  <strong className="text-gray-200">Link expires</strong> after booking or 24 hours (whichever comes first)
+                <p className="text-gray-600 pt-0.5">
+                  <strong className="text-gray-900">Link expires</strong> after booking or 24 hours (whichever comes first)
                 </p>
               </div>
             </div>
           </div>
 
           {/* Important Note */}
-          <div className="p-4 bg-yellow-600/10 border border-yellow-500/30 rounded-lg">
-            <p className="text-sm text-yellow-300">
+          <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p className="text-sm text-yellow-800">
               <strong>🔒 Privacy:</strong> All data is automatically deleted after your link expires. We never store your information permanently.
             </p>
           </div>
@@ -169,14 +181,14 @@ export default function LinkCreatedPage() {
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={handleCreateAnother}
-            className="flex-1 py-4 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all hover:shadow-lg flex items-center justify-center gap-2"
+            className="flex-1 py-4 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <span>➕</span>
             Create Another Link
           </button>
           <button
             onClick={() => window.open(shareableUrl, '_blank')}
-            className="flex-1 py-4 px-6 bg-slate-800/50 text-blue-400 font-semibold rounded-lg border-2 border-blue-600 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 py-4 px-6 bg-white text-blue-600 font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
           >
             <span>👀</span>
             Preview Link
