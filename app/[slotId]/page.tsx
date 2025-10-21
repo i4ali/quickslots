@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { formatInTimezone, getTimezoneAbbr } from '@/lib/timezone';
 import { DisplayAd } from '@/components/display-ad';
 
@@ -51,16 +52,7 @@ export default function BookingPage() {
   const [bookingError, setBookingError] = useState<string | null>(null);
   const [touched, setTouched] = useState({ name: false, email: false });
 
-  useEffect(() => {
-    // Detect user timezone
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setUserTimezone(tz);
-
-    // Fetch slot data
-    fetchSlotData();
-  }, [slotId]);
-
-  const fetchSlotData = async () => {
+  const fetchSlotData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -89,7 +81,16 @@ export default function BookingPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [slotId]);
+
+  useEffect(() => {
+    // Detect user timezone
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setUserTimezone(tz);
+
+    // Fetch slot data
+    fetchSlotData();
+  }, [fetchSlotData]);
 
   const handleSlotSelect = (index: number) => {
     setSelectedSlot(index);
