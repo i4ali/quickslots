@@ -182,10 +182,10 @@ export default function BookingPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-300 text-lg">Loading availability...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg">Loading availability...</p>
         </div>
       </div>
     );
@@ -194,24 +194,24 @@ export default function BookingPage() {
   // Error state (expired, not found, already booked)
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      <div className="min-h-screen bg-gray-50">
         <div className="max-w-2xl mx-auto px-4 py-16">
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-red-500/50 p-8 text-center">
+          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 text-center">
             <div className="text-6xl mb-4">😕</div>
-            <h1 className="text-3xl font-bold text-gray-100 mb-3">
+            <h1 className="text-3xl font-bold text-gray-900 mb-3">
               Link Unavailable
             </h1>
-            <p className="text-gray-300 text-lg mb-8">
+            <p className="text-gray-600 text-lg mb-8">
               {error}
             </p>
             <div className="space-y-4">
               <button
                 onClick={() => router.push('/')}
-                className="w-full py-4 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                className="w-full py-4 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md"
               >
                 Create Your Own Link
               </button>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-500">
                 WhenAvailable links expire after 24 hours or once booked
               </p>
             </div>
@@ -224,35 +224,46 @@ export default function BookingPage() {
   // No slot data (shouldn't happen, but handle it)
   if (!slotData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-300">No booking information available</p>
+          <p className="text-gray-600">No booking information available</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <nav className="border-b border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+              WhenAvailable
+            </Link>
+          </div>
+        </div>
+      </nav>
+
       <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-10">
           <div className="text-5xl mb-4">📅</div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-100 mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Book Time with {slotData.creatorName}
           </h1>
           {slotData.meetingPurpose && (
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 text-blue-300 rounded-full border border-blue-500/30">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full border border-blue-200">
               <span className="font-medium">{slotData.meetingPurpose}</span>
             </div>
           )}
         </div>
 
         {/* Main Card */}
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-700 p-6 sm:p-8 mb-8">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 sm:p-8 mb-8">
           {/* Timezone Info */}
-          <div className="mb-6 p-4 bg-purple-600/10 border border-purple-500/30 rounded-lg">
-            <p className="text-sm text-purple-300">
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-blue-900">
               <strong>🌍 Times shown in your timezone:</strong>{' '}
               <span className="font-mono">{getTimezoneAbbr(userTimezone)}</span>
             </p>
@@ -268,8 +279,8 @@ export default function BookingPage() {
 
           {/* Available Slots */}
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-100 mb-4">
-              Select a Time Slot
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              Select a time slot
             </h2>
             <div className="space-y-3">
               {slotData.timeSlots.map((slot, index) => {
@@ -288,23 +299,23 @@ export default function BookingPage() {
                     onClick={() => handleSlotSelect(index)}
                     className={`w-full p-5 rounded-lg border-2 transition-all text-left ${
                       isSelected
-                        ? 'border-blue-500 bg-blue-600/20 shadow-lg scale-105'
-                        : 'border-slate-600 bg-slate-900/50 hover:border-blue-500/50 hover:shadow-md'
+                        ? 'border-blue-600 bg-blue-50 shadow-md'
+                        : 'border-gray-200 bg-white hover:border-blue-300 hover:shadow-sm'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <p className="font-semibold text-gray-100 text-lg mb-1">
+                        <p className="font-semibold text-gray-900 text-base mb-1">
                           {dateStr}
                         </p>
-                        <p className={`text-sm ${isSelected ? 'text-blue-300' : 'text-gray-400'}`}>
+                        <p className={`text-sm ${isSelected ? 'text-blue-700' : 'text-gray-600'}`}>
                           {startTime} - {endTime} ({getTimezoneAbbr(userTimezone)})
                         </p>
                       </div>
                       <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                         isSelected
-                          ? 'border-blue-500 bg-blue-500'
-                          : 'border-slate-600 bg-slate-900'
+                          ? 'border-blue-600 bg-blue-600'
+                          : 'border-gray-300 bg-white'
                       }`}>
                         {isSelected && (
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -326,32 +337,32 @@ export default function BookingPage() {
               onClick={handleContinue}
               className={`w-full py-4 font-semibold rounded-lg transition-all ${
                 selectedSlot !== null
-                  ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'
-                  : 'bg-slate-700 text-gray-400 cursor-not-allowed'
+                  ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg'
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              {selectedSlot !== null ? 'Continue to Booking →' : 'Select a time slot to continue'}
+              {selectedSlot !== null ? 'Continue →' : 'Select a time slot to continue'}
             </button>
           ) : (
             /* Booking Form */
-            <div className="border-t-2 border-slate-700 pt-8 mt-8">
+            <div className="border-t border-gray-200 pt-8 mt-8">
               <div className="mb-6">
-                <h3 className="text-xl font-bold text-gray-100 mb-2">Your Information</h3>
-                <p className="text-sm text-gray-400">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Your information</h3>
+                <p className="text-sm text-gray-600">
                   Enter your details to confirm the booking
                 </p>
               </div>
 
               {/* Selected Slot Display */}
               {selectedSlot !== null && slotData && (
-                <div className="mb-6 p-4 bg-emerald-600/10 border-2 border-emerald-500/30 rounded-lg">
-                  <p className="text-sm text-emerald-400 font-semibold mb-1">
-                    📅 Your Selected Time:
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-sm text-green-800 font-semibold mb-1">
+                    📅 Your selected time:
                   </p>
-                  <p className="text-emerald-300 font-medium">
+                  <p className="text-green-900 font-medium">
                     {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].start), userTimezone, 'EEEE, MMMM d, yyyy')}
                   </p>
-                  <p className="text-emerald-300">
+                  <p className="text-green-900">
                     {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].start), userTimezone, 'h:mm a')} -{' '}
                     {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].end), userTimezone, 'h:mm a')}{' '}
                     ({getTimezoneAbbr(userTimezone)})
@@ -361,7 +372,7 @@ export default function BookingPage() {
                       setShowBookingForm(false);
                       setBookingError(null);
                     }}
-                    className="text-sm text-emerald-400 hover:text-emerald-300 underline mt-2"
+                    className="text-sm text-blue-600 hover:text-blue-700 underline mt-2"
                   >
                     ← Choose a different time
                   </button>
@@ -370,19 +381,19 @@ export default function BookingPage() {
 
               {/* Error Display */}
               {bookingError && (
-                <div className="mb-6 p-4 bg-red-500/10 border-2 border-red-500/30 rounded-lg">
-                  <p className="text-sm text-red-400 font-medium">
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-600 font-medium">
                     ⚠️ {bookingError}
                   </p>
                 </div>
               )}
 
               {/* Form */}
-              <form onSubmit={handleBookingSubmit} className="space-y-4">
+              <form onSubmit={handleBookingSubmit} className="space-y-5">
                 {/* Name Input */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-200 mb-2">
-                    Your Name <span className="text-red-400">*</span>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Your Name <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
@@ -390,22 +401,22 @@ export default function BookingPage() {
                     value={bookerName}
                     onChange={(e) => setBookerName(e.target.value)}
                     onBlur={() => setTouched({ ...touched, name: true })}
-                    className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/50 text-gray-100 placeholder-gray-500 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
                       touched.name && !bookerName.trim()
-                        ? 'border-red-500/50 focus:border-red-500'
-                        : 'border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                        ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                        : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
                     }`}
                     disabled={isSubmitting}
                   />
                   {touched.name && !bookerName.trim() && (
-                    <p className="text-xs text-red-400 mt-1">Name is required</p>
+                    <p className="text-xs text-red-600 mt-1">Name is required</p>
                   )}
                 </div>
 
                 {/* Email Input */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-200 mb-2">
-                    Your Email <span className="text-red-400">*</span>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Your Email <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="email"
@@ -413,27 +424,27 @@ export default function BookingPage() {
                     value={bookerEmail}
                     onChange={(e) => setBookerEmail(e.target.value)}
                     onBlur={() => setTouched({ ...touched, email: true })}
-                    className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/50 text-gray-100 placeholder-gray-500 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
                       touched.email && (!bookerEmail.trim() || !bookerEmail.includes('@'))
-                        ? 'border-red-500/50 focus:border-red-500'
-                        : 'border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                        ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                        : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
                     }`}
                     disabled={isSubmitting}
                   />
                   {touched.email && !bookerEmail.trim() && (
-                    <p className="text-xs text-red-400 mt-1">Email is required</p>
+                    <p className="text-xs text-red-600 mt-1">Email is required</p>
                   )}
                   {touched.email && bookerEmail.trim() && !bookerEmail.includes('@') && (
-                    <p className="text-xs text-red-400 mt-1">Please enter a valid email</p>
+                    <p className="text-xs text-red-600 mt-1">Please enter a valid email</p>
                   )}
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-gray-500 mt-1">
                     You'll receive a confirmation email with calendar invite
                   </p>
                 </div>
 
                 {/* Note Input (Optional) */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-200 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Add a note (optional)
                   </label>
                   <textarea
@@ -441,10 +452,10 @@ export default function BookingPage() {
                     value={bookerNote}
                     onChange={(e) => setBookerNote(e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all resize-none bg-slate-900/50 text-gray-100 placeholder-gray-500 border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-4 py-3 border rounded-lg focus:outline-none transition-all resize-none bg-white text-gray-900 placeholder-gray-400 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                     disabled={isSubmitting}
                   />
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-gray-500 mt-1">
                     This note will be shared with {slotData?.creatorName || 'the creator'}
                   </p>
                 </div>
@@ -455,8 +466,8 @@ export default function BookingPage() {
                   disabled={isSubmitting || !bookerName.trim() || !bookerEmail.trim() || !bookerEmail.includes('@')}
                   className={`w-full py-4 font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
                     isSubmitting || !bookerName.trim() || !bookerEmail.trim() || !bookerEmail.includes('@')
-                      ? 'bg-slate-700 text-gray-400 cursor-not-allowed'
-                      : 'bg-emerald-600 text-white hover:bg-emerald-700 hover:shadow-lg'
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      : 'bg-green-600 text-white hover:bg-green-700 shadow-md hover:shadow-lg'
                   }`}
                 >
                   {isSubmitting ? (
@@ -492,31 +503,31 @@ export default function BookingPage() {
         </div>
 
         {/* Info Section */}
-        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border border-slate-600/50 p-6">
-          <h3 className="font-semibold text-gray-100 mb-4 flex items-center gap-2">
-            <span>ℹ️</span> What Happens Next?
+        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <span>ℹ️</span> What happens next?
           </h3>
-          <ul className="space-y-3 text-sm text-gray-300">
+          <ul className="space-y-3 text-sm text-gray-600">
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xs font-bold border border-blue-500/30">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                 1
               </span>
               <span>Enter your name and email</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xs font-bold border border-blue-500/30">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                 2
               </span>
               <span>Both you and {slotData.creatorName} will receive email confirmations</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xs font-bold border border-blue-500/30">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                 3
               </span>
               <span>Calendar invites (.ics files) will be attached to make it easy to add to your calendar</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xs font-bold border border-blue-500/30">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                 4
               </span>
               <span>This link will expire immediately after booking (one-time use)</span>

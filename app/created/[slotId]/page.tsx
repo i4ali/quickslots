@@ -95,7 +95,6 @@ export default function LinkCreatedPage() {
           {expiresAt && (
             <div className="mb-8 p-4 bg-blue-600/10 border border-blue-500/30 rounded-lg">
               <div className="flex items-center gap-3">
-                <div className="text-2xl">⏰</div>
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-blue-300 mb-1">
                     Link expires in:

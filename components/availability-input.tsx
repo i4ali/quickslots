@@ -95,17 +95,17 @@ export function AvailabilityInput({ onSlotAdded, maxSlots = 5 }: AvailabilityInp
             type="text"
             value={input}
             onChange={(e) => handleInputChange(e.target.value)}
-            placeholder='Try: "tomorrow 2-4pm" or "Friday at 3pm"'
-            className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/70 text-gray-100 placeholder-gray-400 ${
+            placeholder='Try: "tomorrow 2-4pm" or "Friday at 4pm"'
+            className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
               error
-                ? 'border-red-500 focus:border-red-400'
+                ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                 : isValid
-                ? 'border-emerald-500 focus:border-emerald-400'
-                : 'border-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30'
+                ? 'border-green-500 focus:border-green-600 focus:ring-2 focus:ring-green-200'
+                : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
             }`}
           />
           {isValid && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-400">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
@@ -118,22 +118,22 @@ export function AvailabilityInput({ onSlotAdded, maxSlots = 5 }: AvailabilityInp
         </div>
 
         {/* Helper Text */}
-        <p className="text-xs text-gray-400 mt-1">
-          Natural language input powered by chrono-node • Timezone: {userTimezone}
+        <p className="text-xs text-gray-500 mt-1">
+          Natural language input • Timezone: {userTimezone}
         </p>
       </div>
 
       {/* Parsed Result Display */}
       {parsedResult && isValid && (
-        <div className="bg-emerald-600/10 border border-emerald-500/30 rounded-lg p-4">
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <p className="text-sm font-medium text-emerald-400 mb-1">✓ Parsed successfully:</p>
-              <p className="text-sm text-emerald-300">
+              <p className="text-sm font-medium text-green-800 mb-1">✓ Parsed successfully:</p>
+              <p className="text-sm text-green-900">
                 {formatDateWithTimezone(parsedResult.start, userTimezone)}
               </p>
               {parsedResult.end && parsedResult.end.getTime() !== parsedResult.start.getTime() && (
-                <p className="text-sm text-emerald-300">
+                <p className="text-sm text-green-900">
                   to {formatDateWithTimezone(parsedResult.end, userTimezone, {
                     hour: 'numeric',
                     minute: '2-digit',
@@ -144,7 +144,7 @@ export function AvailabilityInput({ onSlotAdded, maxSlots = 5 }: AvailabilityInp
             </div>
             <button
               onClick={handleAddSlot}
-              className="ml-4 px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
+              className="ml-4 px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700 transition-colors shadow-sm"
             >
               Add Slot
             </button>
@@ -154,27 +154,27 @@ export function AvailabilityInput({ onSlotAdded, maxSlots = 5 }: AvailabilityInp
 
       {/* Error Display */}
       {error && (
-        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
-          <p className="text-sm text-red-400">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+          <p className="text-sm text-red-700">
             <span className="font-semibold">⚠️ Error:</span> {error}
           </p>
         </div>
       )}
 
       {/* Examples */}
-      <div className="bg-blue-600/10 border border-blue-500/30 rounded-lg p-3">
-        <p className="text-xs font-semibold text-blue-300 mb-2">Example inputs:</p>
+      <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+        <p className="text-sm font-semibold text-gray-900 mb-3">💡 Try these examples:</p>
         <div className="flex flex-wrap gap-2">
           {[
             'tomorrow 2-4pm',
-            'Friday at 3pm',
+            'Friday at 4pm',
             'next Tuesday 10am-12pm',
             'Oct 15 at 2:30pm',
           ].map((example) => (
             <button
               key={example}
               onClick={() => handleInputChange(example)}
-              className="px-2 py-1 bg-slate-800/50 border border-blue-500/30 text-xs text-blue-300 rounded hover:bg-slate-700/50 transition-colors"
+              className="px-3 py-2 bg-white border border-gray-300 text-sm text-gray-700 rounded-md hover:bg-gray-50 hover:border-blue-400 transition-all shadow-sm hover:shadow"
             >
               {example}
             </button>

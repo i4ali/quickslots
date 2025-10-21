@@ -26,15 +26,15 @@ export default function NotFound() {
           </h2>
           <ul className="space-y-2 text-sm text-gray-600">
             <li className="flex items-start">
-              <span className="mr-2">⏰</span>
+              <span className="mr-2">•</span>
               <span>This scheduling link has expired (24-hour limit)</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">✅</span>
+              <span className="mr-2">•</span>
               <span>This slot has already been booked</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">🔗</span>
+              <span className="mr-2">•</span>
               <span>The link was typed incorrectly</span>
             </li>
           </ul>

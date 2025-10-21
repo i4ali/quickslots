@@ -161,23 +161,23 @@ export default function RootLayout({
         </div>
 
         {/* Footer */}
-        <footer className="border-t border-gray-200 bg-white">
-          <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <footer className="border-t border-gray-200 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* Brand */}
-              <div>
-                <Link href="/" className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
-                  ⏰ WhenAvailable
+              <div className="md:col-span-2">
+                <Link href="/" className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors inline-block mb-3">
+                  WhenAvailable
                 </Link>
-                <p className="text-sm text-gray-600 mt-2">
-                  Share your availability instantly. No signup required.
+                <p className="text-sm text-gray-600 max-w-md leading-relaxed">
+                  Create temporary scheduling links in seconds. No signup required. Privacy-first meeting coordination.
                 </p>
               </div>
 
-              {/* Links */}
+              {/* Product Links */}
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Quick Links</h3>
-                <ul className="space-y-2 text-sm">
+                <h3 className="font-semibold text-gray-900 mb-4 text-sm">Product</h3>
+                <ul className="space-y-3 text-sm">
                   <li>
                     <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">
                       Create Link
@@ -188,18 +188,13 @@ export default function RootLayout({
                       Blog
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/api/health" className="text-gray-600 hover:text-blue-600 transition-colors">
-                      System Status
-                    </Link>
-                  </li>
                 </ul>
               </div>
 
               {/* Legal */}
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Legal</h3>
-                <ul className="space-y-2 text-sm">
+                <h3 className="font-semibold text-gray-900 mb-4 text-sm">Legal</h3>
+                <ul className="space-y-3 text-sm">
                   <li>
                     <Link href="/privacy" className="text-gray-600 hover:text-blue-600 transition-colors">
                       Privacy Policy
@@ -215,9 +210,8 @@ export default function RootLayout({
             </div>
 
             {/* Copyright */}
-            <div className="border-t border-gray-200 mt-8 pt-6 text-center text-sm text-gray-500">
+            <div className="border-t border-gray-200 mt-10 pt-8 text-center text-sm text-gray-500">
               <p>© {new Date().getFullYear()} WhenAvailable. All rights reserved.</p>
-              <p className="mt-1">Temporary scheduling links that expire after booking.</p>
             </div>
           </div>
         </footer>

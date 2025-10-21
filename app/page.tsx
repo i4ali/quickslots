@@ -82,38 +82,53 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+    <main className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="border-b border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <span className="text-2xl font-bold text-gray-900">
+                WhenAvailable
+              </span>
+            </div>
+            <div className="flex items-center gap-4">
+              <Link href="/blog" className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors">
+                Blog
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
-      <div className="max-w-4xl mx-auto px-4 py-16 sm:py-24">
+      <div className="max-w-6xl mx-auto px-4 py-12 sm:py-20">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            ⏰ WhenAvailable
+        <div className="text-center mb-16">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            Share Your Availability<br />Instantly
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 mb-2">
-            Share Your Availability Instantly
-          </p>
-          <p className="text-gray-400">
-            No signup. Perfect for temporary scheduling. Links expire after booking.
+          <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Create temporary scheduling links in seconds. No signup required. Perfect for one-time meetings.
           </p>
         </div>
 
         {/* Main Form Card */}
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-slate-600 p-8 mb-12">
+        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg border border-gray-200 p-8 sm:p-10 mb-16">
           <div className="space-y-6">
             {/* Error Display */}
             {error && (
-              <div className="bg-red-500/10 border-2 border-red-500/30 rounded-lg p-4">
-                <p className="text-sm text-red-400 font-medium">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <p className="text-sm text-red-600 font-medium">
                   ⚠️ {error}
                 </p>
               </div>
             )}
 
             {/* Form Fields */}
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label className="block text-sm font-semibold text-gray-200 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Your Name (optional)
                 </label>
                 <input
@@ -122,20 +137,20 @@ export default function Home() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   onBlur={() => setTouched({ ...touched, name: true })}
-                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/70 text-gray-100 placeholder-gray-400 ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
                     nameError
-                      ? 'border-red-500 focus:border-red-400'
-                      : 'border-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30'
+                      ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                      : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
                   }`}
                 />
                 {nameError && (
-                  <p className="text-xs text-red-400 mt-1">{nameError}</p>
+                  <p className="text-xs text-red-600 mt-1">{nameError}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-200 mb-2">
-                  Your Email <span className="text-red-400">*</span>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Your Email <span className="text-red-600">*</span>
                 </label>
                 <input
                   type="email"
@@ -143,19 +158,19 @@ export default function Home() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onBlur={() => setTouched({ ...touched, email: true })}
-                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/70 text-gray-100 placeholder-gray-400 ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
                     emailError
-                      ? 'border-red-500 focus:border-red-400'
-                      : 'border-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30'
+                      ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                      : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
                   }`}
                 />
                 {emailError && (
-                  <p className="text-xs text-red-400 mt-1">{emailError}</p>
+                  <p className="text-xs text-red-600 mt-1">{emailError}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-200 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Meeting Purpose (optional)
                 </label>
                 <input
@@ -164,14 +179,14 @@ export default function Home() {
                   value={purpose}
                   onChange={(e) => setPurpose(e.target.value)}
                   onBlur={() => setTouched({ ...touched, purpose: true })}
-                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-all bg-slate-900/70 text-gray-100 placeholder-gray-400 ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
                     purposeError
-                      ? 'border-red-500 focus:border-red-400'
-                      : 'border-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30'
+                      ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                      : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
                   }`}
                 />
                 {purposeError && (
-                  <p className="text-xs text-red-400 mt-1">{purposeError}</p>
+                  <p className="text-xs text-red-600 mt-1">{purposeError}</p>
                 )}
               </div>
 
@@ -186,10 +201,10 @@ export default function Home() {
             <button
               onClick={handleGenerateLink}
               disabled={!canGenerateLink || isLoading}
-              className={`w-full py-4 font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
+              className={`w-full py-4 font-semibold rounded-lg transition-all flex items-center justify-center gap-2 text-base ${
                 canGenerateLink && !isLoading
-                  ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg'
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
               {isLoading ? (
@@ -210,103 +225,113 @@ export default function Home() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  Generating Link...
+                  Creating your link...
                 </>
               ) : canGenerateLink ? (
-                'Generate Link'
+                'Create Your Link'
               ) : (
-                'Add email and availability to continue'
+                'Enter email and availability to continue'
               )}
             </button>
           </div>
         </div>
 
         {/* Features */}
-        <h2 className="text-3xl font-bold text-gray-100 text-center mb-8">
-          Why Choose WhenAvailable?
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
-            <div className="text-3xl mb-2" aria-hidden="true">⚡</div>
-            <h3 className="font-semibold text-gray-100 mb-1 text-lg">Instant Scheduling</h3>
-            <p className="text-sm text-gray-400">Create links in seconds</p>
-          </div>
+        <div className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
+            Why teams love WhenAvailable
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">⚡</span>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Instant Scheduling</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Create and share links in seconds, no account needed</p>
+            </div>
 
-          <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
-            <div className="text-3xl mb-2" aria-hidden="true">🔒</div>
-            <h3 className="font-semibold text-gray-100 mb-1 text-lg">Privacy-First</h3>
-            <p className="text-sm text-gray-400">No signup required</p>
-          </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🔒</span>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Privacy-First</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">No signup, no tracking, no permanent data storage</p>
+            </div>
 
-          <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
-            <div className="text-3xl mb-2" aria-hidden="true">⏰</div>
-            <h3 className="font-semibold text-gray-100 mb-1 text-lg">Temporary Links</h3>
-            <p className="text-sm text-gray-400">Expires after 24 hours</p>
-          </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">⏰</span>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Temporary Links</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Links expire after booking or 24 hours</p>
+            </div>
 
-          <div className="text-center p-6 bg-slate-800/40 backdrop-blur-sm rounded-lg border-2 border-slate-600 hover:border-blue-500 transition-all">
-            <div className="text-3xl mb-2" aria-hidden="true">🗑️</div>
-            <h3 className="font-semibold text-gray-100 mb-1 text-lg">Zero Data Retention</h3>
-            <p className="text-sm text-gray-400">Auto-deleted forever</p>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🗑️</span>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Zero Retention</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">All data automatically deleted after use</p>
+            </div>
           </div>
         </div>
 
         {/* How It Works */}
-        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border-2 border-slate-600 p-8 mb-12">
-          <h2 className="text-2xl font-bold text-gray-100 text-center mb-8">
-            How It Works
+        <div className="bg-gray-50 rounded-2xl p-8 sm:p-12 mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
+            How it works
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30" aria-label="Step 1">
+              <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-5" aria-label="Step 1">
                 1
               </div>
-              <h3 className="font-semibold text-gray-100 mb-2 text-lg">Share Availability</h3>
-              <p className="text-sm text-gray-400">
-                Type when you're free in plain English
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Share availability</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Type when you're free using plain English
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30" aria-label="Step 2">
+              <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-5" aria-label="Step 2">
                 2
               </div>
-              <h3 className="font-semibold text-gray-100 mb-2 text-lg">Share Your Link</h3>
-              <p className="text-sm text-gray-400">
-                Send the link via email, text, or chat
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Share your link</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Send via email, text, or any messaging app
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border border-blue-500/30" aria-label="Step 3">
+              <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-5" aria-label="Step 3">
                 3
               </div>
-              <h3 className="font-semibold text-gray-100 mb-2 text-lg">Get Confirmed</h3>
-              <p className="text-sm text-gray-400">
-                Both parties receive email confirmation
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Get confirmed</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Both parties receive email confirmations with calendar invites
               </p>
             </div>
           </div>
         </div>
 
         {/* FAQ Section */}
-        <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border-2 border-slate-600 p-8">
-          <h2 className="text-2xl font-bold text-gray-100 text-center mb-8">
-            Frequently Asked Questions
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
+            Frequently asked questions
           </h2>
-          <div className="space-y-4 max-w-3xl mx-auto">
+          <div className="space-y-3">
             {/* FAQ 0 - What is Temporary Scheduling */}
-            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
-              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
+              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
                 What is temporary scheduling?
-                <span className="text-blue-400 text-xl">+</span>
+                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <div className="text-gray-300 mt-4 leading-relaxed space-y-3">
+              <div className="text-gray-600 mt-4 leading-relaxed space-y-3">
                 <p>
-                  <strong className="text-white">Temporary scheduling</strong> is a privacy-first approach to meeting coordination that uses disposable, time-limited links instead of permanent calendar access. Unlike traditional scheduling tools that require accounts and store your data indefinitely, temporary scheduling software creates links that automatically expire after use.
+                  <strong className="text-gray-900">Temporary scheduling</strong> is a privacy-first approach to meeting coordination that uses disposable, time-limited links instead of permanent calendar access. Unlike traditional scheduling tools that require accounts and store your data indefinitely, temporary scheduling software creates links that automatically expire after use.
                 </p>
                 <p>
-                  Perfect for <strong className="text-white">one-time meetings</strong>, job interviews, sales calls, and appointments where you don't want to share your full calendar or create lasting digital footprints. With temporary scheduling, your availability is shared only when needed—no calendar integration required.
+                  Perfect for <strong className="text-gray-900">one-time meetings</strong>, job interviews, sales calls, and appointments where you don't want to share your full calendar or create lasting digital footprints. With temporary scheduling, your availability is shared only when needed—no calendar integration required.
                 </p>
                 <p>
                   <Link href="/temporary-scheduling" className="text-blue-300 underline hover:text-blue-200">
@@ -317,56 +342,56 @@ export default function Home() {
             </details>
 
             {/* FAQ 1 */}
-            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
-              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
+              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
                 How long do WhenAvailable links last?
-                <span className="text-blue-400 text-xl">+</span>
+                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-300 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-4 leading-relaxed">
                 Links expire after 24 hours or immediately after booking, whichever comes first. All data is automatically deleted for maximum privacy.
               </p>
             </details>
 
             {/* FAQ 2 */}
-            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
-              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
+              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
                 Do I need to create an account?
-                <span className="text-blue-400 text-xl">+</span>
+                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-300 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-4 leading-relaxed">
                 No! WhenAvailable requires no signup or account creation. Simply enter your email, share your availability, and generate a link instantly.
               </p>
             </details>
 
             {/* FAQ 3 */}
-            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
-              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
+              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
                 Is WhenAvailable free?
-                <span className="text-blue-400 text-xl">+</span>
+                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-300 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-4 leading-relaxed">
                 Yes, WhenAvailable is completely free to use. You can create unlimited temporary scheduling links at no cost.
               </p>
             </details>
 
             {/* FAQ 4 */}
-            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
-              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
+              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
                 What happens to my data?
-                <span className="text-blue-400 text-xl">+</span>
+                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-300 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-4 leading-relaxed">
                 All data is automatically deleted after 24 hours. We don't store, archive, or retain any information beyond the temporary period needed for booking.
               </p>
             </details>
 
             {/* FAQ 5 */}
-            <details className="bg-slate-900/50 rounded-lg border border-slate-700 p-5 hover:border-blue-500/50 transition-colors">
-              <summary className="font-semibold text-gray-100 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
+              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
                 How do I enter my availability?
-                <span className="text-blue-400 text-xl">+</span>
+                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-300 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-4 leading-relaxed">
                 WhenAvailable uses natural language processing. Simply type times like "tomorrow 2-4pm" or "next Friday at 3pm" and the system automatically understands and converts them.
               </p>
             </details>

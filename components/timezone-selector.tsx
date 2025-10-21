@@ -13,13 +13,13 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
 
   return (
     <div>
-      <label className="block text-sm font-semibold text-gray-200 mb-2">
+      <label className="block text-sm font-medium text-gray-700 mb-2">
         Timezone
       </label>
       <select
         value={currentTimezone}
         onChange={(e) => onChange?.(e.target.value)}
-        className="w-full px-4 py-3 border-2 border-slate-500 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition-all bg-slate-900/70 text-gray-100"
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all bg-white text-gray-900"
       >
         {timezones.map((tz) => (
           <option key={tz.value} value={tz.value}>
@@ -27,7 +27,7 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
           </option>
         ))}
       </select>
-      <p className="text-xs text-gray-400 mt-1">
+      <p className="text-xs text-gray-500 mt-1">
         All times will be displayed in this timezone
       </p>
     </div>
