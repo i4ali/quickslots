@@ -57,8 +57,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
@@ -166,7 +166,8 @@ export default function RootLayout({
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* Brand */}
               <div className="md:col-span-2">
-                <Link href="/" className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors inline-block mb-3">
+                <Link href="/" className="inline-flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors mb-3">
+                  <img src="/logo-256.png" alt="WhenAvailable" className="w-8 h-8" />
                   WhenAvailable
                 </Link>
                 <p className="text-sm text-gray-600 max-w-md leading-relaxed">

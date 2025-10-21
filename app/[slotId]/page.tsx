@@ -239,7 +239,8 @@ export default function BookingPage() {
       <nav className="border-b border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+              <img src="/logo-256.png" alt="WhenAvailable" className="w-10 h-10" />
               WhenAvailable
             </Link>
           </div>
