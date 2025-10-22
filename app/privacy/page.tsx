@@ -14,7 +14,15 @@ export default function PrivacyPage() {
   });
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+    <main className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-10 w-80 h-80 bg-indigo-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-blue-50/50 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative z-10">
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="mb-8">
@@ -29,7 +37,7 @@ export default function PrivacyPage() {
         </div>
 
         {/* Content */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 space-y-8">
+        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 md:p-12 space-y-8">
           {/* Introduction */}
           <section>
             <p className="text-lg text-gray-700 leading-relaxed">
@@ -275,6 +283,7 @@ export default function PrivacyPage() {
             </p>
           </section>
         </div>
+      </div>
       </div>
     </main>
   );

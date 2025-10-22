@@ -59,7 +59,7 @@ export default function BlogPage() {
         {blogPosts.map((post) => (
           <article
             key={post.slug}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 hover:shadow-md transition-shadow"
+            className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all"
           >
             <div className="flex items-center gap-3 mb-3">
               <span className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-semibold rounded-full">

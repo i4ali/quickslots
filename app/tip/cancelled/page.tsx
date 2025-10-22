@@ -2,9 +2,16 @@ import Link from 'next/link';
 
 export default function TipCancelledPage() {
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="max-w-2xl w-full">
-        <div className="bg-white rounded-xl shadow-lg border-2 border-gray-200 p-8 text-center">
+    <main className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden flex items-center justify-center px-4">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-10 w-80 h-80 bg-indigo-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-blue-50/50 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-2xl w-full relative z-10">
+        <div className="bg-white rounded-2xl shadow-2xl border-2 border-gray-200 p-8 text-center">
           {/* Icon */}
           <div className="mb-6">
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto border-2 border-gray-300">

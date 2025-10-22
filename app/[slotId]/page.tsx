@@ -183,7 +183,7 @@ export default function BookingPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600 text-lg">Loading availability...</p>
@@ -195,9 +195,15 @@ export default function BookingPage() {
   // Error state (expired, not found, already booked)
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <div className="max-w-2xl mx-auto px-4 py-16">
-          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 text-center">
+      <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+          <div className="absolute top-40 right-10 w-80 h-80 bg-indigo-100/30 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-blue-50/50 rounded-full blur-3xl"></div>
+        </div>
+        <div className="max-w-2xl mx-auto px-4 py-16 relative z-10">
+          <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-8 text-center">
             <div className="text-6xl mb-4">😕</div>
             <h1 className="text-3xl font-bold text-gray-900 mb-3">
               Link Unavailable
@@ -225,7 +231,7 @@ export default function BookingPage() {
   // No slot data (shouldn't happen, but handle it)
   if (!slotData) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white flex items-center justify-center">
         <div className="text-center">
           <p className="text-gray-600">No booking information available</p>
         </div>
@@ -234,9 +240,16 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-10 w-80 h-80 bg-indigo-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-blue-50/50 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Navigation */}
-      <nav className="border-b border-gray-200 bg-white">
+      <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-sm relative z-10 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
@@ -247,7 +260,7 @@ export default function BookingPage() {
         </div>
       </nav>
 
-      <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
+      <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16 relative z-10">
         {/* Header */}
         <div className="text-center mb-10">
           <div className="text-5xl mb-4">📅</div>
@@ -262,7 +275,7 @@ export default function BookingPage() {
         </div>
 
         {/* Main Card */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 sm:p-8 mb-8">
+        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 sm:p-8 mb-8">
           {/* Timezone Info */}
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-900">
@@ -505,7 +518,7 @@ export default function BookingPage() {
         </div>
 
         {/* Info Section */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-lg">
           <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
             <span>ℹ️</span> What happens next?
           </h3>

@@ -82,9 +82,17 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-10 w-80 h-80 bg-indigo-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-blue-50/50 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-sky-100/20 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Navigation */}
-      <nav className="border-b border-gray-200 bg-white">
+      <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-sm relative z-10 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
@@ -103,7 +111,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-6xl mx-auto px-4 py-12 sm:py-20">
+      <div className="max-w-6xl mx-auto px-4 py-12 sm:py-20 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -115,7 +123,9 @@ export default function Home() {
         </div>
 
         {/* Main Form Card */}
-        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg border border-gray-200 p-8 sm:p-10 mb-16">
+        <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 sm:p-10 mb-16 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-indigo-50/30 rounded-2xl pointer-events-none"></div>
+          <div className="relative z-10">
           <div className="space-y-6">
             {/* Error Display */}
             {error && (
@@ -235,6 +245,7 @@ export default function Home() {
               )}
             </button>
           </div>
+          </div>
         </div>
 
         {/* Features */}
@@ -243,32 +254,32 @@ export default function Home() {
             Why teams love WhenAvailable
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <span className="text-2xl">⚡</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2 text-lg">Instant Scheduling</h3>
               <p className="text-sm text-gray-600 leading-relaxed">Create and share links in seconds, no account needed</p>
             </div>
 
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
+              <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <span className="text-2xl">🔒</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2 text-lg">Privacy-First</h3>
               <p className="text-sm text-gray-600 leading-relaxed">No signup, no tracking, no permanent data storage</p>
             </div>
 
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
+              <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-sky-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <span className="text-2xl">⏰</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2 text-lg">Temporary Links</h3>
               <p className="text-sm text-gray-600 leading-relaxed">Links expire after booking or 24 hours</p>
             </div>
 
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <span className="text-2xl">🗑️</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2 text-lg">Zero Retention</h3>
@@ -278,7 +289,7 @@ export default function Home() {
         </div>
 
         {/* How It Works */}
-        <div className="bg-gray-50 rounded-2xl p-8 sm:p-12 mb-20">
+        <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-2xl p-8 sm:p-12 mb-20 shadow-lg border border-blue-100/50">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
             How it works
           </h2>

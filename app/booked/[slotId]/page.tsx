@@ -105,7 +105,7 @@ export default function BookingConfirmationPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading confirmation...</p>
@@ -116,9 +116,9 @@ export default function BookingConfirmationPage() {
 
   if (error || !bookingData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white flex items-center justify-center px-4">
         <div className="max-w-md w-full">
-          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 text-center">
+          <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-8 text-center">
             <div className="text-6xl mb-4">⚠️</div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Confirmation Not Found
@@ -141,9 +141,16 @@ export default function BookingConfirmationPage() {
   const meetingDate = new Date(bookingData.selectedTime);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-10 w-80 h-80 bg-green-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-blue-50/50 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Navigation */}
-      <nav className="border-b border-gray-200 bg-white">
+      <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-sm relative z-10 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
@@ -154,7 +161,7 @@ export default function BookingConfirmationPage() {
         </div>
       </nav>
 
-      <div className="max-w-3xl mx-auto px-4 py-12 sm:py-20">
+      <div className="max-w-3xl mx-auto px-4 py-12 sm:py-20 relative z-10">
         {/* Success Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -166,7 +173,7 @@ export default function BookingConfirmationPage() {
         </div>
 
         {/* Main Confirmation Card */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 mb-8">
+        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 mb-8">
           {/* Meeting Details */}
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
@@ -253,7 +260,7 @@ export default function BookingConfirmationPage() {
         </div>
 
         {/* What's Next Section */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
           <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
             <span>📋</span> What Happens Next?
           </h3>

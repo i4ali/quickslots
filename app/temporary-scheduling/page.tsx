@@ -22,8 +22,15 @@ export const metadata: Metadata = {
 
 export default function TemporarySchedulingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <article className="max-w-4xl mx-auto px-4 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-10 w-80 h-80 bg-indigo-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-blue-50/50 rounded-full blur-3xl"></div>
+      </div>
+
+      <article className="max-w-4xl mx-auto px-4 py-16 relative z-10">
         {/* Header */}
         <header className="mb-12">
           <div className="flex items-center gap-3 mb-4">
