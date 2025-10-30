@@ -20,6 +20,7 @@ interface ICSEventOptions {
   organizerEmail: string;
   attendees: ICSAttendee[];
   method?: 'REQUEST' | 'PUBLISH';
+  uid?: string; // Optional UID - if not provided, one will be generated
   timezone?: string;
 }
 
@@ -100,10 +101,11 @@ export function generateICS(options: ICSEventOptions): string {
     organizerEmail,
     attendees,
     method = 'REQUEST',
+    uid: providedUid,
   } = options;
 
   const now = new Date();
-  const uid = generateUID();
+  const uid = providedUid || generateUID(); // Use provided UID or generate new one
   const dtstamp = formatICSDate(now);
   const dtstart = formatICSDate(startTime);
   const dtend = formatICSDate(endTime);
@@ -195,6 +197,8 @@ export function generateBookingICS(params: {
   selectedTime: string | Date;
   duration?: number; // in minutes, defaults to 60
   method?: 'REQUEST' | 'PUBLISH'; // REQUEST for attendees, PUBLISH for organizers
+  uid?: string; // Optional UID - ensures both organizer and attendee get the same event
+  slotId?: string; // Used to generate consistent UID if not provided
 }): string {
   const {
     creatorName,
@@ -205,6 +209,8 @@ export function generateBookingICS(params: {
     selectedTime,
     duration = 60,
     method = 'REQUEST',
+    uid: providedUid,
+    slotId,
   } = params;
 
   // Convert selectedTime to Date if it's a string
@@ -212,6 +218,10 @@ export function generateBookingICS(params: {
 
   // Calculate end time (add duration in minutes)
   const endTime = new Date(startTime.getTime() + duration * 60 * 1000);
+
+  // Generate or use provided UID
+  // Using slotId ensures both organizer and attendee get the same UID
+  const uid = providedUid || (slotId ? `${slotId}@whenavailable.app` : undefined);
 
   // Build description
   const descriptionParts = [
@@ -253,5 +263,6 @@ export function generateBookingICS(params: {
     organizerEmail: creatorEmail,
     attendees,
     method,
+    uid,
   });
 }

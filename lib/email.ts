@@ -148,6 +148,7 @@ export async function sendBookingConfirmation(
       selectedTime: data.booking.selectedTime,
       duration: 60, // Default 60 minutes
       method: 'REQUEST',
+      slotId: data.booking.slotId, // Ensures same UID for both participants
     });
 
     // Convert to base64 for SendGrid
@@ -180,7 +181,8 @@ export async function sendBookingNotification(
 
   try {
     // Generate .ics file attachment
-    // Use METHOD:PUBLISH for organizer (just adding to their calendar, no RSVP needed)
+    // Use METHOD:REQUEST for organizer too (same as booker)
+    // Organizer's PARTSTAT is already ACCEPTED, booker's is NEEDS-ACTION
     const icsContent = generateBookingICS({
       creatorName: data.slot.creatorName || 'WhenAvailable User',
       creatorEmail: data.slot.creatorEmail,
@@ -189,7 +191,8 @@ export async function sendBookingNotification(
       meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
       selectedTime: data.booking.selectedTime,
       duration: 60, // Default 60 minutes
-      method: 'PUBLISH',
+      method: 'REQUEST',
+      slotId: data.booking.slotId, // Ensures same UID for both participants
     });
 
     // Convert to base64 for SendGrid
