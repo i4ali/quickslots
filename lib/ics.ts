@@ -19,6 +19,7 @@ interface ICSEventOptions {
   organizerName?: string;
   organizerEmail: string;
   attendees: ICSAttendee[];
+  method?: 'REQUEST' | 'PUBLISH';
   timezone?: string;
 }
 
@@ -98,6 +99,7 @@ export function generateICS(options: ICSEventOptions): string {
     organizerName = '',
     organizerEmail,
     attendees,
+    method = 'REQUEST',
   } = options;
 
   const now = new Date();
@@ -112,7 +114,7 @@ export function generateICS(options: ICSEventOptions): string {
     'VERSION:2.0',
     'PRODID:-//WhenAvailable//Calendar File//EN',
     'CALSCALE:GREGORIAN',
-    'METHOD:REQUEST',
+    `METHOD:${method}`,
     'BEGIN:VEVENT',
     `UID:${uid}`,
     `DTSTAMP:${dtstamp}`,
@@ -192,6 +194,7 @@ export function generateBookingICS(params: {
   meetingPurpose?: string;
   selectedTime: string | Date;
   duration?: number; // in minutes, defaults to 60
+  method?: 'REQUEST' | 'PUBLISH'; // REQUEST for attendees, PUBLISH for organizers
 }): string {
   const {
     creatorName,
@@ -201,6 +204,7 @@ export function generateBookingICS(params: {
     meetingPurpose = 'WhenAvailable Meeting',
     selectedTime,
     duration = 60,
+    method = 'REQUEST',
   } = params;
 
   // Convert selectedTime to Date if it's a string
@@ -248,5 +252,6 @@ export function generateBookingICS(params: {
     organizerName: creatorName,
     organizerEmail: creatorEmail,
     attendees,
+    method,
   });
 }
