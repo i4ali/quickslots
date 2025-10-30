@@ -4,6 +4,12 @@
  * Story 2.10A: Calendar File Generation
  */
 
+interface ICSAttendee {
+  name?: string;
+  email: string;
+  partstat?: 'NEEDS-ACTION' | 'ACCEPTED' | 'DECLINED' | 'TENTATIVE';
+}
+
 interface ICSEventOptions {
   title: string;
   description?: string;
@@ -12,8 +18,7 @@ interface ICSEventOptions {
   location?: string;
   organizerName?: string;
   organizerEmail: string;
-  attendeeName?: string;
-  attendeeEmail: string;
+  attendees: ICSAttendee[];
   timezone?: string;
 }
 
@@ -92,8 +97,7 @@ export function generateICS(options: ICSEventOptions): string {
     location = 'Virtual Meeting',
     organizerName = '',
     organizerEmail,
-    attendeeName = '',
-    attendeeEmail,
+    attendees,
   } = options;
 
   const now = new Date();
@@ -129,9 +133,12 @@ export function generateICS(options: ICSEventOptions): string {
   const organizerLabel = organizerName ? escapeICSText(organizerName) : organizerEmail;
   lines.push(`ORGANIZER;CN=${organizerLabel}:mailto:${organizerEmail}`);
 
-  // Add attendee
-  const attendeeLabel = attendeeName ? escapeICSText(attendeeName) : attendeeEmail;
-  lines.push(`ATTENDEE;CN=${attendeeLabel};RSVP=TRUE;PARTSTAT=NEEDS-ACTION;ROLE=REQ-PARTICIPANT:mailto:${attendeeEmail}`);
+  // Add all attendees
+  for (const attendee of attendees) {
+    const attendeeLabel = attendee.name ? escapeICSText(attendee.name) : attendee.email;
+    const partstat = attendee.partstat || 'NEEDS-ACTION';
+    lines.push(`ATTENDEE;CN=${attendeeLabel};RSVP=TRUE;PARTSTAT=${partstat};ROLE=REQ-PARTICIPANT:mailto:${attendee.email}`);
+  }
 
   // Add status and sequence
   lines.push('STATUS:CONFIRMED');
@@ -216,6 +223,22 @@ export function generateBookingICS(params: {
 
   const description = descriptionParts.join('\\n');
 
+  // Include both creator and booker as attendees
+  // Creator has ACCEPTED status (they created the meeting)
+  // Booker has NEEDS-ACTION status (they need to accept)
+  const attendees: ICSAttendee[] = [
+    {
+      name: creatorName,
+      email: creatorEmail,
+      partstat: 'ACCEPTED',
+    },
+    {
+      name: bookerName,
+      email: bookerEmail,
+      partstat: 'NEEDS-ACTION',
+    },
+  ];
+
   return generateICS({
     title: meetingPurpose || 'WhenAvailable Meeting',
     description,
@@ -224,7 +247,6 @@ export function generateBookingICS(params: {
     location: 'Virtual Meeting (details to be shared)',
     organizerName: creatorName,
     organizerEmail: creatorEmail,
-    attendeeName: bookerName,
-    attendeeEmail: bookerEmail,
+    attendees,
   });
 }
