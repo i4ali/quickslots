@@ -17,8 +17,8 @@ interface ICSEventOptions {
   endTime: Date;
   location?: string;
   organizerName?: string;
-  organizerEmail: string;
-  attendees: ICSAttendee[];
+  organizerEmail?: string; // Optional - for simple events (METHOD:PUBLISH) omit this
+  attendees?: ICSAttendee[]; // Optional - for simple events (METHOD:PUBLISH) omit this
   method?: 'REQUEST' | 'PUBLISH';
   uid?: string; // Optional UID - if not provided, one will be generated
   timezone?: string;
@@ -133,15 +133,19 @@ export function generateICS(options: ICSEventOptions): string {
   // Add location
   lines.push(`LOCATION:${escapeICSText(location)}`);
 
-  // Add organizer
-  const organizerLabel = organizerName ? escapeICSText(organizerName) : organizerEmail;
-  lines.push(`ORGANIZER;CN=${organizerLabel}:mailto:${organizerEmail}`);
+  // Add organizer (only if provided - omit for simple events sent to organizer)
+  if (organizerEmail) {
+    const organizerLabel = organizerName ? escapeICSText(organizerName) : organizerEmail;
+    lines.push(`ORGANIZER;CN=${organizerLabel}:mailto:${organizerEmail}`);
+  }
 
-  // Add all attendees
-  for (const attendee of attendees) {
-    const attendeeLabel = attendee.name ? escapeICSText(attendee.name) : attendee.email;
-    const partstat = attendee.partstat || 'NEEDS-ACTION';
-    lines.push(`ATTENDEE;CN=${attendeeLabel};RSVP=TRUE;PARTSTAT=${partstat};ROLE=REQ-PARTICIPANT:mailto:${attendee.email}`);
+  // Add all attendees (only if provided - omit for simple events sent to organizer)
+  if (attendees && attendees.length > 0) {
+    for (const attendee of attendees) {
+      const attendeeLabel = attendee.name ? escapeICSText(attendee.name) : attendee.email;
+      const partstat = attendee.partstat || 'NEEDS-ACTION';
+      lines.push(`ATTENDEE;CN=${attendeeLabel};RSVP=TRUE;PARTSTAT=${partstat};ROLE=REQ-PARTICIPANT:mailto:${attendee.email}`);
+    }
   }
 
   // Add status and sequence
@@ -196,7 +200,7 @@ export function generateBookingICS(params: {
   meetingPurpose?: string;
   selectedTime: string | Date;
   duration?: number; // in minutes, defaults to 60
-  method?: 'REQUEST' | 'PUBLISH'; // REQUEST for attendees, PUBLISH for organizers
+  forOrganizer?: boolean; // If true, creates simple event (METHOD:PUBLISH, no ORGANIZER/ATTENDEE)
   uid?: string; // Optional UID - ensures both organizer and attendee get the same event
   slotId?: string; // Used to generate consistent UID if not provided
 }): string {
@@ -208,7 +212,7 @@ export function generateBookingICS(params: {
     meetingPurpose = 'WhenAvailable Meeting',
     selectedTime,
     duration = 60,
-    method = 'REQUEST',
+    forOrganizer = false,
     uid: providedUid,
     slotId,
   } = params;
@@ -237,32 +241,46 @@ export function generateBookingICS(params: {
 
   const description = descriptionParts.join('\\n');
 
-  // Include both creator and booker as attendees
-  // Creator has ACCEPTED status (they created the meeting)
-  // Booker has NEEDS-ACTION status (they need to accept)
-  const attendees: ICSAttendee[] = [
-    {
-      name: creatorName,
-      email: creatorEmail,
-      partstat: 'ACCEPTED',
-    },
-    {
-      name: bookerName,
-      email: bookerEmail,
-      partstat: 'NEEDS-ACTION',
-    },
-  ];
+  // For organizer: Simple event with NO ORGANIZER or ATTENDEE fields (METHOD:PUBLISH)
+  // For attendee: Meeting invitation with ORGANIZER and ATTENDEE fields (METHOD:REQUEST)
+  if (forOrganizer) {
+    // Simple calendar event for organizer (no meeting invitation semantics)
+    return generateICS({
+      title: meetingPurpose || 'WhenAvailable Meeting',
+      description,
+      startTime,
+      endTime,
+      location: 'Virtual Meeting (details to be shared)',
+      method: 'PUBLISH',
+      uid,
+      // Intentionally omit organizerEmail and attendees for organizer's copy
+    });
+  } else {
+    // Meeting invitation for attendee
+    const attendees: ICSAttendee[] = [
+      {
+        name: creatorName,
+        email: creatorEmail,
+        partstat: 'ACCEPTED',
+      },
+      {
+        name: bookerName,
+        email: bookerEmail,
+        partstat: 'NEEDS-ACTION',
+      },
+    ];
 
-  return generateICS({
-    title: meetingPurpose || 'WhenAvailable Meeting',
-    description,
-    startTime,
-    endTime,
-    location: 'Virtual Meeting (details to be shared)',
-    organizerName: creatorName,
-    organizerEmail: creatorEmail,
-    attendees,
-    method,
-    uid,
-  });
+    return generateICS({
+      title: meetingPurpose || 'WhenAvailable Meeting',
+      description,
+      startTime,
+      endTime,
+      location: 'Virtual Meeting (details to be shared)',
+      organizerName: creatorName,
+      organizerEmail: creatorEmail,
+      attendees,
+      method: 'REQUEST',
+      uid,
+    });
+  }
 }

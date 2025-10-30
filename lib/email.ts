@@ -137,8 +137,8 @@ export async function sendBookingConfirmation(
   const { subject, text } = generateBookingConfirmationEmail(data);
 
   try {
-    // Generate .ics file attachment
-    // Use METHOD:REQUEST for booker (they need to accept the invite)
+    // Generate .ics file attachment for ATTENDEE
+    // Use METHOD:REQUEST with ORGANIZER and ATTENDEE fields (proper meeting invitation)
     const icsContent = generateBookingICS({
       creatorName: data.slot.creatorName || 'WhenAvailable User',
       creatorEmail: data.slot.creatorEmail,
@@ -147,7 +147,7 @@ export async function sendBookingConfirmation(
       meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
       selectedTime: data.booking.selectedTime,
       duration: 60, // Default 60 minutes
-      method: 'REQUEST',
+      forOrganizer: false, // Creates meeting invitation with ORGANIZER/ATTENDEE fields
       slotId: data.booking.slotId, // Ensures same UID for both participants
     });
 
@@ -180,9 +180,9 @@ export async function sendBookingNotification(
   const { subject, text } = generateBookingNotificationEmail(data);
 
   try {
-    // Generate .ics file attachment
-    // Use METHOD:REQUEST for organizer too (same as booker)
-    // Organizer's PARTSTAT is already ACCEPTED, booker's is NEEDS-ACTION
+    // Generate .ics file attachment for ORGANIZER
+    // Use METHOD:PUBLISH with NO ORGANIZER/ATTENDEE fields (simple calendar event)
+    // Gmail refuses to render ICS when TO email = ORGANIZER email
     const icsContent = generateBookingICS({
       creatorName: data.slot.creatorName || 'WhenAvailable User',
       creatorEmail: data.slot.creatorEmail,
@@ -191,7 +191,7 @@ export async function sendBookingNotification(
       meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
       selectedTime: data.booking.selectedTime,
       duration: 60, // Default 60 minutes
-      method: 'REQUEST',
+      forOrganizer: true, // Creates simple event without ORGANIZER/ATTENDEE fields
       slotId: data.booking.slotId, // Ensures same UID for both participants
     });
 
