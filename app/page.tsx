@@ -79,7 +79,7 @@ export default function Home() {
       const data: CreateSlotResponse = await response.json();
 
       if (!response.ok) {
-        throw new Error((data as any).error || 'Failed to create link');
+        throw new Error((data as any).error || 'Failed to create scheduling link');
       }
 
       if (data.success) {
@@ -88,7 +88,7 @@ export default function Home() {
         router.push(`/created/${data.slotId}`);
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to generate link. Please try again.';
+      const errorMessage = err instanceof Error ? err.message : 'Failed to generate scheduling link. Please try again.';
       setError(errorMessage);
       console.error('Error generating link:', err);
     } finally {
@@ -269,11 +269,11 @@ export default function Home() {
               {/* Timezone Selector */}
               <TimezoneSelector value={timezone} onChange={setTimezone} />
 
-              {/* Link Settings */}
+              {/* Scheduling Link Settings */}
               <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-5">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-lg">⚙️</span>
-                  <h3 className="text-sm font-semibold text-gray-900">Link Settings</h3>
+                  <h3 className="text-sm font-semibold text-gray-900">Scheduling Link Settings</h3>
                 </div>
 
                 <div className="space-y-4">
@@ -389,10 +389,10 @@ export default function Home() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  Creating your link...
+                  Creating your scheduling link...
                 </>
               ) : canGenerateLink ? (
-                'Create Your Link'
+                'Create Your Scheduling Link'
               ) : (
                 'Enter email and availability to continue'
               )}
@@ -421,7 +421,7 @@ export default function Home() {
               <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform" aria-label="Step 2">
                 2
               </div>
-              <h3 className="font-bold text-gray-900 mb-4 text-xl">Share your link</h3>
+              <h3 className="font-bold text-gray-900 mb-4 text-xl">Share your scheduling link</h3>
               <p className="text-gray-600 leading-relaxed text-base">
                 Send via email, text, or any messaging app
               </p>
@@ -469,11 +469,11 @@ export default function Home() {
             {/* FAQ 1 */}
             <details className="bg-white rounded-xl border-2 border-gray-200 p-7 hover:shadow-lg hover:border-blue-200 transition-all group">
               <summary className="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between text-lg">
-                How long do WhenAvailable links last?
+                How long do WhenAvailable scheduling links last?
                 <span className="text-blue-600 text-2xl group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="text-gray-600 mt-5 leading-relaxed text-base">
-                You can choose how long your links last: 24 hours, 3 days, or 7 days. Links expire when all bookings are filled or when the time limit is reached, whichever comes first. All data is automatically deleted for maximum privacy.
+                You can choose how long your scheduling links last: 24 hours, 3 days, or 7 days. Scheduling links expire when all bookings are filled or when the time limit is reached, whichever comes first. All data is automatically deleted for maximum privacy.
               </p>
             </details>
 
@@ -495,7 +495,7 @@ export default function Home() {
                 <span className="text-blue-600 text-2xl group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="text-gray-600 mt-5 leading-relaxed text-base">
-                Yes, WhenAvailable is completely free to use. You can create unlimited temporary scheduling links at no cost.
+                Yes, WhenAvailable is completely free to use. You can create unlimited scheduling links at no cost.
               </p>
             </details>
 
@@ -531,7 +531,7 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "HowTo",
-            "name": "How to Create a Temporary Scheduling Link",
+            "name": "How to Create a Scheduling Link",
             "description": "Learn how to share your availability and book meetings using WhenAvailable",
             "step": [
               {
@@ -542,8 +542,8 @@ export default function Home() {
               },
               {
                 "@type": "HowToStep",
-                "name": "Share Your Link",
-                "text": "Send the link via email, text, or chat",
+                "name": "Share Your Scheduling Link",
+                "text": "Send the scheduling link via email, text, or chat",
                 "position": 2
               },
               {

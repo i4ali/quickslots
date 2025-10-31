@@ -100,7 +100,7 @@ export default function CalendlyAlternativesPost() {
             <ul className="text-sm text-gray-700 space-y-1">
               <li>• Not for recurring bookings</li>
               <li>• No calendar integration</li>
-              <li>• Limited to 5 time slots per link</li>
+              <li>• Limited to 5 time slots per scheduling link</li>
             </ul>
           </div>
         </div>

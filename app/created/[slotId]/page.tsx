@@ -119,7 +119,7 @@ export default function LinkCreatedPage() {
         {/* Success Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Your Link is Ready!
+            Your Scheduling Link is Ready!
           </h1>
           <p className="text-xl text-gray-600">
             Share it with anyone you want to meet
@@ -131,7 +131,7 @@ export default function LinkCreatedPage() {
           {/* Shareable Link Section */}
           <div className="mb-8">
             <label className="block text-sm font-semibold text-gray-900 mb-3">
-              Your Shareable Link
+              Your Shareable Scheduling Link
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1 px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg font-mono text-sm text-gray-900 break-all">
@@ -162,7 +162,7 @@ export default function LinkCreatedPage() {
                 <div className="flex items-center gap-3">
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-blue-900 mb-1">
-                      Link expires in:
+                      Scheduling link expires in:
                     </p>
                     <CountdownTimer expiresAt={new Date(slotData.expiresAt).toISOString()} />
                   </div>
@@ -182,7 +182,7 @@ export default function LinkCreatedPage() {
                   1
                 </div>
                 <p className="text-gray-600 pt-0.5">
-                  <strong className="text-gray-900">Share your link</strong> via email, text message, or any chat app
+                  <strong className="text-gray-900">Share your scheduling link</strong> via email, text message, or any chat app
                 </p>
               </div>
               <div className="flex gap-3">
@@ -206,7 +206,7 @@ export default function LinkCreatedPage() {
                   4
                 </div>
                 <p className="text-gray-600 pt-0.5">
-                  <strong className="text-gray-900">Link expires</strong> {slotData ? (
+                  <strong className="text-gray-900">Scheduling link expires</strong> {slotData ? (
                     slotData.maxBookings > 1 ?
                       `when all ${slotData.maxBookings} slots are filled or after ${slotData.expirationDays} ${slotData.expirationDays === 1 ? 'day' : 'days'}` :
                       `after booking or ${slotData.expirationDays} ${slotData.expirationDays === 1 ? 'day' : 'days'}`
@@ -219,7 +219,7 @@ export default function LinkCreatedPage() {
           {/* Important Note */}
           <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
             <p className="text-sm text-yellow-800">
-              <strong>🔒 Privacy:</strong> All data is automatically deleted after your link expires. We never store your information permanently.
+              <strong>🔒 Privacy:</strong> All data is automatically deleted after your scheduling link expires. We never store your information permanently.
             </p>
           </div>
         </div>
@@ -234,14 +234,14 @@ export default function LinkCreatedPage() {
             className="flex-1 py-4 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <span>➕</span>
-            Create Another Link
+            Create Another Scheduling Link
           </button>
           <button
             onClick={() => window.open(shareableUrl, '_blank')}
             className="flex-1 py-4 px-6 bg-white text-blue-600 font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
           >
             <span>👀</span>
-            Preview Link
+            Preview Scheduling Link
           </button>
         </div>
       </div>

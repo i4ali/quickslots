@@ -35,7 +35,7 @@ export default function NotFound() {
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>
-              <span>The link was typed incorrectly</span>
+              <span>The scheduling link was typed incorrectly</span>
             </li>
           </ul>
         </div>
@@ -45,7 +45,7 @@ export default function NotFound() {
           href="/"
           className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Create Your Own Link
+          Create Your Own Scheduling Link
         </Link>
 
         {/* Footer Text */}

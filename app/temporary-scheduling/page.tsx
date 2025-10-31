@@ -132,7 +132,7 @@ export default function TemporarySchedulingPage() {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Share Once</h3>
                     <p className="text-gray-700">
-                      Get a unique, temporary URL that you share with your meeting participant via email, text, or messaging apps. The link works immediately—no signup required for either party.
+                      Get a unique, temporary URL that you share with your meeting participant via email, text, or messaging apps. The scheduling link works immediately—no signup required for either party.
                     </p>
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export default function TemporarySchedulingPage() {
                 href="/"
                 className="inline-block px-6 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
               >
-                Create Free Link →
+                Create Free Scheduling Link →
               </Link>
             </div>
           </section>
@@ -230,7 +230,7 @@ export default function TemporarySchedulingPage() {
               <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">🚀 No Friction</h3>
                 <p className="text-gray-700">
-                  Recipients don't need accounts either—they simply click your link, pick a time, done. Maximum convenience.
+                  Recipients don't need accounts either—they simply click your scheduling link, pick a time, done. Maximum convenience.
                 </p>
               </div>
             </div>
@@ -396,7 +396,7 @@ export default function TemporarySchedulingPage() {
               <div className="bg-white rounded-lg border-2 border-blue-200 p-5">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">✅ Include Your Timezone</h3>
                 <p className="text-gray-700">
-                  Good temporary scheduling tools auto-detect timezones, but always verify your timezone is correct before sharing the link.
+                  Good temporary scheduling tools auto-detect timezones, but always verify your timezone is correct before sharing the scheduling link.
                 </p>
               </div>
 
@@ -410,21 +410,21 @@ export default function TemporarySchedulingPage() {
               <div className="bg-white rounded-lg border-2 border-blue-200 p-5">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">✅ Check Expiration Times</h3>
                 <p className="text-gray-700">
-                  Most temporary scheduling links expire after 24 hours. Make sure you're giving recipients enough time to respond before the link becomes invalid.
+                  Most temporary scheduling links expire after 24 hours. Make sure you're giving recipients enough time to respond before the scheduling link becomes invalid.
                 </p>
               </div>
 
               <div className="bg-white rounded-lg border-2 border-blue-200 p-5">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">✅ Keep Your Calendar Updated</h3>
                 <p className="text-gray-700">
-                  Since temporary scheduling tools don't connect to your calendar, manually check for conflicts before creating your link.
+                  Since temporary scheduling tools don't connect to your calendar, manually check for conflicts before creating your scheduling link.
                 </p>
               </div>
 
               <div className="bg-white rounded-lg border-2 border-blue-200 p-5">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">✅ Save Calendar Invites</h3>
                 <p className="text-gray-700">
-                  After a booking is confirmed, save the .ics calendar file to your calendar immediately. The temporary link will be gone soon.
+                  After a booking is confirmed, save the .ics calendar file to your calendar immediately. The temporary scheduling link will be gone soon.
                 </p>
               </div>
             </div>
@@ -531,7 +531,7 @@ export default function TemporarySchedulingPage() {
                   Do both people need accounts?
                 </summary>
                 <p className="text-gray-700 mt-3">
-                  No. Good temporary scheduling tools don't require accounts for anyone. The creator generates a link and shares it; the recipient simply clicks and books. No signup, no login, no friction.
+                  No. Good temporary scheduling tools don't require accounts for anyone. The creator generates a scheduling link and shares it; the recipient simply clicks and books. No signup, no login, no friction.
                 </p>
               </details>
 
@@ -558,7 +558,7 @@ export default function TemporarySchedulingPage() {
                   Can I reschedule or cancel through temporary scheduling links?
                 </summary>
                 <p className="text-gray-700 mt-3">
-                  This varies by tool. Since links expire quickly, rescheduling typically requires creating a new temporary link. For cancellations, you would communicate directly via email like any normal meeting cancellation.
+                  This varies by tool. Since links expire quickly, rescheduling typically requires creating a new temporary scheduling link. For cancellations, you would communicate directly via email like any normal meeting cancellation.
                 </p>
               </details>
             </div>

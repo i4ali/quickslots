@@ -181,7 +181,7 @@ export default function RootLayout({
                 <ul className="space-y-3 text-sm">
                   <li>
                     <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">
-                      Create Link
+                      Create Scheduling Link
                     </Link>
                   </li>
                   <li>

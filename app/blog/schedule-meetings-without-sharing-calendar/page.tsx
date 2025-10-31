@@ -67,7 +67,7 @@ export default function ScheduleWithoutSharingPost() {
           ⚡ Try WhenAvailable for Maximum Privacy
         </h3>
         <p className="text-gray-700 mb-4">
-          Create a temporary link with your available times. Share it once, it gets booked, then it's gone forever. No calendar access needed.
+          Create a temporary scheduling link with your available times. Share it once, it gets booked, then it's gone forever. No calendar access needed.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div className="flex items-start">
@@ -87,7 +87,7 @@ export default function ScheduleWithoutSharingPost() {
           href="/"
           className="inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Create Free Link →
+          Create Free Scheduling Link →
         </Link>
       </div>
 
@@ -95,8 +95,8 @@ export default function ScheduleWithoutSharingPost() {
       <ol>
         <li>Look at your calendar privately</li>
         <li>Create a scheduling link with 2-3 available time slots</li>
-        <li>Send the link to the person you're meeting</li>
-        <li>They pick a time, link expires, data gets deleted</li>
+        <li>Send the scheduling link to the person you're meeting</li>
+        <li>They pick a time, scheduling link expires, data gets deleted</li>
       </ol>
 
       <p><strong>Perfect for:</strong> Recruiters, sales calls, one-time consultations, job interviews</p>
@@ -259,7 +259,7 @@ export default function ScheduleWithoutSharingPost() {
       <h3>Job Interviews</h3>
       <p>
         <strong>Problem:</strong> Don't want current employer seeing interview activity<br />
-        <strong>Solution:</strong> Use <Link href="/">WhenAvailable</Link> temporary links. Create link, share once, data deletes after 24 hours
+        <strong>Solution:</strong> Use <Link href="/">WhenAvailable</Link> temporary links. Create scheduling link, share once, data deletes after 24 hours
       </p>
 
       <h3>Sales Calls</h3>
