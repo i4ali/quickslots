@@ -129,6 +129,22 @@ async function sendEmail(
 }
 
 /**
+ * Calculate meeting duration in minutes from time slot
+ */
+function calculateDuration(startTime: string, endTime: string): number {
+  // Parse time strings in HH:mm format
+  const [startHour, startMinute] = startTime.split(':').map(Number);
+  const [endHour, endMinute] = endTime.split(':').map(Number);
+
+  // Calculate duration in minutes
+  const startMinutes = startHour * 60 + startMinute;
+  const endMinutes = endHour * 60 + endMinute;
+  const durationMinutes = endMinutes - startMinutes;
+
+  return durationMinutes;
+}
+
+/**
  * Send booking confirmation email to the booker
  */
 export async function sendBookingConfirmation(
@@ -137,6 +153,12 @@ export async function sendBookingConfirmation(
   const { subject, text } = generateBookingConfirmationEmail(data);
 
   try {
+    // Get the selected time slot to calculate duration
+    const selectedTimeSlot = data.slot.timeSlots[data.booking.selectedTimeSlotIndex];
+    const duration = calculateDuration(selectedTimeSlot.startTime, selectedTimeSlot.endTime);
+
+    console.log(`📧 [sendBookingConfirmation] Calculated duration: ${duration} minutes (${selectedTimeSlot.startTime} - ${selectedTimeSlot.endTime})`);
+
     // Generate .ics file attachment for ATTENDEE
     // Use METHOD:REQUEST with ORGANIZER and ATTENDEE fields (proper meeting invitation)
     const icsContent = generateBookingICS({
@@ -146,7 +168,7 @@ export async function sendBookingConfirmation(
       bookerEmail: data.booking.bookerEmail,
       meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
       selectedTime: data.booking.selectedTime,
-      duration: 60, // Default 60 minutes
+      duration, // Use calculated duration from time slot
       forOrganizer: false, // Creates meeting invitation with ORGANIZER/ATTENDEE fields
       slotId: data.booking.slotId, // Ensures same UID for both participants
     });
@@ -180,6 +202,12 @@ export async function sendBookingNotification(
   const { subject, text } = generateBookingNotificationEmail(data);
 
   try {
+    // Get the selected time slot to calculate duration
+    const selectedTimeSlot = data.slot.timeSlots[data.booking.selectedTimeSlotIndex];
+    const duration = calculateDuration(selectedTimeSlot.startTime, selectedTimeSlot.endTime);
+
+    console.log(`📧 [sendBookingNotification] Calculated duration: ${duration} minutes (${selectedTimeSlot.startTime} - ${selectedTimeSlot.endTime})`);
+
     // Generate .ics file attachment for ORGANIZER
     // Use METHOD:PUBLISH with NO ORGANIZER/ATTENDEE fields (simple calendar event)
     // Gmail refuses to render ICS when TO email = ORGANIZER email
@@ -190,7 +218,7 @@ export async function sendBookingNotification(
       bookerEmail: data.booking.bookerEmail,
       meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
       selectedTime: data.booking.selectedTime,
-      duration: 60, // Default 60 minutes
+      duration, // Use calculated duration from time slot
       forOrganizer: true, // Creates simple event without ORGANIZER/ATTENDEE fields
       slotId: data.booking.slotId, // Ensures same UID for both participants
     });
