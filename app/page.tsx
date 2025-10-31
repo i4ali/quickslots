@@ -20,7 +20,7 @@ export default function Home() {
   const [slots, setSlots] = useState<TimeSlot[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [touched, setTouched] = useState({ name: false, email: false, purpose: false });
+  const [touched, setTouched] = useState({ name: false, email: false, purpose: false, inviteeLimit: false });
 
   // New: Multi-booking and extended duration settings
   const [expirationDays, setExpirationDays] = useState(1); // Default: 24 hours
@@ -32,11 +32,18 @@ export default function Home() {
   const nameError = touched.name ? getNameError(name) : null;
   const purposeError = touched.purpose ? getPurposeError(purpose) : null;
 
-  const canGenerateLink = isValidEmail(email) && slots.length > 0 && !nameError && !purposeError;
+  // Invitee limit validation
+  const inviteeLimitError = touched.inviteeLimit && (maxBookings < 1 || maxBookings > 20)
+    ? maxBookings < 1
+      ? 'Must be at least 1 invitee'
+      : 'Maximum 20 invitees allowed'
+    : null;
+
+  const canGenerateLink = isValidEmail(email) && slots.length > 0 && !nameError && !purposeError && !inviteeLimitError;
 
   const handleGenerateLink = async () => {
     // Mark all fields as touched to show errors
-    setTouched({ name: true, email: true, purpose: true });
+    setTouched({ name: true, email: true, purpose: true, inviteeLimit: true });
     setError(null);
 
     // Validate
@@ -100,17 +107,17 @@ export default function Home() {
       </div>
 
       {/* Navigation */}
-      <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-sm relative z-10 shadow-sm">
+      <nav className="border-b border-gray-200 bg-white/90 backdrop-blur-md relative z-10 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
-              <img src="/logo-256.png" alt="WhenAvailable" className="w-10 h-10" />
-              <span className="text-2xl font-bold text-gray-900">
+          <div className="flex justify-between items-center h-20">
+            <Link href="/" className="flex items-center gap-3 group">
+              <img src="/logo-256.png" alt="WhenAvailable" className="w-12 h-12 group-hover:scale-105 transition-transform" />
+              <span className="text-2xl sm:text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                 WhenAvailable
               </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/blog" className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors">
+            </Link>
+            <div className="flex items-center gap-6">
+              <Link href="/blog" className="text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-blue-50">
                 Blog
               </Link>
             </div>
@@ -119,18 +126,59 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-6xl mx-auto px-4 py-12 sm:py-20 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+      <div className="max-w-7xl mx-auto px-4 py-16 sm:py-24 relative z-10">
+        {/* Enhanced Header with Value Prop */}
+        <div className="text-center mb-20">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">
             Share Your Availability<br />Instantly
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Create temporary scheduling links in seconds. No signup required. Perfect for one-time meetings.
+          <p className="text-xl sm:text-2xl text-gray-600 mb-6 max-w-3xl mx-auto leading-relaxed">
+            Create temporary, privacy-first scheduling links in seconds.<br className="hidden sm:block" />
+            <span className="font-semibold text-gray-700">No signup required. No data storage.</span>
           </p>
         </div>
 
-        {/* Main Form Card */}
+        {/* Value Propositions - Moved ABOVE form */}
+        <div className="mb-24">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-12">
+            Why teams choose WhenAvailable
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-blue-200 transition-all group">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+                <span className="text-3xl">⚡</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg">Instant Scheduling</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Create and share links in seconds, no account needed</p>
+            </div>
+
+            <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-indigo-200 transition-all group">
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+                <span className="text-3xl">🔒</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg">Privacy-First</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">No signup, no tracking, no permanent data storage</p>
+            </div>
+
+            <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-purple-200 transition-all group">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+                <span className="text-3xl">👥</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg">Multiple Bookings</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Let multiple people book from the same link</p>
+            </div>
+
+            <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-sky-200 transition-all group">
+              <div className="w-16 h-16 bg-gradient-to-br from-sky-500 to-sky-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+                <span className="text-3xl">⏰</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg">Flexible Duration</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Links last from 24 hours up to 7 days</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Form Card - Now appears AFTER value props */}
         <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 sm:p-10 mb-16 relative">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-indigo-50/30 rounded-2xl pointer-events-none"></div>
           <div className="relative z-10">
@@ -236,23 +284,30 @@ export default function Home() {
                     </select>
                   </div>
 
-                  {/* Maximum Bookings */}
+                  {/* Invitee Limit */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Maximum Bookings
+                      Invitee Limit
                     </label>
-                    <select
+                    <input
+                      type="number"
+                      min="1"
+                      max="20"
                       value={maxBookings}
                       onChange={(e) => setMaxBookings(Number(e.target.value))}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-white text-gray-900"
-                    >
-                      <option value={1}>1 booking (default)</option>
-                      <option value={3}>3 bookings</option>
-                      <option value={5}>5 bookings</option>
-                      <option value={10}>10 bookings</option>
-                      <option value={15}>15 bookings</option>
-                      <option value={20}>20 bookings</option>
-                    </select>
+                      onBlur={() => setTouched({ ...touched, inviteeLimit: true })}
+                      placeholder="e.g., 5"
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
+                        inviteeLimitError
+                          ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                          : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+                      }`}
+                    />
+                    {inviteeLimitError ? (
+                      <p className="text-xs text-red-600 mt-1">{inviteeLimitError}</p>
+                    ) : (
+                      <p className="text-xs text-gray-500 mt-1">Maximum: 20 invitees (not including you)</p>
+                    )}
                   </div>
 
                   {/* Booking Type */}
@@ -265,8 +320,8 @@ export default function Home() {
                       onChange={(e) => setBookingMode(e.target.value as BookingMode)}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-white text-gray-900"
                     >
-                      <option value="individual">Individual (1-on-1) - Each slot can only be booked once</option>
-                      <option value="group">Group - Multiple people can book the same slot</option>
+                      <option value="individual">Individual (1-on-1) - Each slot can only be booked by one invitee</option>
+                      <option value="group">Group - Multiple invitees can book the same slot</option>
                     </select>
                   </div>
 
@@ -278,13 +333,13 @@ export default function Home() {
                         {bookingMode === 'individual' ? (
                           <>
                             <strong>Individual mode:</strong> Each time slot can only be booked once. Once a slot is booked, it disappears for others.
-                            {maxBookings > 1 && ` Link allows up to ${maxBookings} total bookings across all your time slots.`}
-                            {` Link expires when ${maxBookings > 1 ? `all ${maxBookings} bookings are made` : 'booked'} or after ${expirationDays} ${expirationDays === 1 ? 'day' : 'days'}.`}
+                            {maxBookings > 1 && ` Link allows up to ${maxBookings} ${maxBookings === 1 ? 'invitee' : 'invitees'} total (not including you).`}
+                            {` Link expires when ${maxBookings > 1 ? `all ${maxBookings} invitees book` : '1 invitee books'} or after ${expirationDays} ${expirationDays === 1 ? 'day' : 'days'}.`}
                           </>
                         ) : (
                           <>
-                            <strong>Group mode:</strong> Multiple people can book the same time slot(s). All time slots remain visible until link expires.
-                            {` Link expires when ${maxBookings} ${maxBookings === 1 ? 'person books' : 'people book'} or after ${expirationDays} {expirationDays === 1 ? 'day' : 'days'}.`}
+                            <strong>Group mode:</strong> Multiple invitees can book the same time slot(s). All time slots remain visible until link expires.
+                            {` Link expires when ${maxBookings} ${maxBookings === 1 ? 'invitee books' : 'invitees book'} (not including you) or after ${expirationDays} ${expirationDays === 1 ? 'day' : 'days'}.`}
                           </>
                         )}
                       </span>
@@ -337,78 +392,38 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Features */}
-        <div className="mb-20">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
-            Why teams love WhenAvailable
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Instant Scheduling</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Create and share links in seconds, no account needed</p>
-            </div>
-
-            <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-2xl">🔒</span>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Privacy-First</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">No signup, no tracking, no permanent data storage</p>
-            </div>
-
-            <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-2xl">👥</span>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Multiple Bookings</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Let multiple people book from the same link</p>
-            </div>
-
-            <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-sky-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-2xl">⏰</span>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Flexible Duration</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Links last from 24 hours up to 7 days</p>
-            </div>
-          </div>
-        </div>
-
         {/* How It Works */}
-        <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-2xl p-8 sm:p-12 mb-20 shadow-lg border border-blue-100/50">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
+        <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-3xl p-10 sm:p-16 mb-24 shadow-xl border border-blue-100/50">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 text-center mb-16 tracking-tight">
             How it works
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-5" aria-label="Step 1">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform" aria-label="Step 1">
                 1
               </div>
-              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Share availability</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="font-bold text-gray-900 mb-4 text-xl">Share availability</h3>
+              <p className="text-gray-600 leading-relaxed text-base">
                 Type when you're free using plain English
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-5" aria-label="Step 2">
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform" aria-label="Step 2">
                 2
               </div>
-              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Share your link</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="font-bold text-gray-900 mb-4 text-xl">Share your link</h3>
+              <p className="text-gray-600 leading-relaxed text-base">
                 Send via email, text, or any messaging app
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-5" aria-label="Step 3">
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform" aria-label="Step 3">
                 3
               </div>
-              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Get confirmed</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="font-bold text-gray-900 mb-4 text-xl">Get confirmed</h3>
+              <p className="text-gray-600 leading-relaxed text-base">
                 Both parties receive email confirmations with calendar invites
               </p>
             </div>
@@ -416,16 +431,16 @@ export default function Home() {
         </div>
 
         {/* FAQ Section */}
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
+        <div className="max-w-3xl mx-auto mb-24">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 text-center mb-16 tracking-tight">
             Frequently asked questions
           </h2>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {/* FAQ 0 - What is Temporary Scheduling */}
-            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
-              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-xl border-2 border-gray-200 p-7 hover:shadow-lg hover:border-blue-200 transition-all group">
+              <summary className="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between text-lg">
                 What is temporary scheduling?
-                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-blue-600 text-2xl group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="text-gray-600 mt-4 leading-relaxed space-y-3">
                 <p>
@@ -443,56 +458,56 @@ export default function Home() {
             </details>
 
             {/* FAQ 1 */}
-            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
-              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-xl border-2 border-gray-200 p-7 hover:shadow-lg hover:border-blue-200 transition-all group">
+              <summary className="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between text-lg">
                 How long do WhenAvailable links last?
-                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-blue-600 text-2xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-5 leading-relaxed text-base">
                 You can choose how long your links last: 24 hours, 3 days, or 7 days. Links expire when all bookings are filled or when the time limit is reached, whichever comes first. All data is automatically deleted for maximum privacy.
               </p>
             </details>
 
             {/* FAQ 2 */}
-            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
-              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-xl border-2 border-gray-200 p-7 hover:shadow-lg hover:border-blue-200 transition-all group">
+              <summary className="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between text-lg">
                 Do I need to create an account?
-                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-blue-600 text-2xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-5 leading-relaxed text-base">
                 No! WhenAvailable requires no signup or account creation. Simply enter your email, share your availability, and generate a link instantly.
               </p>
             </details>
 
             {/* FAQ 3 */}
-            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
-              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-xl border-2 border-gray-200 p-7 hover:shadow-lg hover:border-blue-200 transition-all group">
+              <summary className="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between text-lg">
                 Is WhenAvailable free?
-                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-blue-600 text-2xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-5 leading-relaxed text-base">
                 Yes, WhenAvailable is completely free to use. You can create unlimited temporary scheduling links at no cost.
               </p>
             </details>
 
             {/* FAQ 4 */}
-            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
-              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-xl border-2 border-gray-200 p-7 hover:shadow-lg hover:border-blue-200 transition-all group">
+              <summary className="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between text-lg">
                 What happens to my data?
-                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-blue-600 text-2xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-5 leading-relaxed text-base">
                 All data is automatically deleted after your chosen link duration (24 hours to 7 days). We don't store, archive, or retain any information beyond the temporary period needed for booking.
               </p>
             </details>
 
             {/* FAQ 5 */}
-            <details className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all group">
-              <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
+            <details className="bg-white rounded-xl border-2 border-gray-200 p-7 hover:shadow-lg hover:border-blue-200 transition-all group">
+              <summary className="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between text-lg">
                 How do I enter my availability?
-                <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-blue-600 text-2xl group-open:rotate-45 transition-transform">+</span>
               </summary>
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 mt-5 leading-relaxed text-base">
                 WhenAvailable uses natural language processing. Simply type times like "tomorrow 2-4pm" or "next Friday at 3pm" and the system automatically understands and converts them.
               </p>
             </details>
