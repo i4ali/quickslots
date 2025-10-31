@@ -6,14 +6,21 @@ import Link from 'next/link';
 import { CopyButton } from '@/components/copy-button';
 import { CountdownTimer } from '@/components/countdown-timer';
 import { TipButton } from '@/components/tip-button';
-import { DisplayAd } from '@/components/display-ad';
+
+interface SlotData {
+  id: string;
+  expiresAt: number;
+  maxBookings: number;
+  bookingsCount: number;
+  expirationDays: number;
+}
 
 export default function LinkCreatedPage() {
   const params = useParams();
   const router = useRouter();
   const slotId = params.slotId as string;
   const [shareableUrl, setShareableUrl] = useState('');
-  const [expiresAt, setExpiresAt] = useState<string | null>(null);
+  const [slotData, setSlotData] = useState<SlotData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,10 +29,34 @@ export default function LinkCreatedPage() {
     const url = `${window.location.origin}/${slotId}`;
     setShareableUrl(url);
 
-    // Calculate expiration time (24 hours from now)
-    const expirationTime = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-    setExpiresAt(expirationTime);
-    setIsLoading(false);
+    // Fetch actual slot data from API
+    const fetchSlotData = async () => {
+      try {
+        const response = await fetch(`/api/slots/${slotId}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to fetch slot data');
+        }
+
+        if (data.success && data.slot) {
+          setSlotData({
+            id: data.slot.id,
+            expiresAt: data.slot.expiresAt,
+            maxBookings: data.slot.maxBookings,
+            bookingsCount: data.slot.bookingsCount,
+            expirationDays: data.slot.expirationDays,
+          });
+        }
+      } catch (err) {
+        console.error('Error fetching slot data:', err);
+        // Don't show error, just use defaults
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSlotData();
   }, [slotId]);
 
   const handleCreateAnother = () => {
@@ -110,15 +141,31 @@ export default function LinkCreatedPage() {
             </div>
           </div>
 
-          {/* Expiration Countdown */}
-          {expiresAt && (
-            <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <div className="flex items-center gap-3">
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-blue-900 mb-1">
-                    Link expires in:
-                  </p>
-                  <CountdownTimer expiresAt={expiresAt} />
+          {/* Link Details */}
+          {slotData && (
+            <div className="mb-8 space-y-4">
+              {/* Booking Status */}
+              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-sm font-semibold text-green-900 mb-1">
+                  📊 Booking Status
+                </p>
+                <p className="text-green-800">
+                  <strong>{slotData.bookingsCount}/{slotData.maxBookings}</strong> booking{slotData.maxBookings > 1 ? 's' : ''} confirmed
+                  {slotData.maxBookings - slotData.bookingsCount > 0 && (
+                    <> • <strong>{slotData.maxBookings - slotData.bookingsCount}</strong> {slotData.maxBookings - slotData.bookingsCount === 1 ? 'spot' : 'spots'} remaining</>
+                  )}
+                </p>
+              </div>
+
+              {/* Expiration Countdown */}
+              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-blue-900 mb-1">
+                      Link expires in:
+                    </p>
+                    <CountdownTimer expiresAt={new Date(slotData.expiresAt).toISOString()} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -159,7 +206,11 @@ export default function LinkCreatedPage() {
                   4
                 </div>
                 <p className="text-gray-600 pt-0.5">
-                  <strong className="text-gray-900">Link expires</strong> after booking or 24 hours (whichever comes first)
+                  <strong className="text-gray-900">Link expires</strong> {slotData ? (
+                    slotData.maxBookings > 1 ?
+                      `when all ${slotData.maxBookings} slots are filled or after ${slotData.expirationDays} ${slotData.expirationDays === 1 ? 'day' : 'days'}` :
+                      `after booking or ${slotData.expirationDays} ${slotData.expirationDays === 1 ? 'day' : 'days'}`
+                  ) : 'based on your settings'}
                 </p>
               </div>
             </div>
@@ -175,14 +226,6 @@ export default function LinkCreatedPage() {
 
         {/* Tip Button */}
         <TipButton className="mb-8" />
-
-        {/* Ad Placement: After tip button */}
-        <DisplayAd
-          adSlot="REPLACE_WITH_YOUR_AD_SLOT_ID"
-          adFormat="auto"
-          fullWidthResponsive={true}
-          className="mb-8"
-        />
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">

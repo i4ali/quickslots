@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSlot, createBooking, isSlotBooked } from '@/lib/redis';
+import { getSlot, createBooking, updateSlotBookingCount } from '@/lib/redis';
 import { Booking } from '@/types/slot';
 import { sendBookingEmails } from '@/lib/email';
 import { toDate } from 'date-fns-tz';
@@ -82,24 +82,12 @@ export async function POST(
       );
     }
 
-    // Check if slot is already booked
-    if (slot.status === 'booked') {
+    // Check if slot has reached maximum bookings
+    if (slot.bookingsCount >= slot.maxBookings) {
       return NextResponse.json(
         {
-          error: 'Slot already booked',
-          message: 'This link has already been used and is no longer available.'
-        },
-        { status: 410 } // 410 Gone
-      );
-    }
-
-    // Double-check with booking table
-    const existingBooking = await isSlotBooked(slotId);
-    if (existingBooking) {
-      return NextResponse.json(
-        {
-          error: 'Slot already booked',
-          message: 'This link has already been used and is no longer available.'
+          error: 'Slot fully booked',
+          message: `All ${slot.maxBookings} booking${slot.maxBookings > 1 ? 's' : ''} have been filled. This link is no longer available.`
         },
         { status: 410 } // 410 Gone
       );
@@ -111,6 +99,20 @@ export async function POST(
         { error: 'Invalid time slot selection' },
         { status: 400 }
       );
+    }
+
+    // Check if time slot is already booked (for individual mode)
+    if (slot.bookingMode === 'individual') {
+      const bookedIndices = slot.bookedTimeSlotIndices || [];
+      if (bookedIndices.includes(selectedTimeSlotIndex)) {
+        return NextResponse.json(
+          {
+            error: 'Time slot already booked',
+            message: 'This time slot has already been booked. Please select a different time.'
+          },
+          { status: 410 } // 410 Gone
+        );
+      }
     }
 
     // Get the selected time slot
@@ -131,11 +133,15 @@ export async function POST(
       bookerEmail: bookerEmail.trim(),
       bookerNote: bookerNote?.trim() || undefined,
       selectedTime: selectedTimeISO,
+      selectedTimeSlotIndex,
       timezone: timezone.trim(),
     };
 
     // Save booking to Redis
     await createBooking(booking);
+
+    // Update slot booking count (increments count, updates status if max reached, tracks booked indices)
+    await updateSlotBookingCount(slotId, slotId, selectedTimeSlotIndex); // Pass time slot index for tracking
 
     console.log(`✅ Booking confirmed for slot ${slotId} by ${bookerEmail}`);
 

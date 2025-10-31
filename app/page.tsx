@@ -8,7 +8,7 @@ import { TimezoneSelector } from '@/components/timezone-selector';
 import { isValidEmail, getEmailError, getNameError, getPurposeError } from '@/lib/validation';
 import { getUserTimezone } from '@/lib/timezone';
 import { convertToApiTimeSlots } from '@/lib/slot-utils';
-import { CreateSlotResponse } from '@/types/slot';
+import { CreateSlotResponse, BookingMode } from '@/types/slot';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
@@ -21,6 +21,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [touched, setTouched] = useState({ name: false, email: false, purpose: false });
+
+  // New: Multi-booking and extended duration settings
+  const [expirationDays, setExpirationDays] = useState(1); // Default: 24 hours
+  const [maxBookings, setMaxBookings] = useState(1); // Default: 1 booking
+  const [bookingMode, setBookingMode] = useState<BookingMode>('individual'); // Default: individual
 
   // Validation
   const emailError = touched.email ? getEmailError(email) : null;
@@ -58,6 +63,9 @@ export default function Home() {
           meetingPurpose: purpose.trim() || undefined,
           timeSlots: apiTimeSlots,
           timezone,
+          maxBookings, // New: max bookings allowed
+          expirationDays, // New: link duration in days
+          bookingMode, // New: booking mode (individual or group)
         }),
       });
 
@@ -204,6 +212,87 @@ export default function Home() {
               {/* Timezone Selector */}
               <TimezoneSelector value={timezone} onChange={setTimezone} />
 
+              {/* Link Settings */}
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-lg">⚙️</span>
+                  <h3 className="text-sm font-semibold text-gray-900">Link Settings</h3>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Link Duration */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Link Duration
+                    </label>
+                    <select
+                      value={expirationDays}
+                      onChange={(e) => setExpirationDays(Number(e.target.value))}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-white text-gray-900"
+                    >
+                      <option value={1}>24 hours</option>
+                      <option value={3}>3 days</option>
+                      <option value={7}>7 days</option>
+                    </select>
+                  </div>
+
+                  {/* Maximum Bookings */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Maximum Bookings
+                    </label>
+                    <select
+                      value={maxBookings}
+                      onChange={(e) => setMaxBookings(Number(e.target.value))}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-white text-gray-900"
+                    >
+                      <option value={1}>1 booking (default)</option>
+                      <option value={3}>3 bookings</option>
+                      <option value={5}>5 bookings</option>
+                      <option value={10}>10 bookings</option>
+                      <option value={15}>15 bookings</option>
+                      <option value={20}>20 bookings</option>
+                    </select>
+                  </div>
+
+                  {/* Booking Type */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Booking Type
+                    </label>
+                    <select
+                      value={bookingMode}
+                      onChange={(e) => setBookingMode(e.target.value as BookingMode)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-white text-gray-900"
+                    >
+                      <option value="individual">Individual (1-on-1) - Each slot can only be booked once</option>
+                      <option value="group">Group - Multiple people can book the same slot</option>
+                    </select>
+                  </div>
+
+                  {/* Info Text */}
+                  <div className="bg-white rounded-lg p-3 text-xs text-gray-600 leading-relaxed">
+                    <p className="flex items-start gap-2">
+                      <span className="flex-shrink-0">ℹ️</span>
+                      <span>
+                        {bookingMode === 'individual' ? (
+                          <>
+                            <strong>Individual mode:</strong> Each time slot can only be booked once. Once a slot is booked, it disappears for others.
+                            {maxBookings > 1 && ` Link allows up to ${maxBookings} total bookings across all your time slots.`}
+                            {` Link expires when ${maxBookings > 1 ? `all ${maxBookings} bookings are made` : 'booked'} or after ${expirationDays} ${expirationDays === 1 ? 'day' : 'days'}.`}
+                          </>
+                        ) : (
+                          <>
+                            <strong>Group mode:</strong> Multiple people can book the same time slot(s). All time slots remain visible until link expires.
+                            {` Link expires when ${maxBookings} ${maxBookings === 1 ? 'person books' : 'people book'} or after ${expirationDays} {expirationDays === 1 ? 'day' : 'days'}.`}
+                          </>
+                        )}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Slot Manager Component */}
               <SlotManager onSlotsChange={setSlots} />
             </div>
@@ -271,19 +360,19 @@ export default function Home() {
             </div>
 
             <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-sky-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-2xl">⏰</span>
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <span className="text-2xl">👥</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Temporary Links</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Links expire after booking or 24 hours</p>
+              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Multiple Bookings</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Let multiple people book from the same link</p>
             </div>
 
             <div className="text-center p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-100 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-2xl">🗑️</span>
+              <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-sky-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <span className="text-2xl">⏰</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Zero Retention</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">All data automatically deleted after use</p>
+              <h3 className="font-semibold text-gray-900 mb-2 text-lg">Flexible Duration</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Links last from 24 hours up to 7 days</p>
             </div>
           </div>
         </div>
@@ -360,7 +449,7 @@ export default function Home() {
                 <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="text-gray-600 mt-4 leading-relaxed">
-                Links expire after 24 hours or immediately after booking, whichever comes first. All data is automatically deleted for maximum privacy.
+                You can choose how long your links last: 24 hours, 3 days, or 7 days. Links expire when all bookings are filled or when the time limit is reached, whichever comes first. All data is automatically deleted for maximum privacy.
               </p>
             </details>
 
@@ -393,7 +482,7 @@ export default function Home() {
                 <span className="text-blue-600 text-xl group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="text-gray-600 mt-4 leading-relaxed">
-                All data is automatically deleted after 24 hours. We don't store, archive, or retain any information beyond the temporary period needed for booking.
+                All data is automatically deleted after your chosen link duration (24 hours to 7 days). We don't store, archive, or retain any information beyond the temporary period needed for booking.
               </p>
             </details>
 
@@ -457,7 +546,7 @@ export default function Home() {
                 "name": "How long do WhenAvailable links last?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Links expire after 24 hours or immediately after booking, whichever comes first. All data is automatically deleted for maximum privacy."
+                  "text": "You can choose how long your links last: 24 hours, 3 days, or 7 days. Links expire when all bookings are filled or when the time limit is reached, whichever comes first. All data is automatically deleted for maximum privacy."
                 }
               },
               {
@@ -481,7 +570,7 @@ export default function Home() {
                 "name": "What happens to my data?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "All data is automatically deleted after 24 hours. We don't store, archive, or retain any information beyond the temporary period needed for booking."
+                  "text": "All data is automatically deleted after your chosen link duration (24 hours to 7 days). We don't store, archive, or retain any information beyond the temporary period needed for booking."
                 }
               },
               {

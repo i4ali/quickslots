@@ -34,6 +34,9 @@ export async function POST(request: NextRequest) {
       meetingPurpose,
       timeSlots,
       timezone,
+      maxBookings = 1, // Default: 1 booking
+      expirationDays = 1, // Default: 24 hours (1 day)
+      bookingMode = 'individual', // Default: individual (1-on-1)
     } = body;
 
     // Validate required fields
@@ -91,12 +94,45 @@ export async function POST(request: NextRequest) {
       };
     });
 
+    // Validate maxBookings
+    if (typeof maxBookings !== 'number' || maxBookings < 1 || maxBookings > 20) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'maxBookings must be a number between 1 and 20',
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validate expirationDays
+    if (![1, 3, 7].includes(expirationDays)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'expirationDays must be 1, 3, or 7',
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validate bookingMode
+    if (bookingMode !== 'individual' && bookingMode !== 'group') {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'bookingMode must be either "individual" or "group"',
+        },
+        { status: 400 }
+      );
+    }
+
     // Generate unique slot ID (8 characters, URL-safe)
     const slotId = nanoid(8);
 
-    // Set expiration to 24 hours from now
+    // Set expiration based on expirationDays
     const now = Date.now();
-    const expiresAt = now + 24 * 60 * 60 * 1000; // 24 hours
+    const expiresAt = now + expirationDays * 24 * 60 * 60 * 1000; // expirationDays * 24 hours
 
     // Create slot object
     const slot: Slot = {
@@ -110,9 +146,21 @@ export async function POST(request: NextRequest) {
       timezone,
       status: SlotStatus.ACTIVE,
       viewCount: 0,
+
+      // New: Multi-booking support
+      maxBookings,
+      bookingsCount: 0,
+      bookings: [],
+
+      // New: Extended duration support
+      expirationDays,
+
+      // New: Booking mode support
+      bookingMode,
+      bookedTimeSlotIndices: [],
     };
 
-    // Store in Redis with 24-hour TTL
+    // Store in Redis with TTL based on expirationDays
     await createSlot(slot);
 
     // Generate shareable URL
@@ -125,6 +173,8 @@ export async function POST(request: NextRequest) {
       slotId,
       shareableUrl,
       expiresAt,
+      maxBookings,
+      expirationDays,
     };
 
     return NextResponse.json(response, {

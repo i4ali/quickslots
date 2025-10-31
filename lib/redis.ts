@@ -6,20 +6,21 @@
  *
  * TTL & Auto-Expiration Behavior:
  * --------------------------------
- * 1. Slots: Created with 24-hour TTL (86400 seconds by default)
+ * 1. Slots: Created with user-selected TTL (1, 3, or 7 days)
  *    - TTL starts when slot is created
- *    - After booking, slot TTL is reduced to 5 minutes (300 seconds)
- *    - Slot auto-deletes 5 minutes after booking
+ *    - TTL is calculated from slot.expirationDays (1 day = 86400s, 3 days = 259200s, 7 days = 604800s)
+ *    - Slot persists until expiration OR max bookings reached
+ *    - Slot auto-deletes after expiration
  *
- * 2. Bookings: Inherit full TTL from parent slot
+ * 2. Bookings: Inherit remaining TTL from parent slot
  *    - Created with remaining TTL from parent slot
- *    - Persists for full 24 hours from slot creation
- *    - Booking auto-deletes after 24 hours
+ *    - Persists for the duration of the parent slot's expiration
+ *    - Booking auto-deletes when parent slot expires
  *
  * 3. Privacy & Data Cleanup:
  *    - All data auto-expires via Redis TTL (no manual cleanup needed)
- *    - Slot expires 5 minutes after booking (no longer needed)
- *    - Booking expires 24 hours after slot creation
+ *    - Slot expires based on user's selected duration (1-7 days)
+ *    - Booking expires when parent slot expires
  *    - Zero persistent storage of user data
  */
 
@@ -125,7 +126,7 @@ export function generateSlotId(): string {
 // =============================================================================
 
 /**
- * Create a new slot with automatic 24-hour expiration
+ * Create a new slot with automatic expiration based on expirationDays
  */
 export async function createSlot(slot: Slot): Promise<boolean> {
   const client = getRedisClient();
@@ -135,17 +136,18 @@ export async function createSlot(slot: Slot): Promise<boolean> {
   }
 
   try {
-    const config = getEnvConfig();
-    const ttl = config.app.linkExpirationSeconds; // Default: 86400 (24 hours)
+    // Calculate TTL from slot's expiresAt (convert milliseconds to seconds)
+    const ttl = Math.floor((slot.expiresAt - slot.createdAt) / 1000);
 
     const key = getSlotKey(slot.id);
 
-    // Store slot with TTL
+    // Store slot with TTL based on user's selected expiration
     await client.set(key, JSON.stringify(slot), {
-      ex: ttl, // Expires in X seconds
+      ex: ttl, // Expires based on slot.expirationDays (1, 3, or 7 days)
     });
 
-    console.log(`✅ Slot created: ${slot.id} (expires in ${ttl}s)`);
+    const expirationDays = slot.expirationDays || 1;
+    console.log(`✅ Slot created: ${slot.id} (expires in ${ttl}s / ${expirationDays} day${expirationDays > 1 ? 's' : ''})`);
     return true;
   } catch (error) {
     console.error('Failed to create slot:', error);
@@ -246,6 +248,70 @@ export async function incrementSlotViewCount(slotId: string): Promise<void> {
 }
 
 /**
+ * Update slot booking count after a booking is made
+ * Increments bookingsCount and marks slot as 'booked' if max reached
+ * Also tracks which time slot indices have been booked (for individual mode)
+ */
+export async function updateSlotBookingCount(
+  slotId: string,
+  bookingId: string,
+  selectedTimeSlotIndex?: number
+): Promise<boolean> {
+  const client = getRedisClient();
+
+  if (!client) {
+    throw new Error('Redis client not available');
+  }
+
+  try {
+    const slot = await getSlot(slotId);
+
+    if (!slot) {
+      return false;
+    }
+
+    // Increment booking count
+    slot.bookingsCount = (slot.bookingsCount || 0) + 1;
+
+    // Add booking ID to the list
+    if (!slot.bookings) {
+      slot.bookings = [];
+    }
+    slot.bookings.push(bookingId);
+
+    // Track booked time slot index (for individual mode)
+    if (selectedTimeSlotIndex !== undefined && selectedTimeSlotIndex !== null) {
+      if (!slot.bookedTimeSlotIndices) {
+        slot.bookedTimeSlotIndices = [];
+      }
+      // Add to booked indices if not already present
+      if (!slot.bookedTimeSlotIndices.includes(selectedTimeSlotIndex)) {
+        slot.bookedTimeSlotIndices.push(selectedTimeSlotIndex);
+      }
+    }
+
+    // Mark as 'booked' if max bookings reached
+    if (slot.bookingsCount >= slot.maxBookings) {
+      slot.status = 'booked' as SlotStatus;
+    }
+
+    const key = getSlotKey(slotId);
+    const ttl = await client.ttl(key); // Get remaining TTL
+
+    // Update slot with same TTL
+    await client.set(key, JSON.stringify(slot), {
+      ex: ttl > 0 ? ttl : 60, // Fallback to 60 seconds if TTL expired
+    });
+
+    console.log(`✅ Slot ${slotId} booking count updated: ${slot.bookingsCount}/${slot.maxBookings}`);
+    return true;
+  } catch (error) {
+    console.error('Failed to update slot booking count:', error);
+    return false;
+  }
+}
+
+/**
  * Delete a slot manually (for cancellation)
  */
 export async function deleteSlot(slotId: string): Promise<boolean> {
@@ -310,12 +376,8 @@ export async function createBooking(booking: Booking): Promise<boolean> {
       ex: ttl > 0 ? ttl : 3600, // Fallback to 1 hour
     });
 
-    // Update slot status to booked
-    await updateSlotStatus(booking.slotId, 'booked' as SlotStatus);
-
-    // Expire slot quickly after booking (keeps data for immediate verification, then auto-deletes)
-    // The booking data is what matters long-term, slot is no longer needed
-    await client.expire(slotKey, 300); // Expire in 5 minutes (300 seconds)
+    // Note: Slot status and expiration will be handled by updateSlotBookingCount
+    // This allows multi-booking support - slot status only changes when maxBookings is reached
 
     console.log(`✅ Booking created for slot: ${booking.slotId}`);
     return true;
@@ -417,6 +479,7 @@ export const redis = {
   getSlot,
   updateSlotStatus,
   incrementSlotViewCount,
+  updateSlotBookingCount,
   deleteSlot,
   isSlotActive,
 

@@ -16,6 +16,8 @@ export interface TimeSlot {
 // Slot (Creator's Availability) Types
 // =============================================================================
 
+export type BookingMode = 'individual' | 'group';
+
 export interface Slot {
   id: string; // Unique slot ID (short, URL-safe)
   createdAt: number; // Unix timestamp
@@ -27,6 +29,18 @@ export interface Slot {
   timezone: string; // IANA timezone (e.g., "America/New_York")
   status: SlotStatus;
   viewCount?: number; // Optional: track how many times link was viewed
+
+  // Multi-booking support
+  maxBookings: number; // Maximum number of bookings allowed (1-20, default 1)
+  bookingsCount: number; // Current number of bookings (0 to maxBookings)
+  bookings: string[]; // Array of booking IDs
+
+  // Extended duration support
+  expirationDays: number; // Link duration in days (1, 3, or 7)
+
+  // Booking mode support
+  bookingMode: BookingMode; // 'individual' (1-on-1, each slot can only be booked once) or 'group' (multiple people can book same slot)
+  bookedTimeSlotIndices: number[]; // Array of time slot indices that have been booked (for individual mode)
 }
 
 export enum SlotStatus {
@@ -47,6 +61,7 @@ export interface Booking {
   bookerEmail: string; // Required booker email
   bookerNote?: string; // Optional note from booker
   selectedTime: string; // ISO 8601 format (selected time slot)
+  selectedTimeSlotIndex: number; // Index of the booked time slot in the parent slot's timeSlots array
   timezone: string; // Booker's timezone
 }
 
@@ -60,6 +75,9 @@ export interface CreateSlotRequest {
   meetingPurpose?: string;
   timeSlots: TimeSlot[];
   timezone: string;
+  maxBookings?: number; // Optional: max bookings (1-20, default 1)
+  expirationDays?: number; // Optional: link duration in days (1, 3, or 7, default 1)
+  bookingMode?: BookingMode; // Optional: 'individual' or 'group' (default: 'individual')
 }
 
 // =============================================================================
@@ -84,6 +102,8 @@ export interface CreateSlotResponse {
   slotId: string;
   shareableUrl: string;
   expiresAt: number;
+  maxBookings: number;
+  expirationDays: number;
 }
 
 export interface BookSlotResponse {

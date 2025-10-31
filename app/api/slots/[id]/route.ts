@@ -106,6 +106,11 @@ export async function GET(
         timezone: slot.timezone,
         expiresAt: slot.expiresAt,
         status: slot.status,
+        maxBookings: slot.maxBookings,
+        bookingsCount: slot.bookingsCount,
+        expirationDays: slot.expirationDays,
+        bookingMode: slot.bookingMode,
+        bookedTimeSlotIndices: slot.bookedTimeSlotIndices || [],
       },
     });
   } catch (error) {

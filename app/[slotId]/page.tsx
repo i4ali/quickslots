@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { formatInTimezone, getTimezoneAbbr } from '@/lib/timezone';
-import { DisplayAd } from '@/components/display-ad';
 
 // Metadata can't be exported from client components, but we can add it via layout
 // For now, add head tags manually in the component
@@ -22,6 +21,11 @@ interface SlotData {
   timezone: string;
   expiresAt: string;
   status: string;
+  maxBookings: number;
+  bookingsCount: number;
+  expirationDays: number;
+  bookingMode: 'individual' | 'group';
+  bookedTimeSlotIndices: number[];
 }
 
 interface ApiResponse {
@@ -219,7 +223,7 @@ export default function BookingPage() {
                 Create Your Own Link
               </button>
               <p className="text-sm text-gray-500">
-                WhenAvailable links expire after 24 hours or once booked
+                WhenAvailable links expire based on their settings or when fully booked
               </p>
             </div>
           </div>
@@ -284,14 +288,6 @@ export default function BookingPage() {
             </p>
           </div>
 
-          {/* Ad Placement 1: After timezone info */}
-          <DisplayAd
-            adSlot="REPLACE_WITH_YOUR_AD_SLOT_ID"
-            adFormat="auto"
-            fullWidthResponsive={true}
-            className="mb-6"
-          />
-
           {/* Available Slots */}
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
@@ -299,6 +295,13 @@ export default function BookingPage() {
             </h2>
             <div className="space-y-3">
               {slotData.timeSlots.map((slot, index) => {
+                // Filter out booked slots in individual mode
+                if (slotData.bookingMode === 'individual') {
+                  const bookedIndices = slotData.bookedTimeSlotIndices || [];
+                  if (bookedIndices.includes(index)) {
+                    return null; // Skip this slot
+                  }
+                }
                 const startDate = new Date(slot.start);
                 const endDate = new Date(slot.end);
                 const isSelected = selectedSlot === index;
@@ -326,6 +329,25 @@ export default function BookingPage() {
                         <p className={`text-sm ${isSelected ? 'text-blue-700' : 'text-gray-600'}`}>
                           {startTime} - {endTime} ({getTimezoneAbbr(userTimezone)})
                         </p>
+                        {slotData.maxBookings > 1 && (
+                          <p className={`text-xs mt-1 flex items-center gap-1 ${
+                            slotData.bookingsCount >= slotData.maxBookings * 0.8
+                              ? 'text-orange-600 font-medium'
+                              : 'text-gray-500'
+                          }`}>
+                            <span>👥</span>
+                            {slotData.maxBookings - slotData.bookingsCount > 0 ? (
+                              <>
+                                {slotData.maxBookings - slotData.bookingsCount} {slotData.maxBookings - slotData.bookingsCount === 1 ? 'spot' : 'spots'} remaining ({slotData.bookingsCount}/{slotData.maxBookings} booked)
+                                {slotData.bookingsCount >= slotData.maxBookings * 0.8 && (
+                                  <span className="ml-1">⚠️ Filling up fast!</span>
+                                )}
+                              </>
+                            ) : (
+                              <>Fully booked ({slotData.maxBookings}/{slotData.maxBookings})</>
+                            )}
+                          </p>
+                        )}
                       </div>
                       <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                         isSelected
@@ -545,18 +567,16 @@ export default function BookingPage() {
               <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
                 4
               </span>
-              <span>This link will expire immediately after booking (one-time use)</span>
+              <span>
+                {slotData.maxBookings > 1 ? (
+                  <>This link allows up to {slotData.maxBookings} bookings and expires when all slots are filled or after {slotData.expirationDays} {slotData.expirationDays === 1 ? 'day' : 'days'}</>
+                ) : (
+                  <>This link will expire immediately after booking (one-time use)</>
+                )}
+              </span>
             </li>
           </ul>
         </div>
-
-        {/* Ad Placement 2: After info section */}
-        <DisplayAd
-          adSlot="REPLACE_WITH_YOUR_AD_SLOT_ID_2"
-          adFormat="auto"
-          fullWidthResponsive={true}
-          className="mt-8"
-        />
       </div>
     </div>
   );
