@@ -120,6 +120,15 @@ export default function Home() {
               <Link href="/blog" className="text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-blue-50">
                 Blog
               </Link>
+              <a
+                href="https://github.com/i4ali/quickslots/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-blue-50 flex items-center gap-2"
+              >
+                <span>🐛</span>
+                Report a Bug
+              </a>
             </div>
           </div>
         </div>
