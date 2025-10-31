@@ -32,9 +32,16 @@ export function AvailabilityInput({ onSlotAdded, maxSlots = 5 }: AvailabilityInp
       return;
     }
 
+    // Preprocess the input to handle "next week [day]" patterns
+    let processedValue = value;
+
+    // Handle "next week [day]" -> convert to "next [day]"
+    // This fixes chrono-node's parsing issues with "next week Wednesday"
+    processedValue = processedValue.replace(/next\s+week\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/gi, 'next $1');
+
     // Parse the input with chrono-node
     try {
-      const results = chrono.parse(value);
+      const results = chrono.parse(processedValue);
 
       if (results.length === 0) {
         setError('Could not understand that date/time. Try: "tomorrow 2-4pm" or "Friday at 3pm"');
@@ -169,6 +176,7 @@ export function AvailabilityInput({ onSlotAdded, maxSlots = 5 }: AvailabilityInp
             'tomorrow 2-4pm',
             'Friday at 4pm',
             'next Tuesday 10am-12pm',
+            'tomorrow afternoon 3pm',
             'Oct 15 at 2:30pm',
           ].map((example) => (
             <button

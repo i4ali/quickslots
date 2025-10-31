@@ -189,6 +189,11 @@ export default function RootLayout({
                       Blog
                     </Link>
                   </li>
+                  <li>
+                    <Link href="/support" className="text-gray-600 hover:text-blue-600 transition-colors">
+                      Support
+                    </Link>
+                  </li>
                 </ul>
               </div>
 

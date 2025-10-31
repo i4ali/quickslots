@@ -210,7 +210,7 @@ export default function BookingPage() {
           <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-8 text-center">
             <div className="text-6xl mb-4">😕</div>
             <h1 className="text-3xl font-bold text-gray-900 mb-3">
-              Link Unavailable
+              Scheduling Link Unavailable
             </h1>
             <p className="text-gray-600 text-lg mb-8">
               {error}
@@ -220,7 +220,7 @@ export default function BookingPage() {
                 onClick={() => router.push('/')}
                 className="w-full py-4 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md"
               >
-                Create Your Own Link
+                Create Your Own Scheduling Link
               </button>
               <p className="text-sm text-gray-500">
                 WhenAvailable links expire based on their settings or when fully booked
