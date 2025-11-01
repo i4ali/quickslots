@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     title: "How to Schedule Meetings Without Sharing Your Calendar",
     description: "5 proven methods to share availability while protecting your calendar privacy.",
   },
+  alternates: {
+    canonical: '/blog/schedule-meetings-without-sharing-calendar',
+  },
 };
 
 export default function ScheduleWithoutSharingPost() {

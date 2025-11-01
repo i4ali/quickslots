@@ -4,6 +4,9 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Blog - Scheduling Tips & Guides | WhenAvailable",
   description: "Learn about privacy-first scheduling, temporary calendar links, and alternatives to traditional meeting schedulers. Expert tips for efficient meeting management.",
+  alternates: {
+    canonical: '/blog',
+  },
 };
 
 const blogPosts = [

@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     title: "Best Temporary Scheduling Solutions for 2025",
     description: "Compare temporary scheduling tools that prioritize privacy and simplicity. No accounts, no calendar integration, no data retention.",
   },
+  alternates: {
+    canonical: '/blog/temporary-scheduling-solutions-2025',
+  },
 };
 
 export default function TemporarySchedulingSolutions2025() {

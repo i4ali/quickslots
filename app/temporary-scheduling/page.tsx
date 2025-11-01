@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     title: "What is Temporary Scheduling? Complete Guide | WhenAvailable",
     description: "Everything you need to know about temporary scheduling: definition, benefits, use cases, and best practices for privacy-first meeting coordination.",
   },
+  alternates: {
+    canonical: '/temporary-scheduling',
+  },
 };
 
 export default function TemporarySchedulingPage() {

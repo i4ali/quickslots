@@ -4,6 +4,9 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms of Service - WhenAvailable",
   description: "WhenAvailable terms of service. Free temporary scheduling links with no signup required.",
+  alternates: {
+    canonical: '/terms',
+  },
 };
 
 export default function TermsPage() {

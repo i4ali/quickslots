@@ -5,6 +5,9 @@ import { TipButton } from '@/components/tip-button';
 export const metadata: Metadata = {
   title: 'Support WhenAvailable | Help Keep It Free',
   description: 'Love WhenAvailable? Support us to help keep this scheduling tool free for everyone. Your contributions help cover hosting and development costs.',
+  alternates: {
+    canonical: '/support',
+  },
 };
 
 export default function SupportPage() {

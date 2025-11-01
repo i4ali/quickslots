@@ -4,6 +4,9 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy - WhenAvailable",
   description: "WhenAvailable privacy policy. Zero data retention - all data auto-deletes after 24 hours.",
+  alternates: {
+    canonical: '/privacy',
+  },
 };
 
 export default function PrivacyPage() {

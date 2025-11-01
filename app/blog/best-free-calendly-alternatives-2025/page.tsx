@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     title: "Best Free Calendly Alternatives 2025",
     description: "Compare the top 10 free alternatives to Calendly for scheduling meetings in 2025.",
   },
+  alternates: {
+    canonical: '/blog/best-free-calendly-alternatives-2025',
+  },
 };
 
 export default function CalendlyAlternativesPost() {

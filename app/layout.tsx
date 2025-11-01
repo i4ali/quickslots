@@ -81,6 +81,9 @@ export const metadata: Metadata = {
     // Paste it here like: google: 'ABC123xyz...'
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({

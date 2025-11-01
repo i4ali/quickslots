@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     title: "Privacy-First Scheduling Tools: Complete Guide",
     description: "Compare privacy-focused scheduling tools and learn what to look for in 2025.",
   },
+  alternates: {
+    canonical: '/blog/privacy-first-scheduling-tools',
+  },
 };
 
 export default function PrivacySchedulingPost() {
