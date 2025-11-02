@@ -169,9 +169,11 @@ export default function RootLayout({
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* Brand */}
               <div className="md:col-span-2">
-                <Link href="/" className="inline-flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors mb-3">
-                  <img src="/logo-256.png" alt="WhenAvailable" className="w-8 h-8" />
-                  WhenAvailable
+                <Link href="/" className="inline-flex items-center gap-0 group mb-3">
+                  <img src="/logo-256.png" alt="WhenAvailable" className="w-8 h-8 group-hover:scale-105 transition-transform" />
+                  <span className="text-xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
+                    WhenAvailable
+                  </span>
                 </Link>
                 <p className="text-sm text-gray-600 max-w-md leading-relaxed">
                   Create temporary scheduling links in seconds. No signup required. Privacy-first meeting coordination.
