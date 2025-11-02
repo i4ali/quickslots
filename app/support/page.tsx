@@ -24,7 +24,7 @@ export default function SupportPage() {
       <nav className="border-b border-gray-200 bg-white/90 backdrop-blur-md relative z-10 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
-            <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+            <Link href="/" className="flex items-center gap-0 group">
               <img src="/logo-256.png" alt="WhenAvailable" className="w-10 h-10 sm:w-12 sm:h-12 group-hover:scale-105 transition-transform" />
               <span className="text-lg sm:text-2xl lg:text-3xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
                 WhenAvailable
@@ -34,18 +34,16 @@ export default function SupportPage() {
               <Link href="/blog" className="text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50">
                 Blog
               </Link>
-              <Link href="/support" className="text-sm sm:text-base font-semibold text-blue-600 bg-blue-50 transition-colors px-2 sm:px-4 py-2 rounded-lg flex items-center gap-1 sm:gap-2">
-                <span>☕</span>
-                <span className="hidden xs:inline">Support</span>
+              <Link href="/support" className="text-sm sm:text-base font-semibold text-blue-600 bg-blue-50 transition-colors px-2 sm:px-4 py-2 rounded-lg">
+                Support
               </Link>
               <a
                 href="https://github.com/i4ali/quickslots/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:flex text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50 items-center gap-1 sm:gap-2"
+                className="hidden md:flex text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50"
               >
-                <span>🐛</span>
-                <span>Report a Bug</span>
+                Report an Issue
               </a>
             </div>
           </div>

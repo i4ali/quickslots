@@ -110,7 +110,7 @@ export default function Home() {
       <nav className="border-b border-gray-200 bg-white/90 backdrop-blur-md relative z-10 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
-            <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+            <Link href="/" className="flex items-center gap-0 group">
               <img src="/logo-256.png" alt="WhenAvailable" className="w-10 h-10 sm:w-12 sm:h-12 group-hover:scale-105 transition-transform" />
               <span className="text-lg sm:text-2xl lg:text-3xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
                 WhenAvailable
@@ -120,18 +120,16 @@ export default function Home() {
               <Link href="/blog" className="text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50">
                 Blog
               </Link>
-              <Link href="/support" className="text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50 flex items-center gap-1 sm:gap-2">
-                <span>☕</span>
-                <span className="hidden xs:inline">Support</span>
+              <Link href="/support" className="text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50">
+                Support
               </Link>
               <a
                 href="https://github.com/i4ali/quickslots/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:flex text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50 items-center gap-1 sm:gap-2"
+                className="hidden md:flex text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50"
               >
-                <span>🐛</span>
-                <span>Report a Bug</span>
+                Report an Issue
               </a>
             </div>
           </div>
@@ -142,7 +140,7 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 py-16 sm:py-24 relative z-10">
         {/* Enhanced Header with Value Prop */}
         <div className="text-center mb-20">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">
             Share Your Availability<br />Instantly
           </h1>
           <p className="text-xl sm:text-2xl text-gray-600 mb-6 max-w-3xl mx-auto leading-relaxed">
@@ -158,7 +156,7 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-blue-200 transition-all group">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
                 <span className="text-3xl">⚡</span>
               </div>
               <h3 className="font-bold text-gray-900 mb-3 text-lg">Instant Scheduling</h3>
@@ -166,7 +164,7 @@ export default function Home() {
             </div>
 
             <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-indigo-200 transition-all group">
-              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
                 <span className="text-3xl">🔒</span>
               </div>
               <h3 className="font-bold text-gray-900 mb-3 text-lg">Privacy-First</h3>
@@ -174,7 +172,7 @@ export default function Home() {
             </div>
 
             <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-purple-200 transition-all group">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+              <div className="w-16 h-16 bg-gradient-to-br from-fuchsia-600 to-fuchsia-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
                 <span className="text-3xl">👥</span>
               </div>
               <h3 className="font-bold text-gray-900 mb-3 text-lg">Multiple Bookings</h3>
@@ -182,7 +180,7 @@ export default function Home() {
             </div>
 
             <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-sky-200 transition-all group">
-              <div className="w-16 h-16 bg-gradient-to-br from-sky-500 to-sky-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+              <div className="w-16 h-16 bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
                 <span className="text-3xl">⏰</span>
               </div>
               <h3 className="font-bold text-gray-900 mb-3 text-lg">Flexible Duration</h3>
