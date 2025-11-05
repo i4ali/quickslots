@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Options - WhenAvailable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8ef 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e293b;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .logo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .logo-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-image {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-with-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .logo-with-text img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .logo-with-text span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .logo-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .logo-description {
+            color: #64748b;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .size-examples {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .size-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .sizes {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sizes img {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .comparison {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .comparison h2 {
+            color: #1e293b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .comparison-item {
+            text-align: center;
+        }
+
+        .comparison-item img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .comparison-item p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Your New Logo</h1>
+        <p class="subtitle">Select the design that best represents WhenAvailable</p>
+
+        <div class="logo-grid">
+            <!-- Option 1 -->
+            <div class="logo-card">
+                <div class="logo-preview">
+                    <div class="logo-image">
+                        <img src="/logo-option1.svg" alt="Logo Option 1">
+                    </div>
+                    <h3 class="logo-title">Option 1: Modern Minimal</h3>
+                    <p class="logo-description">
+                        Clean overlapping circles representing multiple time slots. The checkmark indicates confirmed availability. Simple and professional.
+                    </p>
+                    <div class="logo-with-text">
+                        <img src="/logo-option1.svg" alt="Logo 1">
+                        <span>WhenAvailable</span>
+                    </div>
+                    <div class="size-examples">
+                        <div class="size-label">Different sizes:</div>
+                        <div class="sizes">
+                            <img src="/logo-option1.svg" width="32" height="32" alt="32px">
+                            <img src="/logo-option1.svg" width="48" height="48" alt="48px">
+                            <img src="/logo-option1.svg" width="64" height="64" alt="64px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 2 -->
+            <div class="logo-card">
+                <div class="logo-preview">
+                    <div class="logo-image">
+                        <img src="/logo-option2.svg" alt="Logo Option 2">
+                    </div>
+                    <h3 class="logo-title">Option 2: Temporary Time</h3>
+                    <p class="logo-description">
+                        Hourglass design emphasizing your "temporary scheduling" USP. Falling sand particles represent fleeting, ephemeral time slots. Unique and memorable.
+                    </p>
+                    <div class="logo-with-text">
+                        <img src="/logo-option2.svg" alt="Logo 2">
+                        <span>WhenAvailable</span>
+                    </div>
+                    <div class="size-examples">
+                        <div class="size-label">Different sizes:</div>
+                        <div class="sizes">
+                            <img src="/logo-option2.svg" width="32" height="32" alt="32px">
+                            <img src="/logo-option2.svg" width="48" height="48" alt="48px">
+                            <img src="/logo-option2.svg" width="64" height="64" alt="64px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 3 -->
+            <div class="logo-card">
+                <div class="logo-preview">
+                    <div class="logo-image">
+                        <img src="/logo-option3.svg" alt="Logo Option 3">
+                    </div>
+                    <h3 class="logo-title">Option 3: Calendar Focus</h3>
+                    <p class="logo-description">
+                        Modern calendar with selected slots highlighted in blue. Clock icon overlay. Immediately communicates "scheduling" at a glance.
+                    </p>
+                    <div class="logo-with-text">
+                        <img src="/logo-option3.svg" alt="Logo 3">
+                        <span>WhenAvailable</span>
+                    </div>
+                    <div class="size-examples">
+                        <div class="size-label">Different sizes:</div>
+                        <div class="sizes">
+                            <img src="/logo-option3.svg" width="32" height="32" alt="32px">
+                            <img src="/logo-option3.svg" width="48" height="48" alt="48px">
+                            <img src="/logo-option3.svg" width="64" height="64" alt="64px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 4 -->
+            <div class="logo-card">
+                <div class="logo-preview">
+                    <div class="logo-image">
+                        <img src="/logo-option4.svg" alt="Logo Option 4">
+                    </div>
+                    <h3 class="logo-title">Option 4: "W" Monogram</h3>
+                    <p class="logo-description">
+                        Bold "W" lettermark with integrated clock hands. Modern, distinctive, and works great at small sizes. Strong brand identity.
+                    </p>
+                    <div class="logo-with-text">
+                        <img src="/logo-option4.svg" alt="Logo 4">
+                        <span>WhenAvailable</span>
+                    </div>
+                    <div class="size-examples">
+                        <div class="size-label">Different sizes:</div>
+                        <div class="sizes">
+                            <img src="/logo-option4.svg" width="32" height="32" alt="32px">
+                            <img src="/logo-option4.svg" width="48" height="48" alt="48px">
+                            <img src="/logo-option4.svg" width="64" height="64" alt="64px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison">
+            <h2>Side-by-Side Comparison</h2>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <img src="/logo-option1.svg" alt="Option 1">
+                    <p><strong>Option 1</strong><br>Modern Minimal</p>
+                </div>
+                <div class="comparison-item">
+                    <img src="/logo-option2.svg" alt="Option 2">
+                    <p><strong>Option 2</strong><br>Temporary Time</p>
+                </div>
+                <div class="comparison-item">
+                    <img src="/logo-option3.svg" alt="Option 3">
+                    <p><strong>Option 3</strong><br>Calendar Focus</p>
+                </div>
+                <div class="comparison-item">
+                    <img src="/logo-option4.svg" alt="Option 4">
+                    <p><strong>Option 4</strong><br>"W" Monogram</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -109,25 +109,25 @@ export default function Home() {
       {/* Navigation */}
       <nav className="border-b border-gray-200 bg-white/90 backdrop-blur-md relative z-10 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
+          <div className="flex justify-between items-center h-14 sm:h-16">
             <Link href="/" className="flex items-center gap-0 group">
-              <img src="/logo-256.png" alt="WhenAvailable" className="w-10 h-10 sm:w-12 sm:h-12 group-hover:scale-105 transition-transform" />
-              <span className="text-lg sm:text-2xl lg:text-3xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
+              <img src="/logo.svg" alt="WhenAvailable" className="w-10 h-10 sm:w-12 sm:h-12 group-hover:scale-105 transition-transform" />
+              <span className="text-base sm:text-xl lg:text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
                 WhenAvailable
               </span>
             </Link>
             <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
-              <Link href="/blog" className="text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50">
+              <Link href="/blog" className="text-xs sm:text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50">
                 Blog
               </Link>
-              <Link href="/support" className="text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50">
+              <Link href="/support" className="text-xs sm:text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50">
                 Support
               </Link>
               <a
                 href="https://github.com/i4ali/quickslots/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:flex text-sm sm:text-base font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50"
+                className="hidden md:flex text-xs sm:text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors px-2 sm:px-4 py-2 rounded-lg hover:bg-blue-50"
               >
                 Report an Issue
               </a>

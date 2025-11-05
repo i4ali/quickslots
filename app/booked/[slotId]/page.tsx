@@ -154,7 +154,7 @@ export default function BookingConfirmationPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center gap-0 group">
-              <img src="/logo-256.png" alt="WhenAvailable" className="w-10 h-10 group-hover:scale-105 transition-transform" />
+              <img src="/logo.svg" alt="WhenAvailable" className="w-10 h-10 group-hover:scale-105 transition-transform" />
               <span className="text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
                 WhenAvailable
               </span>

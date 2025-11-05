@@ -1,0 +1,33 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Option 1: Modern Minimal - Overlapping Circles representing time slots -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="128" cy="128" r="108" fill="url(#grad1)"/>
+
+  <!-- Three overlapping time slots creating an "availability" pattern -->
+  <circle cx="95" cy="110" r="35" fill="white" opacity="0.2"/>
+  <circle cx="128" cy="110" r="35" fill="white" opacity="0.3"/>
+  <circle cx="161" cy="110" r="35" fill="white" opacity="0.2"/>
+
+  <!-- Central availability indicator -->
+  <circle cx="128" cy="110" r="25" fill="white"/>
+
+  <!-- Checkmark in center -->
+  <path d="M 115 110 L 123 118 L 141 100"
+        stroke="#3b82f6"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"/>
+
+  <!-- Time indicator dots at bottom -->
+  <circle cx="108" cy="155" r="4" fill="white" opacity="0.6"/>
+  <circle cx="128" cy="155" r="5" fill="white"/>
+  <circle cx="148" cy="155" r="4" fill="white" opacity="0.6"/>
+</svg>

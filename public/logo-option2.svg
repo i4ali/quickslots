@@ -1,0 +1,45 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Option 2: Abstract Time - Fading/Temporary concept -->
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Radial gradient for glow effect -->
+    <radialGradient id="glow2">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <circle cx="128" cy="128" r="108" fill="url(#grad2)"/>
+
+  <!-- Hourglass/Timer shape representing temporary -->
+  <g>
+    <!-- Top half -->
+    <path d="M 90 80 L 166 80 L 128 128 Z" fill="white" opacity="0.9"/>
+    <!-- Bottom half -->
+    <path d="M 90 176 L 166 176 L 128 128 Z" fill="white" opacity="0.6"/>
+
+    <!-- Sand particles - representing temporary/fleeting time -->
+    <circle cx="128" cy="115" r="3" fill="white" opacity="0.8"/>
+    <circle cx="125" cy="120" r="2.5" fill="white" opacity="0.7"/>
+    <circle cx="131" cy="120" r="2.5" fill="white" opacity="0.7"/>
+    <circle cx="128" cy="125" r="3" fill="white" opacity="0.9"/>
+
+    <!-- Falling particles -->
+    <circle cx="128" cy="135" r="2" fill="white" opacity="0.5"/>
+    <circle cx="125" cy="140" r="1.5" fill="white" opacity="0.4"/>
+    <circle cx="131" cy="142" r="1.5" fill="white" opacity="0.4"/>
+  </g>
+
+  <!-- Arc at top representing availability window -->
+  <path d="M 80 70 Q 128 50 176 70"
+        stroke="white"
+        stroke-width="4"
+        stroke-linecap="round"
+        fill="none"
+        opacity="0.5"/>
+</svg>

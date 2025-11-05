@@ -170,7 +170,7 @@ export default function RootLayout({
               {/* Brand */}
               <div className="md:col-span-2">
                 <Link href="/" className="inline-flex items-center gap-0 group mb-3">
-                  <img src="/logo-256.png" alt="WhenAvailable" className="w-8 h-8 group-hover:scale-105 transition-transform" />
+                  <img src="/logo.svg" alt="WhenAvailable" className="w-8 h-8 group-hover:scale-105 transition-transform" />
                   <span className="text-xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
                     WhenAvailable
                   </span>
