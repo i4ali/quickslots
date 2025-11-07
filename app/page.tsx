@@ -2,99 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { SlotManager } from '@/components/slot-manager';
-import { TimeSlot } from '@/components/availability-input';
-import { TimezoneSelector } from '@/components/timezone-selector';
-import { isValidEmail, getEmailError, getNameError, getPurposeError } from '@/lib/validation';
-import { getUserTimezone } from '@/lib/timezone';
-import { convertToApiTimeSlots } from '@/lib/slot-utils';
-import { CreateSlotResponse, BookingMode } from '@/types/slot';
-import { useRouter } from 'next/navigation';
+import { AnimatedProductPreview } from '@/components/animated-product-preview';
+import { CreateLinkModal } from '@/components/create-link-modal';
 
 export default function Home() {
-  const router = useRouter();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [purpose, setPurpose] = useState('');
-  const [timezone, setTimezone] = useState(() => getUserTimezone());
-  const [slots, setSlots] = useState<TimeSlot[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [touched, setTouched] = useState({ name: false, email: false, purpose: false, inviteeLimit: false });
-
-  // New: Multi-booking and extended duration settings
-  const [expirationDays, setExpirationDays] = useState(1); // Default: 24 hours
-  const [maxBookings, setMaxBookings] = useState(1); // Default: 1 booking
-  const [bookingMode, setBookingMode] = useState<BookingMode>('individual'); // Default: individual
-
-  // Validation
-  const emailError = touched.email ? getEmailError(email) : null;
-  const nameError = touched.name ? getNameError(name) : null;
-  const purposeError = touched.purpose ? getPurposeError(purpose) : null;
-
-  // Invitee limit validation
-  const inviteeLimitError = touched.inviteeLimit && (maxBookings < 1 || maxBookings > 20)
-    ? maxBookings < 1
-      ? 'Must be at least 1 invitee'
-      : 'Maximum 20 invitees allowed'
-    : null;
-
-  const canGenerateLink = isValidEmail(email) && slots.length > 0 && !nameError && !purposeError && !inviteeLimitError;
-
-  const handleGenerateLink = async () => {
-    // Mark all fields as touched to show errors
-    setTouched({ name: true, email: true, purpose: true, inviteeLimit: true });
-    setError(null);
-
-    // Validate
-    if (!canGenerateLink) {
-      setError('Please fix the errors above before generating a link');
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      // Convert frontend TimeSlots to API format
-      const apiTimeSlots = convertToApiTimeSlots(slots);
-
-      // Call API
-      const response = await fetch('/api/slots/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          creatorName: name.trim() || undefined,
-          creatorEmail: email.trim(),
-          meetingPurpose: purpose.trim() || undefined,
-          timeSlots: apiTimeSlots,
-          timezone,
-          maxBookings, // New: max bookings allowed
-          expirationDays, // New: link duration in days
-          bookingMode, // New: booking mode (individual or group)
-        }),
-      });
-
-      const data: CreateSlotResponse = await response.json();
-
-      if (!response.ok) {
-        throw new Error((data as any).error || 'Failed to create scheduling link');
-      }
-
-      if (data.success) {
-        // Success! Navigate to confirmation page
-        console.log('Link created successfully:', data);
-        router.push(`/created/${data.slotId}`);
-      }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to generate scheduling link. Please try again.';
-      setError(errorMessage);
-      console.error('Error generating link:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden">
@@ -147,12 +59,30 @@ export default function Home() {
             Create temporary, privacy-first scheduling links in seconds.<br className="hidden sm:block" />
             <span className="font-semibold text-gray-700">No signup required. No data storage.</span>
           </p>
+
+          {/* Get Started CTA */}
+          <div className="mt-8">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-10 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-xl hover:shadow-2xl text-lg flex items-center gap-3 mx-auto group"
+            >
+              <span>Get Started</span>
+              <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* Value Propositions - Moved ABOVE form */}
+        {/* Animated Product Preview */}
+        <div className="mb-24 bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-3xl p-8 sm:p-12 shadow-xl border border-blue-100/50">
+          <AnimatedProductPreview />
+        </div>
+
+        {/* Value Propositions */}
         <div className="mb-24">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-12">
-            Why teams choose WhenAvailable
+            Why choose WhenAvailable
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-blue-200 transition-all group">
@@ -185,258 +115,6 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-gray-900 mb-3 text-lg">Flexible Duration</h3>
               <p className="text-sm text-gray-600 leading-relaxed">Links last from 24 hours up to 7 days</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Form Card - Now appears AFTER value props */}
-        <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 sm:p-10 mb-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-indigo-50/30 rounded-2xl pointer-events-none"></div>
-          <div className="relative z-10">
-          <div className="space-y-6">
-            {/* Error Display */}
-            {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                <p className="text-sm text-red-600 font-medium">
-                  ⚠️ {error}
-                </p>
-              </div>
-            )}
-
-            {/* Form Fields */}
-            <div className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Name (optional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g., Sarah Chen"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onBlur={() => setTouched({ ...touched, name: true })}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
-                    nameError
-                      ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                      : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
-                  }`}
-                />
-                {nameError && (
-                  <p className="text-xs text-red-600 mt-1">{nameError}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Email <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={() => setTouched({ ...touched, email: true })}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
-                    emailError
-                      ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                      : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
-                  }`}
-                />
-                {emailError && (
-                  <p className="text-xs text-red-600 mt-1">{emailError}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Meeting Purpose (optional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g., Coffee chat"
-                  value={purpose}
-                  onChange={(e) => setPurpose(e.target.value)}
-                  onBlur={() => setTouched({ ...touched, purpose: true })}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
-                    purposeError
-                      ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                      : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
-                  }`}
-                />
-                {purposeError && (
-                  <p className="text-xs text-red-600 mt-1">{purposeError}</p>
-                )}
-              </div>
-
-              {/* Timezone Selector */}
-              <TimezoneSelector value={timezone} onChange={setTimezone} />
-
-              {/* Scheduling Link Settings */}
-              <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-5">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="text-lg">⚙️</span>
-                  <h3 className="text-sm font-semibold text-gray-900">Scheduling Link Settings</h3>
-                </div>
-
-                <div className="space-y-4">
-                  {/* Link Duration */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Link Duration
-                    </label>
-                    <select
-                      value={expirationDays}
-                      onChange={(e) => setExpirationDays(Number(e.target.value))}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-white text-gray-900"
-                    >
-                      <option value={1}>24 hours</option>
-                      <option value={3}>3 days</option>
-                      <option value={7}>7 days</option>
-                    </select>
-                  </div>
-
-                  {/* Invitee Limit */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Invitee Limit
-                    </label>
-                    <input
-                      type="number"
-                      min="1"
-                      max="20"
-                      value={maxBookings}
-                      onChange={(e) => setMaxBookings(Number(e.target.value))}
-                      onBlur={() => setTouched({ ...touched, inviteeLimit: true })}
-                      placeholder="e.g., 5"
-                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition-all bg-white text-gray-900 placeholder-gray-400 ${
-                        inviteeLimitError
-                          ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                          : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
-                      }`}
-                    />
-                    {inviteeLimitError ? (
-                      <p className="text-xs text-red-600 mt-1">{inviteeLimitError}</p>
-                    ) : (
-                      <p className="text-xs text-gray-500 mt-1">Maximum: 20 invitees (not including you)</p>
-                    )}
-                  </div>
-
-                  {/* Booking Type */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Booking Type
-                    </label>
-                    <select
-                      value={bookingMode}
-                      onChange={(e) => setBookingMode(e.target.value as BookingMode)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-white text-gray-900"
-                    >
-                      <option value="individual">Individual (1-on-1) - Each slot can only be booked by one invitee</option>
-                      <option value="group">Group - Multiple invitees can book the same slot</option>
-                    </select>
-                  </div>
-
-                  {/* Info Text */}
-                  <div className="bg-white rounded-lg p-3 text-xs text-gray-600 leading-relaxed">
-                    <p className="flex items-start gap-2">
-                      <span className="flex-shrink-0">ℹ️</span>
-                      <span>
-                        {bookingMode === 'individual' ? (
-                          <>
-                            <strong>Individual mode:</strong> Each time slot can only be booked once. Once a slot is booked, it disappears for others.
-                            {maxBookings > 1 && ` Link allows up to ${maxBookings} ${maxBookings === 1 ? 'invitee' : 'invitees'} total (not including you).`}
-                            {` Link expires when ${maxBookings > 1 ? `all ${maxBookings} invitees book` : '1 invitee books'} or after ${expirationDays} ${expirationDays === 1 ? 'day' : 'days'}.`}
-                          </>
-                        ) : (
-                          <>
-                            <strong>Group mode:</strong> Multiple invitees can book the same time slot(s). All time slots remain visible until link expires.
-                            {` Link expires when ${maxBookings} ${maxBookings === 1 ? 'invitee books' : 'invitees book'} (not including you) or after ${expirationDays} ${expirationDays === 1 ? 'day' : 'days'}.`}
-                          </>
-                        )}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Slot Manager Component */}
-              <SlotManager onSlotsChange={setSlots} />
-            </div>
-
-            {/* CTA Button */}
-            <button
-              onClick={handleGenerateLink}
-              disabled={!canGenerateLink || isLoading}
-              className={`w-full py-4 font-semibold rounded-lg transition-all flex items-center justify-center gap-2 text-base ${
-                canGenerateLink && !isLoading
-                  ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg'
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-              }`}
-            >
-              {isLoading ? (
-                <>
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      fill="none"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
-                  Creating your scheduling link...
-                </>
-              ) : canGenerateLink ? (
-                'Create Your Scheduling Link'
-              ) : (
-                'Enter email and availability to continue'
-              )}
-            </button>
-          </div>
-          </div>
-        </div>
-
-        {/* How It Works */}
-        <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-3xl p-10 sm:p-16 mb-24 shadow-xl border border-blue-100/50">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 text-center mb-16 tracking-tight">
-            How it works
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform" aria-label="Step 1">
-                1
-              </div>
-              <h3 className="font-bold text-gray-900 mb-4 text-xl">Share availability</h3>
-              <p className="text-gray-600 leading-relaxed text-base">
-                Type when you're free using plain English
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform" aria-label="Step 2">
-                2
-              </div>
-              <h3 className="font-bold text-gray-900 mb-4 text-xl">Share your scheduling link</h3>
-              <p className="text-gray-600 leading-relaxed text-base">
-                Send via email, text, or any messaging app
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform" aria-label="Step 3">
-                3
-              </div>
-              <h3 className="font-bold text-gray-900 mb-4 text-xl">Get confirmed</h3>
-              <p className="text-gray-600 leading-relaxed text-base">
-                Both parties receive email confirmations with calendar invites
-              </p>
             </div>
           </div>
         </div>
@@ -611,6 +289,9 @@ export default function Home() {
           })
         }}
       />
+
+      {/* Create Link Modal */}
+      <CreateLinkModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>
   );
 }
