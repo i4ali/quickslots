@@ -36,19 +36,6 @@ export async function GET(
       );
     }
 
-    // Check if booking is cancelled
-    if (booking.cancelledAt) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Booking cancelled',
-          message: 'This link has already been used and is no longer available.',
-          cancelledAt: booking.cancelledAt,
-        },
-        { status: 410 } // 410 Gone
-      );
-    }
-
     // Fetch parent slot to include additional information
     const slot = await getSlot(booking.slotId);
 
@@ -77,28 +64,45 @@ export async function GET(
       };
     });
 
+    // Build booking response
+    const bookingResponse = {
+      id: booking.id,
+      slotId: booking.slotId,
+      bookedAt: booking.bookedAt,
+      bookerName: booking.bookerName,
+      bookerEmail: booking.bookerEmail,
+      bookerNote: booking.bookerNote,
+      selectedTime: booking.selectedTime,
+      selectedTimeSlotIndex: booking.selectedTimeSlotIndex,
+      timezone: booking.timezone,
+      rescheduleCount: booking.rescheduleCount || 0,
+      rescheduledAt: booking.rescheduledAt,
+      originalSelectedTime: booking.originalSelectedTime,
+      cancelledAt: booking.cancelledAt,
+      // Include slot creator info
+      creatorName: slot.creatorName,
+      creatorEmail: slot.creatorEmail,
+      meetingPurpose: slot.meetingPurpose,
+      meetingLocation: slot.meetingLocation,
+    };
+
+    // Check if booking is cancelled and return 410 with booking data
+    if (booking.cancelledAt) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Booking cancelled',
+          message: 'This booking has been cancelled.',
+          booking: bookingResponse,
+        },
+        { status: 410 } // 410 Gone
+      );
+    }
+
     // Return booking with full slot information for rescheduling
     return NextResponse.json({
       success: true,
-      booking: {
-        id: booking.id,
-        slotId: booking.slotId,
-        bookedAt: booking.bookedAt,
-        bookerName: booking.bookerName,
-        bookerEmail: booking.bookerEmail,
-        bookerNote: booking.bookerNote,
-        selectedTime: booking.selectedTime,
-        selectedTimeSlotIndex: booking.selectedTimeSlotIndex,
-        timezone: booking.timezone,
-        rescheduleCount: booking.rescheduleCount || 0,
-        rescheduledAt: booking.rescheduledAt,
-        originalSelectedTime: booking.originalSelectedTime,
-        // Include slot creator info
-        creatorName: slot.creatorName,
-        creatorEmail: slot.creatorEmail,
-        meetingPurpose: slot.meetingPurpose,
-        meetingLocation: slot.meetingLocation,
-      },
+      booking: bookingResponse,
       // Include full slot data for reschedule page with transformed timeSlots
       slot: {
         id: slot.id,
