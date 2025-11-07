@@ -4,6 +4,8 @@
  * Story 2.10A: Calendar File Generation
  */
 
+import type { MeetingLocation } from '@/types/slot';
+
 interface ICSAttendee {
   name?: string;
   email: string;
@@ -58,6 +60,22 @@ function escapeICSText(text: string): string {
     .replace(/;/g, '\\;')
     .replace(/,/g, '\\,')
     .replace(/\n/g, '\\n');
+}
+
+/**
+ * Format meeting location for ICS file
+ */
+function formatMeetingLocationForICS(location: MeetingLocation): string {
+  switch (location.type) {
+    case 'phone':
+      return location.details.phoneNumber ? `Phone: ${location.details.phoneNumber}` : 'Phone Call';
+    case 'in-person':
+      return location.details.address || 'In-Person Meeting';
+    case 'custom':
+      return location.details.customLink || location.details.customLinkLabel || 'Video Call';
+    default:
+      return 'Virtual Meeting';
+  }
 }
 
 /**
@@ -203,6 +221,7 @@ export function generateBookingICS(params: {
   forOrganizer?: boolean; // If true, creates simple event (METHOD:PUBLISH, no ORGANIZER/ATTENDEE)
   uid?: string; // Optional UID - ensures both organizer and attendee get the same event
   slotId?: string; // Used to generate consistent UID if not provided
+  meetingLocation?: MeetingLocation; // Optional meeting location details
 }): string {
   const {
     creatorName,
@@ -215,6 +234,7 @@ export function generateBookingICS(params: {
     forOrganizer = false,
     uid: providedUid,
     slotId,
+    meetingLocation,
   } = params;
 
   // Convert selectedTime to Date if it's a string
@@ -226,6 +246,11 @@ export function generateBookingICS(params: {
   // Generate or use provided UID
   // Using slotId ensures both organizer and attendee get the same UID
   const uid = providedUid || (slotId ? `${slotId}@whenavailable.app` : undefined);
+
+  // Format location
+  const location = meetingLocation
+    ? formatMeetingLocationForICS(meetingLocation)
+    : 'Virtual Meeting (details to be shared)';
 
   // Build description
   const descriptionParts = [
@@ -239,6 +264,17 @@ export function generateBookingICS(params: {
     descriptionParts.push(``, `Purpose: ${meetingPurpose}`);
   }
 
+  // Add meeting location details to description for non-phone/in-person locations
+  if (meetingLocation) {
+    if (meetingLocation.type === 'custom' && meetingLocation.details.customLink) {
+      descriptionParts.push(
+        ``,
+        `${meetingLocation.details.customLinkLabel || 'Video Call'}:`,
+        meetingLocation.details.customLink
+      );
+    }
+  }
+
   const description = descriptionParts.join('\\n');
 
   // For organizer: Simple event with NO ORGANIZER or ATTENDEE fields (METHOD:PUBLISH)
@@ -250,7 +286,7 @@ export function generateBookingICS(params: {
       description,
       startTime,
       endTime,
-      location: 'Virtual Meeting (details to be shared)',
+      location,
       method: 'PUBLISH',
       uid,
       // Intentionally omit organizerEmail and attendees for organizer's copy
@@ -275,7 +311,7 @@ export function generateBookingICS(params: {
       description,
       startTime,
       endTime,
-      location: 'Virtual Meeting (details to be shared)',
+      location,
       organizerName: creatorName,
       organizerEmail: creatorEmail,
       attendees,
