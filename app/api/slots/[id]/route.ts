@@ -111,6 +111,7 @@ export async function GET(
         expirationDays: slot.expirationDays,
         bookingMode: slot.bookingMode,
         bookedTimeSlotIndices: slot.bookedTimeSlotIndices || [],
+        meetingLocation: slot.meetingLocation,
       },
     });
   } catch (error) {

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { formatInTimezone, getTimezoneAbbr } from '@/lib/timezone';
 import { TipButton } from '@/components/tip-button';
 import { generateBookingICS, downloadICS } from '@/lib/ics';
+import { MeetingLocation } from '@/types/slot';
 
 interface BookingData {
   slotId: string;
@@ -17,6 +18,7 @@ interface BookingData {
   meetingPurpose?: string;
   bookerNote?: string;
   bookerTimezone?: string;
+  meetingLocation?: MeetingLocation;
 }
 
 export default function BookingConfirmationPage() {
@@ -92,6 +94,7 @@ export default function BookingConfirmationPage() {
         meetingPurpose: bookingData.meetingPurpose || 'WhenAvailable Meeting',
         selectedTime: bookingData.selectedTime,
         duration: 60, // Default 60 minutes
+        meetingLocation: bookingData.meetingLocation,
       });
 
       // Trigger download
@@ -228,6 +231,48 @@ export default function BookingConfirmationPage() {
                   Purpose
                 </p>
                 <p className="text-gray-900">{bookingData.meetingPurpose}</p>
+              </div>
+            )}
+
+            {/* Meeting Location */}
+            {bookingData.meetingLocation && (
+              <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                <p className="text-xs text-purple-700 font-semibold mb-2">
+                  📍 Meeting Location
+                </p>
+                {bookingData.meetingLocation.type === 'phone' && (
+                  <div className="text-purple-900">
+                    <p className="font-medium">📞 Phone Call</p>
+                    {bookingData.meetingLocation.details.phoneNumber && (
+                      <p className="text-sm mt-1">
+                        Number: <span className="font-mono">{bookingData.meetingLocation.details.phoneNumber}</span>
+                      </p>
+                    )}
+                  </div>
+                )}
+                {bookingData.meetingLocation.type === 'in-person' && (
+                  <div className="text-purple-900">
+                    <p className="font-medium">📍 In-Person Meeting</p>
+                    {bookingData.meetingLocation.details.address && (
+                      <p className="text-sm mt-1 whitespace-pre-line">{bookingData.meetingLocation.details.address}</p>
+                    )}
+                  </div>
+                )}
+                {bookingData.meetingLocation.type === 'custom' && (
+                  <div className="text-purple-900">
+                    <p className="font-medium">🔗 {bookingData.meetingLocation.details.customLinkLabel || 'Video Call'}</p>
+                    {bookingData.meetingLocation.details.customLink && (
+                      <a
+                        href={bookingData.meetingLocation.details.customLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-blue-600 hover:text-blue-700 underline break-all mt-1 block"
+                      >
+                        {bookingData.meetingLocation.details.customLink}
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 

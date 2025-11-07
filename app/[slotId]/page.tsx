@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { formatInTimezone, getTimezoneAbbr } from '@/lib/timezone';
+import { MeetingLocation } from '@/types/slot';
 
 // Metadata can't be exported from client components, but we can add it via layout
 // For now, add head tags manually in the component
@@ -26,6 +27,7 @@ interface SlotData {
   expirationDays: number;
   bookingMode: 'individual' | 'group';
   bookedTimeSlotIndices: number[];
+  meetingLocation?: MeetingLocation;
 }
 
 interface ApiResponse {
@@ -168,6 +170,7 @@ export default function BookingPage() {
           creatorName: data.booking.creatorName,
           creatorEmail: data.booking.creatorEmail,
           meetingPurpose: data.booking.meetingPurpose,
+          meetingLocation: data.booking.meetingLocation,
           bookerNote: bookerNote.trim() || undefined,
           bookerTimezone: userTimezone,
         }));
@@ -289,6 +292,48 @@ export default function BookingPage() {
               <span className="font-mono">{getTimezoneAbbr(userTimezone)}</span>
             </p>
           </div>
+
+          {/* Meeting Location */}
+          {slotData.meetingLocation && (
+            <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+              <p className="text-sm font-semibold text-purple-900 mb-2">
+                📍 Meeting Location
+              </p>
+              {slotData.meetingLocation.type === 'phone' && (
+                <div className="text-purple-800">
+                  <p className="font-medium">📞 Phone Call</p>
+                  {slotData.meetingLocation.details.phoneNumber && (
+                    <p className="text-sm mt-1">
+                      Number: <span className="font-mono">{slotData.meetingLocation.details.phoneNumber}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+              {slotData.meetingLocation.type === 'in-person' && (
+                <div className="text-purple-800">
+                  <p className="font-medium">📍 In-Person Meeting</p>
+                  {slotData.meetingLocation.details.address && (
+                    <p className="text-sm mt-1 whitespace-pre-line">{slotData.meetingLocation.details.address}</p>
+                  )}
+                </div>
+              )}
+              {slotData.meetingLocation.type === 'custom' && (
+                <div className="text-purple-800">
+                  <p className="font-medium">🔗 {slotData.meetingLocation.details.customLinkLabel || 'Video Call'}</p>
+                  {slotData.meetingLocation.details.customLink && (
+                    <a
+                      href={slotData.meetingLocation.details.customLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-600 hover:text-blue-700 underline break-all mt-1 block"
+                    >
+                      {slotData.meetingLocation.details.customLink}
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Available Slots */}
           <div className="mb-8">

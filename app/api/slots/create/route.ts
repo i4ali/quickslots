@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
 import { createSlot } from '@/lib/redis';
-import { Slot, SlotStatus, CreateSlotResponse, TimeSlot } from '@/types/slot';
+import { Slot, SlotStatus, CreateSlotResponse, TimeSlot, MeetingLocation } from '@/types/slot';
 import { isValidEmail } from '@/lib/validation';
 import { checkRateLimit, getClientIp, LINK_CREATION_RATE_LIMIT } from '@/lib/rate-limit';
 
@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
       maxBookings = 1, // Default: 1 booking
       expirationDays = 1, // Default: 24 hours (1 day)
       bookingMode = 'individual', // Default: individual (1-on-1)
+      meetingLocation, // Optional: meeting location details
     } = body;
 
     // Validate required fields
@@ -158,6 +159,9 @@ export async function POST(request: NextRequest) {
       // New: Booking mode support
       bookingMode,
       bookedTimeSlotIndices: [],
+
+      // New: Meeting location support
+      meetingLocation: meetingLocation || undefined,
     };
 
     // Store in Redis with TTL based on expirationDays

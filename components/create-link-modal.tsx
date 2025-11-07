@@ -5,10 +5,11 @@ import { useState } from 'react';
 import { SlotManager } from '@/components/slot-manager';
 import { TimeSlot } from '@/components/availability-input';
 import { TimezoneSelector } from '@/components/timezone-selector';
+import { MeetingLocationSelector } from '@/components/meeting-location-selector';
 import { isValidEmail, getEmailError, getNameError, getPurposeError } from '@/lib/validation';
 import { getUserTimezone } from '@/lib/timezone';
 import { convertToApiTimeSlots } from '@/lib/slot-utils';
-import { CreateSlotResponse, BookingMode } from '@/types/slot';
+import { CreateSlotResponse, BookingMode, MeetingLocation } from '@/types/slot';
 import { useRouter } from 'next/navigation';
 
 interface CreateLinkModalProps {
@@ -31,6 +32,9 @@ export function CreateLinkModal({ isOpen, onClose }: CreateLinkModalProps) {
   const [expirationDays, setExpirationDays] = useState(1);
   const [maxBookings, setMaxBookings] = useState(1);
   const [bookingMode, setBookingMode] = useState<BookingMode>('individual');
+
+  // Meeting location
+  const [meetingLocation, setMeetingLocation] = useState<MeetingLocation | null>(null);
 
   // Validation
   const emailError = touched.email ? getEmailError(email) : null;
@@ -73,6 +77,7 @@ export function CreateLinkModal({ isOpen, onClose }: CreateLinkModalProps) {
           maxBookings,
           expirationDays,
           bookingMode,
+          meetingLocation,
         }),
       });
 
@@ -313,6 +318,12 @@ export function CreateLinkModal({ isOpen, onClose }: CreateLinkModalProps) {
                         </div>
                       </div>
                     </div>
+
+                    {/* Meeting Location Selector */}
+                    <MeetingLocationSelector
+                      value={meetingLocation}
+                      onChange={setMeetingLocation}
+                    />
 
                     {/* Slot Manager Component */}
                     <SlotManager onSlotsChange={setSlots} />
