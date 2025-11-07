@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getBookingById, getSlot } from '@/lib/redis';
+import { toDate } from 'date-fns-tz';
 
 /**
  * GET /api/bookings/[bookingId]
@@ -62,6 +63,20 @@ export async function GET(
       );
     }
 
+    // Transform timeSlots to ISO format for frontend
+    const transformedTimeSlots = slot.timeSlots.map((timeSlot) => {
+      const startDateString = `${timeSlot.date}T${timeSlot.startTime}:00`;
+      const endDateString = `${timeSlot.date}T${timeSlot.endTime}:00`;
+
+      const startUTC = toDate(startDateString, { timeZone: slot.timezone });
+      const endUTC = toDate(endDateString, { timeZone: slot.timezone });
+
+      return {
+        start: startUTC.toISOString(),
+        end: endUTC.toISOString(),
+      };
+    });
+
     // Return booking with full slot information for rescheduling
     return NextResponse.json({
       success: true,
@@ -84,12 +99,12 @@ export async function GET(
         meetingPurpose: slot.meetingPurpose,
         meetingLocation: slot.meetingLocation,
       },
-      // Include full slot data for reschedule page
+      // Include full slot data for reschedule page with transformed timeSlots
       slot: {
         id: slot.id,
         creatorName: slot.creatorName,
         meetingPurpose: slot.meetingPurpose,
-        timeSlots: slot.timeSlots,
+        timeSlots: transformedTimeSlots,
         timezone: slot.timezone,
         expiresAt: slot.expiresAt,
         status: slot.status,
