@@ -404,8 +404,8 @@ export function AnimatedProductPreview() {
                 </svg>
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 mb-1">Timezone Support</h4>
-                <p className="text-sm text-gray-600">Automatic timezone conversion for all participants</p>
+                <h4 className="font-semibold text-gray-900 mb-1">Smart Timezones</h4>
+                <p className="text-sm text-gray-600">Auto-detect timezones with toggle to switch views</p>
               </div>
             </div>
           </div>
