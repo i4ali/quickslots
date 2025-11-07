@@ -89,8 +89,7 @@ export function generateBookingConfirmationEmail(data: BookingConfirmationData):
     : '';
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://whenavailable.app';
-  const rescheduleUrl = `${appUrl}/reschedule/${booking.id}`;
-  const cancelUrl = `${appUrl}/reschedule/${booking.id}?action=cancel`;
+  const cancelUrl = `${appUrl}/reschedule/${booking.id}`;
 
   const text = `
 You've successfully booked a slot!
@@ -108,10 +107,10 @@ What's Next:
 • The organizer has been notified
 • Please mark your calendar!
 
-Need to Change Your Appointment?
+Need to Cancel?
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Reschedule: ${rescheduleUrl}
-Cancel: ${cancelUrl}
+If you can't make it, you can cancel your booking here:
+${cancelUrl}
 
 Questions? Reply to this email to contact the organizer.
 
