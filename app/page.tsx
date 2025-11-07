@@ -51,7 +51,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-4 py-16 sm:py-24 relative z-10">
         {/* Enhanced Header with Value Prop */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">
             Share Your Availability<br />Instantly
           </h1>
@@ -64,7 +64,7 @@ export default function Home() {
           <div className="mt-8">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-10 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-xl hover:shadow-2xl text-lg mx-auto"
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl text-base mx-auto"
             >
               Get Started
             </button>
