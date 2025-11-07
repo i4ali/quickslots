@@ -81,7 +81,7 @@ export default function Home() {
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-12">
             Why choose WhenAvailable
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-blue-200 transition-all group">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
                 <span className="text-3xl">⚡</span>
@@ -106,12 +106,28 @@ export default function Home() {
               <p className="text-sm text-gray-600 leading-relaxed">Let multiple people book from the same link</p>
             </div>
 
+            <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-green-200 transition-all group">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+                <span className="text-3xl">🌍</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg">Smart Timezones</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Auto-detect timezones with toggle to switch views</p>
+            </div>
+
             <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-red-200 transition-all group">
               <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-red-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
                 <span className="text-3xl">✖️</span>
               </div>
               <h3 className="font-bold text-gray-900 mb-3 text-lg">Easy Cancellations</h3>
               <p className="text-sm text-gray-600 leading-relaxed">Cancel bookings with confirmation emails to both parties</p>
+            </div>
+
+            <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-orange-200 transition-all group">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-600 to-orange-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+                <span className="text-3xl">📧</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg">Auto Confirmations</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Instant email confirmations with calendar invites</p>
             </div>
           </div>
         </div>
