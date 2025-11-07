@@ -10,8 +10,14 @@ import {
   generateBookingConfirmationEmail,
   generateBookingNotificationEmail,
   generateTestEmail,
+  generateBookingRescheduledEmail,
+  generateBookingRescheduledNotificationEmail,
+  generateBookingCancelledEmail,
+  generateBookingCancelledNotificationEmail,
   type BookingConfirmationData,
   type BookingNotificationData,
+  type BookingRescheduledData,
+  type BookingCancelledData,
 } from './email-templates';
 import { generateBookingICS } from './ics';
 
@@ -171,6 +177,7 @@ export async function sendBookingConfirmation(
       duration, // Use calculated duration from time slot
       forOrganizer: false, // Creates meeting invitation with ORGANIZER/ATTENDEE fields
       slotId: data.booking.slotId, // Ensures same UID for both participants
+      meetingLocation: data.slot.meetingLocation, // Include meeting location details
     });
 
     // Convert to base64 for SendGrid
@@ -221,6 +228,7 @@ export async function sendBookingNotification(
       duration, // Use calculated duration from time slot
       forOrganizer: true, // Creates simple event without ORGANIZER/ATTENDEE fields
       slotId: data.booking.slotId, // Ensures same UID for both participants
+      meetingLocation: data.slot.meetingLocation, // Include meeting location details
     });
 
     // Convert to base64 for SendGrid
@@ -309,6 +317,226 @@ export async function sendTestEmail(recipientEmail: string): Promise<boolean> {
 }
 
 // =============================================================================
+// Rescheduling Emails
+// =============================================================================
+
+/**
+ * Send rescheduled booking confirmation email to the booker
+ */
+export async function sendRescheduledConfirmation(
+  data: BookingRescheduledData
+): Promise<boolean> {
+  const { subject, text } = generateBookingRescheduledEmail(data);
+
+  try {
+    // Get the selected time slot to calculate duration
+    const selectedTimeSlot = data.slot.timeSlots[data.booking.selectedTimeSlotIndex];
+    const duration = calculateDuration(selectedTimeSlot.startTime, selectedTimeSlot.endTime);
+
+    console.log(`📧 [sendRescheduledConfirmation] Calculated duration: ${duration} minutes (${selectedTimeSlot.startTime} - ${selectedTimeSlot.endTime})`);
+
+    // Generate .ics file attachment with updated meeting time
+    const icsContent = generateBookingICS({
+      creatorName: data.slot.creatorName || 'WhenAvailable User',
+      creatorEmail: data.slot.creatorEmail,
+      bookerName: data.booking.bookerName,
+      bookerEmail: data.booking.bookerEmail,
+      meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
+      selectedTime: data.booking.selectedTime,
+      duration,
+      forOrganizer: false,
+      slotId: data.booking.slotId,
+      meetingLocation: data.slot.meetingLocation,
+    });
+
+    // Convert to base64 for SendGrid
+    const icsBase64 = Buffer.from(icsContent).toString('base64');
+
+    const attachments: EmailAttachment[] = [
+      {
+        content: icsBase64,
+        filename: 'meeting-updated.ics',
+        type: 'text/calendar',
+        disposition: 'attachment',
+      },
+    ];
+
+    await sendEmail(data.booking.bookerEmail, subject, text, attachments);
+    return true;
+  } catch (error) {
+    console.error('Failed to send rescheduled confirmation:', error);
+    return false;
+  }
+}
+
+/**
+ * Send rescheduled booking notification email to the creator
+ */
+export async function sendRescheduledNotification(
+  data: BookingRescheduledData
+): Promise<boolean> {
+  const { subject, text } = generateBookingRescheduledNotificationEmail(data);
+
+  try {
+    // Get the selected time slot to calculate duration
+    const selectedTimeSlot = data.slot.timeSlots[data.booking.selectedTimeSlotIndex];
+    const duration = calculateDuration(selectedTimeSlot.startTime, selectedTimeSlot.endTime);
+
+    console.log(`📧 [sendRescheduledNotification] Calculated duration: ${duration} minutes (${selectedTimeSlot.startTime} - ${selectedTimeSlot.endTime})`);
+
+    // Generate .ics file attachment with updated meeting time
+    const icsContent = generateBookingICS({
+      creatorName: data.slot.creatorName || 'WhenAvailable User',
+      creatorEmail: data.slot.creatorEmail,
+      bookerName: data.booking.bookerName,
+      bookerEmail: data.booking.bookerEmail,
+      meetingPurpose: data.slot.meetingPurpose || 'WhenAvailable Meeting',
+      selectedTime: data.booking.selectedTime,
+      duration,
+      forOrganizer: true,
+      slotId: data.booking.slotId,
+      meetingLocation: data.slot.meetingLocation,
+    });
+
+    // Convert to base64 for SendGrid
+    const icsBase64 = Buffer.from(icsContent).toString('base64');
+
+    const attachments: EmailAttachment[] = [
+      {
+        content: icsBase64,
+        filename: 'meeting-updated.ics',
+        type: 'text/calendar',
+        disposition: 'attachment',
+      },
+    ];
+
+    await sendEmail(data.slot.creatorEmail, subject, text, attachments);
+    return true;
+  } catch (error) {
+    console.error('Failed to send rescheduled notification:', error);
+    return false;
+  }
+}
+
+/**
+ * Send both rescheduled emails (confirmation + notification)
+ */
+export async function sendRescheduledEmails(
+  data: BookingRescheduledData
+): Promise<{
+  confirmationSent: boolean;
+  notificationSent: boolean;
+}> {
+  console.log(`📧 [sendRescheduledEmails] Starting email send for booking ${data.booking.id}`);
+  console.log(`📧 [sendRescheduledEmails] Booker: ${data.booking.bookerEmail}`);
+  console.log(`📧 [sendRescheduledEmails] Creator: ${data.slot.creatorEmail}`);
+
+  const results = {
+    confirmationSent: false,
+    notificationSent: false,
+  };
+
+  // Send confirmation to booker
+  try {
+    console.log(`📧 [sendRescheduledEmails] Sending confirmation to booker: ${data.booking.bookerEmail}`);
+    results.confirmationSent = await sendRescheduledConfirmation(data);
+    console.log(`✅ [sendRescheduledEmails] Confirmation sent successfully`);
+  } catch (error) {
+    console.error(`❌ [sendRescheduledEmails] Confirmation failed:`, error);
+  }
+
+  // Send notification to creator
+  try {
+    console.log(`📧 [sendRescheduledEmails] Sending notification to creator: ${data.slot.creatorEmail}`);
+    results.notificationSent = await sendRescheduledNotification(data);
+    console.log(`✅ [sendRescheduledEmails] Notification sent successfully`);
+  } catch (error) {
+    console.error(`❌ [sendRescheduledEmails] Notification failed:`, error);
+  }
+
+  console.log(`📧 [sendRescheduledEmails] Email send complete. Results:`, results);
+  return results;
+}
+
+// =============================================================================
+// Cancellation Emails
+// =============================================================================
+
+/**
+ * Send cancelled booking confirmation email to the booker
+ */
+export async function sendCancelledConfirmation(
+  data: BookingCancelledData
+): Promise<boolean> {
+  const { subject, text } = generateBookingCancelledEmail(data);
+
+  try {
+    await sendEmail(data.booking.bookerEmail, subject, text);
+    return true;
+  } catch (error) {
+    console.error('Failed to send cancelled confirmation:', error);
+    return false;
+  }
+}
+
+/**
+ * Send cancelled booking notification email to the creator
+ */
+export async function sendCancelledNotification(
+  data: BookingCancelledData
+): Promise<boolean> {
+  const { subject, text } = generateBookingCancelledNotificationEmail(data);
+
+  try {
+    await sendEmail(data.slot.creatorEmail, subject, text);
+    return true;
+  } catch (error) {
+    console.error('Failed to send cancelled notification:', error);
+    return false;
+  }
+}
+
+/**
+ * Send both cancellation emails (confirmation + notification)
+ */
+export async function sendCancellationEmails(
+  data: BookingCancelledData
+): Promise<{
+  confirmationSent: boolean;
+  notificationSent: boolean;
+}> {
+  console.log(`📧 [sendCancellationEmails] Starting email send for booking ${data.booking.id}`);
+  console.log(`📧 [sendCancellationEmails] Booker: ${data.booking.bookerEmail}`);
+  console.log(`📧 [sendCancellationEmails] Creator: ${data.slot.creatorEmail}`);
+
+  const results = {
+    confirmationSent: false,
+    notificationSent: false,
+  };
+
+  // Send confirmation to booker
+  try {
+    console.log(`📧 [sendCancellationEmails] Sending confirmation to booker: ${data.booking.bookerEmail}`);
+    results.confirmationSent = await sendCancelledConfirmation(data);
+    console.log(`✅ [sendCancellationEmails] Confirmation sent successfully`);
+  } catch (error) {
+    console.error(`❌ [sendCancellationEmails] Confirmation failed:`, error);
+  }
+
+  // Send notification to creator
+  try {
+    console.log(`📧 [sendCancellationEmails] Sending notification to creator: ${data.slot.creatorEmail}`);
+    results.notificationSent = await sendCancelledNotification(data);
+    console.log(`✅ [sendCancellationEmails] Notification sent successfully`);
+  } catch (error) {
+    console.error(`❌ [sendCancellationEmails] Notification failed:`, error);
+  }
+
+  console.log(`📧 [sendCancellationEmails] Email send complete. Results:`, results);
+  return results;
+}
+
+// =============================================================================
 // Email Validation
 // =============================================================================
 
@@ -336,6 +564,8 @@ export const emailClient = {
   sendBookingConfirmation,
   sendBookingNotification,
   sendBookingEmails,
+  sendRescheduledEmails,
+  sendCancellationEmails,
   sendTestEmail,
 
   // Validation

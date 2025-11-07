@@ -17,6 +17,22 @@ export interface TimeSlot {
 // =============================================================================
 
 export type BookingMode = 'individual' | 'group';
+export type MeetingLocationType = 'phone' | 'in-person' | 'custom';
+
+export interface MeetingLocation {
+  type: MeetingLocationType;
+  details: {
+    // For phone
+    phoneNumber?: string;
+
+    // For in-person
+    address?: string;
+
+    // For custom link
+    customLink?: string;
+    customLinkLabel?: string;
+  };
+}
 
 export interface Slot {
   id: string; // Unique slot ID (short, URL-safe)
@@ -41,6 +57,9 @@ export interface Slot {
   // Booking mode support
   bookingMode: BookingMode; // 'individual' (1-on-1, each slot can only be booked once) or 'group' (multiple people can book same slot)
   bookedTimeSlotIndices: number[]; // Array of time slot indices that have been booked (for individual mode)
+
+  // Meeting location support
+  meetingLocation?: MeetingLocation; // Optional meeting location/video link
 }
 
 export enum SlotStatus {
@@ -55,6 +74,7 @@ export enum SlotStatus {
 // =============================================================================
 
 export interface Booking {
+  id: string; // Unique booking ID (nanoid) - for rescheduling/cancellation
   slotId: string; // Reference to parent slot
   bookedAt: number; // Unix timestamp
   bookerName: string; // Required booker name
@@ -63,6 +83,18 @@ export interface Booking {
   selectedTime: string; // ISO 8601 format (selected time slot)
   selectedTimeSlotIndex: number; // Index of the booked time slot in the parent slot's timeSlots array
   timezone: string; // Booker's timezone
+
+  // Creator info (needed for emails)
+  creatorName: string; // Host name
+  creatorEmail: string; // Host email
+  meetingPurpose?: string; // Meeting purpose from slot
+  meetingLocation?: MeetingLocation; // Meeting location from slot
+
+  // Rescheduling support
+  rescheduleCount: number; // Number of times rescheduled (default: 0, max: 3)
+  rescheduledAt?: number; // Unix timestamp of last reschedule
+  cancelledAt?: number; // Unix timestamp if cancelled
+  originalSelectedTime?: string; // Original time before first reschedule
 }
 
 // =============================================================================
@@ -78,6 +110,7 @@ export interface CreateSlotRequest {
   maxBookings?: number; // Optional: max bookings (1-20, default 1)
   expirationDays?: number; // Optional: link duration in days (1, 3, or 7, default 1)
   bookingMode?: BookingMode; // Optional: 'individual' or 'group' (default: 'individual')
+  meetingLocation?: MeetingLocation; // Optional: meeting location/video link
 }
 
 // =============================================================================

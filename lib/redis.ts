@@ -100,10 +100,17 @@ function getSlotKey(slotId: string): string {
 }
 
 /**
- * Generate Redis key for a booking
+ * Generate Redis key for a booking by slot ID (legacy - for single booking per slot)
  */
 function getBookingKey(slotId: string): string {
   return `booking:${slotId}`;
+}
+
+/**
+ * Generate Redis key for a booking by unique booking ID
+ */
+function getBookingKeyById(bookingId: string): string {
+  return `booking:${bookingId}`;
 }
 
 /**
@@ -111,6 +118,21 @@ function getBookingKey(slotId: string): string {
  * Format: 8 character alphanumeric (URL-safe)
  */
 export function generateSlotId(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < 8; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  return result;
+}
+
+/**
+ * Generate a unique booking ID
+ * Format: 8 character alphanumeric (URL-safe)
+ */
+export function generateBookingId(): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
 
@@ -350,6 +372,7 @@ export async function isSlotActive(slotId: string): Promise<boolean> {
 
 /**
  * Create a booking for a slot
+ * Now stores bookings with unique booking ID for rescheduling support
  */
 export async function createBooking(booking: Booking): Promise<boolean> {
   const client = getRedisClient();
@@ -370,16 +393,22 @@ export async function createBooking(booking: Booking): Promise<boolean> {
     const slotKey = getSlotKey(booking.slotId);
     const ttl = await client.ttl(slotKey);
 
-    // Store booking with same TTL as parent slot (inherits full duration)
-    const bookingKey = getBookingKey(booking.slotId);
+    // Store booking with unique booking ID (for rescheduling/cancellation)
+    const bookingKey = getBookingKeyById(booking.id);
     await client.set(bookingKey, JSON.stringify(booking), {
       ex: ttl > 0 ? ttl : 3600, // Fallback to 1 hour
+    });
+
+    // Also store under slot ID for backward compatibility (legacy single booking lookup)
+    const legacyBookingKey = getBookingKey(booking.slotId);
+    await client.set(legacyBookingKey, JSON.stringify(booking), {
+      ex: ttl > 0 ? ttl : 3600,
     });
 
     // Note: Slot status and expiration will be handled by updateSlotBookingCount
     // This allows multi-booking support - slot status only changes when maxBookings is reached
 
-    console.log(`✅ Booking created for slot: ${booking.slotId}`);
+    console.log(`✅ Booking created: ${booking.id} for slot: ${booking.slotId}`);
     return true;
   } catch (error) {
     console.error('Failed to create booking:', error);
@@ -388,7 +417,7 @@ export async function createBooking(booking: Booking): Promise<boolean> {
 }
 
 /**
- * Get a booking by slot ID
+ * Get a booking by slot ID (legacy - for single booking per slot)
  */
 export async function getBooking(slotId: string): Promise<Booking | null> {
   const client = getRedisClient();
@@ -409,6 +438,33 @@ export async function getBooking(slotId: string): Promise<Booking | null> {
     return booking as Booking;
   } catch (error) {
     console.error('Failed to get booking:', error);
+    return null;
+  }
+}
+
+/**
+ * Get a booking by unique booking ID
+ * Used for rescheduling and cancellation
+ */
+export async function getBookingById(bookingId: string): Promise<Booking | null> {
+  const client = getRedisClient();
+
+  if (!client) {
+    throw new Error('Redis client not available');
+  }
+
+  try {
+    const key = getBookingKeyById(bookingId);
+    const data = await client.get(key);
+
+    if (!data) {
+      return null;
+    }
+
+    const booking = typeof data === 'string' ? JSON.parse(data) : data;
+    return booking as Booking;
+  } catch (error) {
+    console.error('Failed to get booking by ID:', error);
     return null;
   }
 }
@@ -486,6 +542,7 @@ export const redis = {
   // Booking operations
   createBooking,
   getBooking,
+  getBookingById,
   isSlotBooked,
 
   // TTL utilities
@@ -494,6 +551,7 @@ export const redis = {
 
   // Utilities
   generateSlotId,
+  generateBookingId,
 };
 
 // Default export

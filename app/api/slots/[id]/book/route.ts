@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSlot, createBooking, updateSlotBookingCount } from '@/lib/redis';
+import { getSlot, createBooking, updateSlotBookingCount, generateBookingId } from '@/lib/redis';
 import { Booking } from '@/types/slot';
 import { sendBookingEmails } from '@/lib/email';
 import { toDate } from 'date-fns-tz';
@@ -125,8 +125,12 @@ export async function POST(
     const selectedTimeUTC = toDate(startDateString, { timeZone: slot.timezone });
     const selectedTimeISO = selectedTimeUTC.toISOString(); // UTC time with 'Z' suffix
 
-    // Create booking object
+    // Generate unique booking ID for rescheduling support
+    const bookingId = generateBookingId();
+
+    // Create booking object with all required fields
     const booking: Booking = {
+      id: bookingId,
       slotId,
       bookedAt: Date.now(),
       bookerName: bookerName.trim(),
@@ -135,13 +139,22 @@ export async function POST(
       selectedTime: selectedTimeISO,
       selectedTimeSlotIndex,
       timezone: timezone.trim(),
+
+      // Creator info (needed for emails and rescheduling)
+      creatorName: slot.creatorName || 'Someone',
+      creatorEmail: slot.creatorEmail,
+      meetingPurpose: slot.meetingPurpose,
+      meetingLocation: slot.meetingLocation,
+
+      // Initialize rescheduling fields
+      rescheduleCount: 0,
     };
 
     // Save booking to Redis
     await createBooking(booking);
 
     // Update slot booking count (increments count, updates status if max reached, tracks booked indices)
-    await updateSlotBookingCount(slotId, slotId, selectedTimeSlotIndex); // Pass time slot index for tracking
+    await updateSlotBookingCount(slotId, bookingId, selectedTimeSlotIndex); // Pass booking ID for tracking
 
     console.log(`✅ Booking confirmed for slot ${slotId} by ${bookerEmail}`);
 
@@ -162,19 +175,20 @@ export async function POST(
       console.error(`❌ Email sending failed for ${slotId}:`, error);
     }
 
-    // Return success response
+    // Return success response with unique booking ID
     return NextResponse.json({
       success: true,
-      bookingId: slotId,
+      bookingId: bookingId, // Return unique booking ID for rescheduling
       message: 'Booking confirmed successfully',
       booking: {
         slotId,
         selectedTime: selectedTimeISO,
         bookerName: booking.bookerName,
         bookerEmail: booking.bookerEmail,
-        creatorName: slot.creatorName || 'Someone',
-        creatorEmail: slot.creatorEmail,
-        meetingPurpose: slot.meetingPurpose,
+        creatorName: booking.creatorName,
+        creatorEmail: booking.creatorEmail,
+        meetingPurpose: booking.meetingPurpose,
+        meetingLocation: booking.meetingLocation,
       },
     });
   } catch (error) {
