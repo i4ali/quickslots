@@ -49,6 +49,7 @@ export default function BookingPage() {
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
   const [userTimezone, setUserTimezone] = useState<string>('');
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [viewInCreatorTimezone, setViewInCreatorTimezone] = useState(false);
 
   // Booking form state
   const [bookerName, setBookerName] = useState('');
@@ -246,6 +247,9 @@ export default function BookingPage() {
     );
   }
 
+  // Determine which timezone to display based on toggle
+  const displayTimezone = viewInCreatorTimezone ? slotData.timezone : userTimezone;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden">
       {/* Decorative Background Elements */}
@@ -285,12 +289,24 @@ export default function BookingPage() {
 
         {/* Main Card */}
         <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 sm:p-8 mb-8">
-          {/* Timezone Info */}
+          {/* Timezone Info with Toggle */}
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-900">
-              <strong>🌍 Times shown in your timezone:</strong>{' '}
-              <span className="font-mono">{getTimezoneAbbr(userTimezone)}</span>
-            </p>
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <p className="text-sm text-blue-900">
+                <strong>🌍 Times shown in:</strong>{' '}
+                <span className="font-mono">
+                  {viewInCreatorTimezone
+                    ? `${getTimezoneAbbr(slotData.timezone)} (${slotData.creatorName}'s timezone)`
+                    : `${getTimezoneAbbr(userTimezone)} (your timezone)`}
+                </span>
+              </p>
+              <button
+                onClick={() => setViewInCreatorTimezone(!viewInCreatorTimezone)}
+                className="text-xs bg-white hover:bg-blue-100 text-blue-700 font-semibold px-3 py-1.5 rounded-lg border border-blue-300 transition-colors"
+              >
+                {viewInCreatorTimezone ? '← View in your timezone' : `View in ${slotData.creatorName}'s timezone →`}
+              </button>
+            </div>
           </div>
 
           {/* Meeting Location */}
@@ -354,9 +370,9 @@ export default function BookingPage() {
                 const isSelected = selectedSlot === index;
 
                 // Format dates
-                const dateStr = formatInTimezone(startDate, userTimezone, 'EEEE, MMMM d, yyyy');
-                const startTime = formatInTimezone(startDate, userTimezone, 'h:mm a');
-                const endTime = formatInTimezone(endDate, userTimezone, 'h:mm a');
+                const dateStr = formatInTimezone(startDate, displayTimezone, 'EEEE, MMMM d, yyyy');
+                const startTime = formatInTimezone(startDate, displayTimezone, 'h:mm a');
+                const endTime = formatInTimezone(endDate, displayTimezone, 'h:mm a');
 
                 return (
                   <button
@@ -374,7 +390,7 @@ export default function BookingPage() {
                           {dateStr}
                         </p>
                         <p className={`text-sm ${isSelected ? 'text-blue-700' : 'text-gray-600'}`}>
-                          {startTime} - {endTime} ({getTimezoneAbbr(userTimezone)})
+                          {startTime} - {endTime} ({getTimezoneAbbr(displayTimezone)})
                         </p>
                         {slotData.maxBookings > 1 && (
                           <p className={`text-xs mt-1 flex items-center gap-1 ${
@@ -444,12 +460,12 @@ export default function BookingPage() {
                     📅 Your selected time:
                   </p>
                   <p className="text-green-900 font-medium">
-                    {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].start), userTimezone, 'EEEE, MMMM d, yyyy')}
+                    {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].start), displayTimezone, 'EEEE, MMMM d, yyyy')}
                   </p>
                   <p className="text-green-900">
-                    {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].start), userTimezone, 'h:mm a')} -{' '}
-                    {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].end), userTimezone, 'h:mm a')}{' '}
-                    ({getTimezoneAbbr(userTimezone)})
+                    {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].start), displayTimezone, 'h:mm a')} -{' '}
+                    {formatInTimezone(new Date(slotData.timeSlots[selectedSlot].end), displayTimezone, 'h:mm a')}{' '}
+                    ({getTimezoneAbbr(displayTimezone)})
                   </p>
                   <button
                     onClick={() => {

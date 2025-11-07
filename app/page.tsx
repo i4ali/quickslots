@@ -106,12 +106,12 @@ export default function Home() {
               <p className="text-sm text-gray-600 leading-relaxed">Let multiple people book from the same link</p>
             </div>
 
-            <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-sky-200 transition-all group">
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
-                <span className="text-3xl">⏰</span>
+            <div className="text-center p-8 rounded-2xl bg-white border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-red-200 transition-all group">
+              <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-red-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform">
+                <span className="text-3xl">✖️</span>
               </div>
-              <h3 className="font-bold text-gray-900 mb-3 text-lg">Flexible Duration</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Links last from 24 hours up to 7 days</p>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg">Easy Cancellations</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">Cancel bookings with confirmation emails to both parties</p>
             </div>
           </div>
         </div>

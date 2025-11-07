@@ -368,8 +368,8 @@ export function AnimatedProductPreview() {
                 </svg>
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 mb-1">Flexible Duration</h4>
-                <p className="text-sm text-gray-600">Links last from 24 hours up to 7 days</p>
+                <h4 className="font-semibold text-gray-900 mb-1">Easy Cancellations</h4>
+                <p className="text-sm text-gray-600">Cancel bookings with confirmation emails sent to both parties</p>
               </div>
             </div>
 
