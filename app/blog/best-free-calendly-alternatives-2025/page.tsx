@@ -52,7 +52,7 @@ export default function CalendlyAlternativesPost() {
           href="/"
           className="inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Get Started Free →
+          Get Started Free
         </Link>
       </div>
 
@@ -116,7 +116,7 @@ export default function CalendlyAlternativesPost() {
           href="/"
           className="inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Try WhenAvailable Free →
+          Try WhenAvailable Free
         </Link>
       </div>
 
@@ -308,7 +308,7 @@ export default function CalendlyAlternativesPost() {
           href="/"
           className="inline-block px-8 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors text-lg"
         >
-          Get Started Free →
+          Get Started Free
         </Link>
         <p className="text-sm text-gray-500 mt-4">
           Takes less than 30 seconds • No account required
