@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getBookingById } from '@/lib/redis';
+import { getBookingById, getSlot } from '@/lib/redis';
 
 /**
  * GET /api/bookings/[bookingId]
- * Retrieve booking details by unique booking ID
- * Used for rescheduling and cancellation flows
+ * Fetch booking details by booking ID
+ * Used by reschedule/cancel pages to load booking information
  */
 export async function GET(
   request: NextRequest,
@@ -21,10 +21,9 @@ export async function GET(
       );
     }
 
-    // Fetch booking from Redis by unique booking ID
+    // Fetch booking
     const booking = await getBookingById(bookingId);
 
-    // Check if booking exists
     if (!booking) {
       return NextResponse.json(
         {
@@ -36,24 +35,34 @@ export async function GET(
       );
     }
 
-    // Check if booking has been cancelled
+    // Check if booking is cancelled
     if (booking.cancelledAt) {
       return NextResponse.json(
         {
           success: false,
           error: 'Booking cancelled',
-          message: 'This booking has been cancelled.',
-          booking: {
-            id: booking.id,
-            cancelledAt: booking.cancelledAt,
-            originalSelectedTime: booking.originalSelectedTime || booking.selectedTime,
-          }
+          message: 'This link has already been used and is no longer available.',
+          cancelledAt: booking.cancelledAt,
         },
         { status: 410 } // 410 Gone
       );
     }
 
-    // Return booking data
+    // Fetch parent slot to include additional information
+    const slot = await getSlot(booking.slotId);
+
+    if (!slot) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Slot not found',
+          message: 'The original booking slot has expired.'
+        },
+        { status: 404 }
+      );
+    }
+
+    // Return booking with additional slot information
     return NextResponse.json({
       success: true,
       booking: {
@@ -66,19 +75,20 @@ export async function GET(
         selectedTime: booking.selectedTime,
         selectedTimeSlotIndex: booking.selectedTimeSlotIndex,
         timezone: booking.timezone,
-        creatorName: booking.creatorName,
-        creatorEmail: booking.creatorEmail,
-        meetingPurpose: booking.meetingPurpose,
-        meetingLocation: booking.meetingLocation,
-        rescheduleCount: booking.rescheduleCount,
+        rescheduleCount: booking.rescheduleCount || 0,
         rescheduledAt: booking.rescheduledAt,
         originalSelectedTime: booking.originalSelectedTime,
+        // Include slot creator info
+        creatorName: slot.creatorName,
+        creatorEmail: slot.creatorEmail,
+        meetingPurpose: slot.meetingPurpose,
+        meetingLocation: slot.meetingLocation,
       },
     });
   } catch (error) {
     console.error('Error fetching booking:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch booking data' },
+      { error: 'Failed to fetch booking. Please try again.' },
       { status: 500 }
     );
   }
