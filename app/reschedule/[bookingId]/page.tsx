@@ -72,24 +72,9 @@ export default function ReschedulePage() {
           return;
         }
 
-        if (data.success && data.booking) {
+        if (data.success && data.booking && data.slot) {
           setBooking(data.booking);
-
-          // Fetch parent slot data
-          const slotResponse = await fetch(`/api/slots/${data.booking.slotId}`);
-          const slotData = await slotResponse.json();
-
-          if (!slotResponse.ok) {
-            setError(slotData.message || 'Unable to load slot information');
-            setIsLoading(false);
-            return;
-          }
-
-          if (slotData.success && slotData.slot) {
-            setSlot(slotData.slot);
-          } else {
-            setError('Slot information not found');
-          }
+          setSlot(data.slot);
         } else {
           setError('Booking not found');
         }

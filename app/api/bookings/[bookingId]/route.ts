@@ -62,7 +62,7 @@ export async function GET(
       );
     }
 
-    // Return booking with additional slot information
+    // Return booking with full slot information for rescheduling
     return NextResponse.json({
       success: true,
       booking: {
@@ -82,6 +82,22 @@ export async function GET(
         creatorName: slot.creatorName,
         creatorEmail: slot.creatorEmail,
         meetingPurpose: slot.meetingPurpose,
+        meetingLocation: slot.meetingLocation,
+      },
+      // Include full slot data for reschedule page
+      slot: {
+        id: slot.id,
+        creatorName: slot.creatorName,
+        meetingPurpose: slot.meetingPurpose,
+        timeSlots: slot.timeSlots,
+        timezone: slot.timezone,
+        expiresAt: slot.expiresAt,
+        status: slot.status,
+        maxBookings: slot.maxBookings,
+        bookingsCount: slot.bookingsCount,
+        expirationDays: slot.expirationDays,
+        bookingMode: slot.bookingMode,
+        bookedTimeSlotIndices: slot.bookedTimeSlotIndices || [],
         meetingLocation: slot.meetingLocation,
       },
     });
