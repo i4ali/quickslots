@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getBookingById, getSlot, getRedisClient } from '@/lib/redis';
-import { Booking } from '@/types/slot';
+import { Booking, SlotStatus } from '@/types/slot';
 
 /**
  * DELETE /api/bookings/[bookingId]/cancel
@@ -105,8 +105,8 @@ export async function DELETE(
     }
 
     // Update slot status back to 'active' if it was 'booked'
-    if (slot.status === 'booked' && slot.bookingsCount < slot.maxBookings) {
-      slot.status = 'active';
+    if (slot.status === SlotStatus.BOOKED && slot.bookingsCount < slot.maxBookings) {
+      slot.status = SlotStatus.ACTIVE;
     }
 
     // Save updated slot
