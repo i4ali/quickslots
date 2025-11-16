@@ -35,10 +35,12 @@ export async function POST(request: NextRequest) {
       timeSlots,
       timezone,
       maxBookings = 1, // Default: 1 booking
-      expirationDays = 1, // Default: 24 hours (1 day)
       bookingMode = 'individual', // Default: individual (1-on-1)
       meetingLocation, // Optional: meeting location details
     } = body;
+
+    // Fixed TTL: 30 days (not configurable by users)
+    const expirationDays = 30;
 
     // Validate required fields
     if (!creatorEmail || !timeSlots || !timezone) {
@@ -95,23 +97,30 @@ export async function POST(request: NextRequest) {
       };
     });
 
+    // Validate that all time slots are within 30 days from now
+    const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+    const maxAllowedDate = now + thirtyDaysInMs;
+
+    for (const slot of validatedTimeSlots) {
+      const slotDate = new Date(slot.date).getTime();
+      if (slotDate > maxAllowedDate) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'All time slots must be within 30 days from now',
+          },
+          { status: 400 }
+        );
+      }
+    }
+
     // Validate maxBookings
     if (typeof maxBookings !== 'number' || maxBookings < 1 || maxBookings > 20) {
       return NextResponse.json(
         {
           success: false,
           error: 'maxBookings must be a number between 1 and 20',
-        },
-        { status: 400 }
-      );
-    }
-
-    // Validate expirationDays
-    if (![1, 3, 7].includes(expirationDays)) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'expirationDays must be 1, 3, or 7',
         },
         { status: 400 }
       );
@@ -131,9 +140,8 @@ export async function POST(request: NextRequest) {
     // Generate unique slot ID (8 characters, URL-safe)
     const slotId = nanoid(8);
 
-    // Set expiration based on expirationDays
-    const now = Date.now();
-    const expiresAt = now + expirationDays * 24 * 60 * 60 * 1000; // expirationDays * 24 hours
+    // Set expiration based on fixed 30-day TTL
+    const expiresAt = now + expirationDays * 24 * 60 * 60 * 1000; // 30 days
 
     // Create slot object
     const slot: Slot = {

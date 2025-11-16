@@ -12,10 +12,25 @@ interface SlotManagerProps {
 export function SlotManager({ maxSlots = 5, onSlotsChange }: SlotManagerProps) {
   const [slots, setSlots] = useState<TimeSlot[]>([]);
   const [userTimezone] = useState(() => getUserTimezone());
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   const handleSlotAdded = (slot: TimeSlot) => {
+    // Clear any previous validation errors
+    setValidationError(null);
+
     if (slots.length >= maxSlots) {
-      alert(`Maximum ${maxSlots} time slots allowed per link`);
+      setValidationError(`Maximum ${maxSlots} time slots allowed per link`);
+      return;
+    }
+
+    // Validate that the slot is within 30 days from now
+    const slotDate = new Date(slot.start).getTime();
+    const now = Date.now();
+    const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
+    const maxAllowedDate = now + thirtyDaysInMs;
+
+    if (slotDate > maxAllowedDate) {
+      setValidationError('Time slots must be within 30 days from today. Please select a closer date.');
       return;
     }
 
@@ -25,6 +40,7 @@ export function SlotManager({ maxSlots = 5, onSlotsChange }: SlotManagerProps) {
   };
 
   const handleRemoveSlot = (index: number) => {
+    setValidationError(null);
     const newSlots = slots.filter((_, i) => i !== index);
     setSlots(newSlots);
     onSlotsChange?.(newSlots);
@@ -41,6 +57,9 @@ export function SlotManager({ maxSlots = 5, onSlotsChange }: SlotManagerProps) {
           onSlotAdded={handleSlotAdded}
           maxSlots={maxSlots}
         />
+        {validationError && (
+          <p className="text-xs text-red-600 mt-2">{validationError}</p>
+        )}
       </div>
 
       {/* Added Slots Display */}
@@ -53,6 +72,7 @@ export function SlotManager({ maxSlots = 5, onSlotsChange }: SlotManagerProps) {
             {slots.length > 0 && (
               <button
                 onClick={() => {
+                  setValidationError(null);
                   setSlots([]);
                   onSlotsChange?.([]);
                 }}

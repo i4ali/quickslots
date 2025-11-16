@@ -210,8 +210,8 @@ export default function LinkCreatedPage() {
                 <p className="text-gray-600 pt-0.5">
                   <strong className="text-gray-900">Scheduling link expires</strong> {slotData ? (
                     slotData.maxBookings > 1 ?
-                      `when all ${slotData.maxBookings} slots are filled or after ${slotData.expirationDays} ${slotData.expirationDays === 1 ? 'day' : 'days'}` :
-                      `after booking or ${slotData.expirationDays} ${slotData.expirationDays === 1 ? 'day' : 'days'}`
+                      `when all ${slotData.maxBookings} slots are filled or after 30 days` :
+                      `after booking or 30 days`
                   ) : 'based on your settings'}
                 </p>
               </div>

@@ -118,6 +118,21 @@ export async function POST(
     // Get the selected time slot
     const selectedTimeSlot = slot.timeSlots[selectedTimeSlotIndex];
 
+    // Validate that the selected time slot is within 30 days from slot creation
+    const selectedDate = new Date(selectedTimeSlot.date).getTime();
+    const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
+    const maxAllowedDate = slot.createdAt + thirtyDaysInMs;
+
+    if (selectedDate > maxAllowedDate) {
+      return NextResponse.json(
+        {
+          error: 'Time slot outside booking window',
+          message: 'This time slot is outside the 30-day booking window. Please select a different time.'
+        },
+        { status: 400 }
+      );
+    }
+
     // Convert selected time slot to UTC ISO format
     // TimeSlot is stored in creator's timezone: { date: "YYYY-MM-DD", startTime: "HH:mm", endTime: "HH:mm" }
     // toDate() interprets the date string in the given timezone and returns a Date object

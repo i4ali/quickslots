@@ -28,8 +28,7 @@ export function CreateLinkModal({ isOpen, onClose }: CreateLinkModalProps) {
   const [error, setError] = useState<string | null>(null);
   const [touched, setTouched] = useState({ name: false, email: false, purpose: false, inviteeLimit: false });
 
-  // Multi-booking and extended duration settings
-  const [expirationDays, setExpirationDays] = useState(1);
+  // Multi-booking settings
   const [maxBookings, setMaxBookings] = useState(1);
   const [bookingMode, setBookingMode] = useState<BookingMode>('individual');
 
@@ -75,7 +74,6 @@ export function CreateLinkModal({ isOpen, onClose }: CreateLinkModalProps) {
           timeSlots: apiTimeSlots,
           timezone,
           maxBookings,
-          expirationDays,
           bookingMode,
           meetingLocation,
         }),
@@ -239,22 +237,6 @@ export function CreateLinkModal({ isOpen, onClose }: CreateLinkModalProps) {
                       </div>
 
                       <div className="space-y-4">
-                        {/* Link Duration */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Link Duration
-                          </label>
-                          <select
-                            value={expirationDays}
-                            onChange={(e) => setExpirationDays(Number(e.target.value))}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-white text-gray-900"
-                          >
-                            <option value={1}>24 hours</option>
-                            <option value={3}>3 days</option>
-                            <option value={7}>7 days</option>
-                          </select>
-                        </div>
-
                         {/* Invitee Limit */}
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -305,12 +287,12 @@ export function CreateLinkModal({ isOpen, onClose }: CreateLinkModalProps) {
                                 <>
                                   <strong>Individual mode:</strong> Each time slot can only be booked once. Once a slot is booked, it disappears for others.
                                   {maxBookings > 1 && ` Link allows up to ${maxBookings} ${maxBookings === 1 ? 'invitee' : 'invitees'} total (not including you).`}
-                                  {` Link expires when ${maxBookings > 1 ? `all ${maxBookings} invitees book` : '1 invitee books'} or after ${expirationDays} ${expirationDays === 1 ? 'day' : 'days'}.`}
+                                  {` Link expires when ${maxBookings > 1 ? `all ${maxBookings} invitees book` : '1 invitee books'} or after 30 days.`}
                                 </>
                               ) : (
                                 <>
                                   <strong>Group mode:</strong> Multiple invitees can book the same time slot(s). All time slots remain visible until link expires.
-                                  {` Link expires when ${maxBookings} ${maxBookings === 1 ? 'invitee books' : 'invitees book'} (not including you) or after ${expirationDays} ${expirationDays === 1 ? 'day' : 'days'}.`}
+                                  {` Link expires when ${maxBookings} ${maxBookings === 1 ? 'invitee books' : 'invitees book'} (not including you) or after 30 days.`}
                                 </>
                               )}
                             </span>

@@ -632,7 +632,7 @@ export default function BookingPage() {
               </span>
               <span>
                 {slotData.maxBookings > 1 ? (
-                  <>This link allows up to {slotData.maxBookings} bookings and expires when all slots are filled or after {slotData.expirationDays} {slotData.expirationDays === 1 ? 'day' : 'days'}</>
+                  <>This link allows up to {slotData.maxBookings} bookings and expires when all slots are filled or after 30 days</>
                 ) : (
                   <>This link will expire immediately after booking (one-time use)</>
                 )}
